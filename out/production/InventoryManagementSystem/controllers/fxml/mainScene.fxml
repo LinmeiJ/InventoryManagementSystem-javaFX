@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+
+<?import javafx.geometry.Insets?>
+<BorderPane fx:id="mainPane" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.MainSceneController">
+   <top>
+      <Label text="Inventory Management System" BorderPane.alignment="CENTER_LEFT" style="-fx-font-weight: bold; -fx-font-size:1em"/>
+   </top>
+   <left>
+      <VBox style="-fx-border-color:#C0C0C0; -fx-border-width: 0.5; -fx-padding:15px; -fx-border-radius: 18 18 18 18; -fx-border-insets:30px">
+         <children>
+            <HBox spacing="250.0">
+               <children>
+                  <Label text="Parts" />
+                  <TextField fx:id="partSearchField" promptText="Search Part by Part ID or Name" onKeyReleased="#searchPart" />
+               </children>
+            </HBox>
+            <TableView fx:id="partTable" prefHeight="500.0" prefWidth="450.0">
+              <columns>
+                <TableColumn fx:id="partId" prefWidth="75.0" text="Part ID" />
+                <TableColumn fx:id="partName" prefWidth="75.0" text="Part Name" />
+                 <TableColumn fx:id="partStock" prefWidth="75.0" text="Inventory Level" />
+                 <TableColumn  fx:id="partPrice" prefWidth="75.0" text="Price/Cost per Unit" />
+              </columns>
+            </TableView>
+            <HBox prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <Button  fx:id="addPart" mnemonicParsing="false" text="Add" onMouseClicked="#addPartHandler"/>
+                  <Button fx:id="modifyPart" mnemonicParsing="false" text="Modify" onMouseClicked="#modifyPartHandler" />
+                  <Button fx:id="deletePart" mnemonicParsing="false" text="Delete" onMouseClicked="#deletePartHandler" />
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+   </left>
+   <bottom>
+      <Button fx:id="exit" mnemonicParsing="false" text="Exit" BorderPane.alignment="CENTER" />
+   </bottom>
+   <right>
+      <VBox style="-fx-border-color:#C0C0C0; -fx-border-width: 0.5; -fx-padding:15px; -fx-border-radius: 18 18 18 18; -fx-border-insets:30px">
+         <children>
+            <HBox spacing="230.0">
+               <children>
+                  <Label text="Products" />
+                  <TextField />
+               </children>
+            </HBox>
+            <TableView prefHeight="500.0" prefWidth="450.0" >
+               <columns>
+                  <TableColumn prefWidth="75.0" text="Product ID" />
+                  <TableColumn prefWidth="75.0" text="Product Name" />
+                  <TableColumn prefWidth="75.0" text="Inventory Level" />
+                  <TableColumn prefWidth="75.0" text="Price/Cost per Unit" />
+               </columns>
+            </TableView>
+            <HBox prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <Button mnemonicParsing="false" text="Add" />
+                  <Button mnemonicParsing="false" text="Modify" />
+                  <Button mnemonicParsing="false" text="Delete" />
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+   </right>
+</BorderPane>
