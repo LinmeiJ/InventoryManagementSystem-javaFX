@@ -135,12 +135,11 @@ public class MainSceneController implements Initializable {
 
     @FXML
     void searchPartByIdOrName(KeyEvent event) {
-        String text = searchPartField.getText();
-        if(event.getCode().equals(KeyCode.ENTER) && isNumeric(text))
+        if(isEntered(event) && isPartNumeric())
         {
             searchedPartById();
         }
-        else if(event.getCode().equals(KeyCode.ENTER) && isString(text)){
+        else if(isEntered(event) && isPartString()){
             searchedPartByName();
         }
         else{
@@ -148,15 +147,15 @@ public class MainSceneController implements Initializable {
         }
     }
 
+    private boolean isEntered(KeyEvent event){
+        return event.getCode().equals(KeyCode.ENTER);
+    }
     private void searchedPartByName() {
         ObservableList result = Inventory.lookupPart(searchPartField.getText());
-        if(result == null){
-            CommonAlert.displayAlert(1);
-        }
-        else{
+        if(result.size() > 0){
             partsTable.setItems(result);
         }
-
+        else CommonAlert.displayAlert(1);
     }
 
     private void searchedPartById() {
@@ -173,12 +172,11 @@ public class MainSceneController implements Initializable {
 
     @FXML
     void searchProductByIdOrName(KeyEvent event) {
-        String text = searchProductField.getText();
-        if(event.getCode().equals(KeyCode.ENTER) && isNumeric(text))
+        if(isEntered(event) && isProdNumeric())
         {
             searchedProdById();
         }
-        else if(event.getCode().equals(KeyCode.ENTER) && isString(text)){
+        else if(isEntered(event)&& isProdString()){
             searchedProdByName();
         }
         else{
@@ -188,18 +186,16 @@ public class MainSceneController implements Initializable {
 
     private void searchedProdByName() {
         ObservableList result = Inventory.lookupProduct(searchProductField.getText());
-        if(result == null){
-            CommonAlert.displayAlert(1);
-        }
-        else{
+        if(result.size() > 0){
             productTable.setItems(result);
         }
+        else CommonAlert.displayAlert(2);
     }
 
     private void searchedProdById() {
         var prod = Inventory.lookupProduct(Integer.parseInt(searchProductField.getText()));
         if(prod == null) {
-            CommonAlert.displayAlert(1);
+            CommonAlert.displayAlert(2);
         }
         else{
             ObservableList<Product> result = FXCollections.observableArrayList();
@@ -208,12 +204,20 @@ public class MainSceneController implements Initializable {
         }
     }
 
-    private boolean isString(String text) {
-        return text != null && text.matches("^[a-zA-Z]*$");
+    private boolean isPartString() {
+        return searchPartField.getText() != null && searchPartField.getText().matches("^[a-zA-Z]*$");
     }
 
-    private boolean isNumeric(String text){
-        return text != null && text.matches("^[0-9]*$");
+    private boolean isPartNumeric(){
+        return searchPartField != null && searchPartField.getText().matches("^[0-9]*$");
+    }
+
+    private boolean isProdString() {
+        return searchProductField.getText() != null && searchProductField.getText().matches("^[a-zA-Z]*$");
+    }
+
+    private boolean isProdNumeric(){
+        return searchProductField != null && searchProductField.getText().matches("^[0-9]*$");
     }
 
     @Override

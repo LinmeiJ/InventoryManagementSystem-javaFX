@@ -45,7 +45,7 @@ public class Inventory {
     {
         String s = partName.toLowerCase();
         ObservableList result = FXCollections.observableArrayList();
-        for(var part: allProducts){
+        for(var part: allParts){
             if(part.getName().equals(partName) || part.getName().toLowerCase().startsWith(s)){
                 result.add(part);
             }
