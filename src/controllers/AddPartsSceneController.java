@@ -92,7 +92,7 @@ public class AddPartsSceneController {
 
     @FXML
     void savePart(ActionEvent actionEvent) throws IOException {
-        int id = Integer.parseInt(idFiled.getText());//fix all
+        int id = Integer.parseInt(idFiled.getText());
         String name = nameField.getText();
         int inv = Integer.parseInt(invField.getText());
         double price = Double.parseDouble(priceField.getText());//convert to double
@@ -101,6 +101,7 @@ public class AddPartsSceneController {
         if(MachineIdOrCompanylabel.getText().equalsIgnoreCase("Machine ID"))
         {
             addInHouseToInventory(id, name, inv, price, max, min);
+            System.out.println(Inventory.getAllParts().toString());
         }
         if(MachineIdOrCompanylabel.getText().equalsIgnoreCase("Company Name")){
             addOutsourcedToInventory(id, name, inv, price, max, min);

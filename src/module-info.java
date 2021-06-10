@@ -4,4 +4,5 @@ module InventoryManagementSystem {
     requires javafx.controls;
 
     opens controllers;
+    opens models;
 }

@@ -19,23 +19,51 @@ public class Inventory {
 
     public static Part lookupPart(int partId)
     {
-        return null;//fix me
+        for(Part part: allParts)
+        {
+            if(part.getId() == partId)
+            {
+                return part;
+            }
+        }
+        return null ;
     }
 
     public static Product lookupProduct(int productId)
     {
-        return null;//fix me
+        for(var prod: allProducts)
+        {
+            if(prod.getId() == productId)
+            {
+                return prod;
+            }
+        }
+        return null;
     }
 
     public static ObservableList<Part> lookupPart(String partName)
     {
-        return null;//fix me
+        String s = partName.toLowerCase();
+        ObservableList result = FXCollections.observableArrayList();
+        for(var part: allProducts){
+            if(part.getName().equals(partName) || part.getName().toLowerCase().startsWith(s)){
+                result.add(part);
+            }
+        }
+        return result;
     }
 
 
     public static ObservableList<Product> lookupProduct(String productName)
     {
-        return null;//fix me
+        String s = productName.toLowerCase();
+        ObservableList result = FXCollections.observableArrayList();
+        for(var prod: allProducts){
+            if(prod.getName().equals(productName) || prod.getName().toLowerCase().startsWith(s)){
+                result.add(prod);
+            }
+        }
+        return result;
     }
 
 
