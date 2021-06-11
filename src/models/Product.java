@@ -1,5 +1,6 @@
 package models;
 
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 public class Product {
@@ -19,6 +20,7 @@ public class Product {
         this.stock = stock;
         this.min = min;
         this.max = max;
+        associatedParts = FXCollections.observableArrayList();
     }
 
     public int getId()

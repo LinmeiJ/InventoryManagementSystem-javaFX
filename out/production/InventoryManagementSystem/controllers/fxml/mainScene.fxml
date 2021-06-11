@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
@@ -7,7 +8,6 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
-
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.MainSceneController">
    <children>
@@ -19,48 +19,48 @@
             <Insets bottom="1.0" left="1.0" right="1.0" top="1.0" />
          </padding>
       </Label>
-      <Button fx:id="exitId" layoutX="482.0" layoutY="345.0" mnemonicParsing="false" onAction="#exitBtnClicked" text="Exit" />
-      <AnchorPane fx:id="partPane" layoutX="7.0" layoutY="45.0" prefHeight="300.0" prefWidth="450.0" styleClass="styleSheet.css">
+      <Button fx:id="exitId" layoutX="889.0" layoutY="356.0" mnemonicParsing="false" onAction="#exitBtnClicked" text="Exit" />
+      <AnchorPane fx:id="partPane" layoutX="32.0" layoutY="45.0" prefHeight="300.0" prefWidth="450.0" styleClass="styleSheet.css">
          <padding>
             <Insets bottom="18.0" left="18.0" right="18.0" top="18.0" />
          </padding>
          <children>
             <Label alignment="CENTER" contentDisplay="BOTTOM" layoutX="24.0" layoutY="28.0" prefHeight="25.0" prefWidth="35.0" text="Parts" />
-            <TextField fx:id="searchPartField" layoutX="280.0" layoutY="23.0" onKeyPressed="#searchPartByIdOrName" prefHeight="16.0" prefWidth="111.0" promptText="Search by Part ID or Name" />
+            <TextField fx:id="searchPartField" layoutX="245.0" layoutY="23.0" onKeyPressed="#searchPartByIdOrName" prefHeight="25.0" prefWidth="168.0" promptText="Search by Part ID or Name" />
             <TableView fx:id="partsTable" layoutX="22.0" layoutY="50.0" prefHeight="200.0" prefWidth="400.0">
               <columns>
-                <TableColumn fx:id="partId" maxWidth="1.7976931348623157E308" prefWidth="50.0" text="Part ID" />
-                <TableColumn fx:id="partName" prefWidth="74.99996948242188" text="Part Name" />
-                  <TableColumn fx:id="partInv" prefWidth="74.99996948242188" text="Inventory Level" />
-                  <TableColumn fx:id="partPrice" prefWidth="74.99996948242188" text="Price/Cost per Unit" />
+                <TableColumn fx:id="partId" maxWidth="1.7976931348623157E308" prefWidth="66.66665840148926" text="Part ID" />
+                <TableColumn fx:id="partName" prefWidth="80.33333587646484" text="Part Name" />
+                  <TableColumn fx:id="partInv" prefWidth="121.33335876464844" text="Inventory Level" />
+                  <TableColumn fx:id="partPrice" prefWidth="129.99996948242188" text="Price/Cost per Unit" />
               </columns>
             </TableView>
-            <Button fx:id="partAdd" layoutX="82.0" layoutY="172.0" mnemonicParsing="false" onAction="#addPartBtnClicked" text="Add" textAlignment="CENTER" />
-            <Button fx:id="partModify" layoutX="130.0" layoutY="172.0" mnemonicParsing="false" onAction="#partModifyBtnClicked" text="Modify" />
-            <Button fx:id="partDelete" layoutX="191.0" layoutY="172.0" mnemonicParsing="false" onAction="#partDeleteClicked" text="Delete" />
+            <Button fx:id="partAdd" layoutX="255.0" layoutY="250.0" mnemonicParsing="false" onAction="#addPartBtnClicked" text="Add" textAlignment="CENTER" />
+            <Button fx:id="partModify" layoutX="301.0" layoutY="250.0" mnemonicParsing="false" onAction="#partModifyBtnClicked" text="Modify" />
+            <Button fx:id="partDelete" layoutX="365.0" layoutY="250.0" mnemonicParsing="false" onAction="#partDeleteClicked" text="Delete" />
          </children>
          <opaqueInsets>
             <Insets bottom="1.0" left="1.0" right="1.0" top="1.0" />
          </opaqueInsets>
       </AnchorPane>
-      <AnchorPane fx:id="partPane1" layoutX="500.0" layoutY="45.0" prefHeight="300.0" prefWidth="450.0" styleClass="styleSheet.css">
+      <AnchorPane fx:id="partPane1" layoutX="500.0" layoutY="44.0" prefHeight="288.0" prefWidth="440.0" styleClass="styleSheet.css">
          <padding>
             <Insets bottom="18.0" left="18.0" right="18.0" top="18.0" />
          </padding>
          <children>
             <Label alignment="CENTER" contentDisplay="BOTTOM" layoutX="24.0" layoutY="28.0" prefHeight="25.0" prefWidth="63.0" text="Products" />
-            <TextField fx:id="searchProductField" layoutX="280.0" layoutY="23.0" onKeyPressed="#searchProductByIdOrName" prefHeight="16.0" prefWidth="111.0" promptText="Search by Product ID or Name" />
+            <TextField fx:id="searchProductField" layoutX="259.0" layoutY="28.0" onKeyPressed="#searchProductByIdOrName" prefHeight="25.0" prefWidth="161.0" promptText="Search by Product ID or Name" />
             <TableView fx:id="productTable" layoutX="22.0" layoutY="50.0" prefHeight="200.0" prefWidth="400.0">
                <columns>
-                  <TableColumn fx:id="productId" maxWidth="1.7976931348623157E308" prefWidth="50.0" text="Product ID" />
-                  <TableColumn fx:id="productName" prefWidth="74.99996948242188" text="Product Name" />
-                  <TableColumn fx:id="productInv" prefWidth="74.99996948242188" text="Inventory Level" />
-                  <TableColumn fx:id="productPrice" prefWidth="74.99996948242188" text="Price/Cost per Unit" />
+                  <TableColumn fx:id="productId" maxWidth="1.7976931348623157E308" prefWidth="75.33331298828125" text="Product ID" />
+                  <TableColumn fx:id="productName" prefWidth="99.0" text="Product Name" />
+                  <TableColumn fx:id="productInv" prefWidth="97.66668701171875" text="Inventory Level" />
+                  <TableColumn fx:id="productPrice" prefWidth="125.00006103515625" text="Price/Cost per Unit" />
                </columns>
             </TableView>
-            <Button fx:id="prodAdd" layoutX="82.0" layoutY="172.0" mnemonicParsing="false" onAction="#addProdBtnClicked" text="Add" textAlignment="CENTER" />
-            <Button fx:id="prodModify" layoutX="130.0" layoutY="172.0" mnemonicParsing="false" onAction="#prodModifyBtnClicked" text="Modify" />
-            <Button fx:id="prodDelete" layoutX="191.0" layoutY="172.0" mnemonicParsing="false" onAction="#prodBtnDeleteClicked" text="Delete" />
+            <Button fx:id="prodAdd" layoutX="261.0" layoutY="250.0" mnemonicParsing="false" onAction="#addProdBtnClicked" text="Add" textAlignment="CENTER" />
+            <Button fx:id="prodModify" layoutX="309.0" layoutY="250.0" mnemonicParsing="false" onAction="#prodModifyBtnClicked" text="Modify" />
+            <Button fx:id="prodDelete" layoutX="366.0" layoutY="250.0" mnemonicParsing="false" onAction="#prodBtnDeleteClicked" text="Delete" />
          </children>
          <opaqueInsets>
             <Insets bottom="1.0" left="1.0" right="1.0" top="1.0" />

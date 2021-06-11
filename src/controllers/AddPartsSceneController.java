@@ -21,6 +21,8 @@ import java.io.IOException;
 
 public class AddPartsSceneController {
 
+    public static final String COMPANY_NAME = "Company Name";
+    public static final String MACHINE_ID = "Machine ID";
     @FXML
     private Button saveBtn;
 
@@ -92,7 +94,6 @@ public class AddPartsSceneController {
 
     @FXML
     void savePart(ActionEvent actionEvent) throws IOException {
-        int id = Integer.parseInt(idFiled.getText());
         String name = nameField.getText();
         int inv = Integer.parseInt(invField.getText());
         double price = Double.parseDouble(priceField.getText());//convert to double
@@ -100,11 +101,10 @@ public class AddPartsSceneController {
         int min = Integer.parseInt(minField.getText());
         if(MachineIdOrCompanylabel.getText().equalsIgnoreCase("Machine ID"))
         {
-            addInHouseToInventory(id, name, inv, price, max, min);
-            System.out.println(Inventory.getAllParts().toString());
+            addInHouseToInventory(Main.getUniquePartId(), name, inv, price, max, min);
         }
         if(MachineIdOrCompanylabel.getText().equalsIgnoreCase("Company Name")){
-            addOutsourcedToInventory(id, name, inv, price, max, min);
+            addOutsourcedToInventory(Main.getUniquePartId(), name, inv, price, max, min);
         }
         returnBackToMainScene(actionEvent);
     }
@@ -131,10 +131,10 @@ public class AddPartsSceneController {
     }
 
     public void addInHouseType(ActionEvent actionEvent) {
-        MachineIdOrCompanylabel.setText("Machine ID");
+        MachineIdOrCompanylabel.setText(MACHINE_ID);
     }
 
     public void addOutsourcedType(ActionEvent actionEvent) {
-        MachineIdOrCompanylabel.setText("Company Name");
+        MachineIdOrCompanylabel.setText(COMPANY_NAME);
     }
 }

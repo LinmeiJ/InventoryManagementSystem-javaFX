@@ -1,5 +1,6 @@
 package models;
 
+import controllers.Main;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -46,7 +47,7 @@ public class Inventory {
         String s = partName.toLowerCase();
         ObservableList result = FXCollections.observableArrayList();
         for(var part: allParts){
-            if(part.getName().equals(partName) || part.getName().toLowerCase().startsWith(s)){
+            if(part.getName().equalsIgnoreCase(partName) || part.getName().toLowerCase().startsWith(s)){
                 result.add(part);
             }
         }
@@ -59,7 +60,7 @@ public class Inventory {
         String s = productName.toLowerCase();
         ObservableList result = FXCollections.observableArrayList();
         for(var prod: allProducts){
-            if(prod.getName().equals(productName) || prod.getName().toLowerCase().startsWith(s)){
+            if(prod.getName().equalsIgnoreCase(productName) || prod.getName().toLowerCase().startsWith(s)){
                 result.add(prod);
             }
         }
@@ -69,6 +70,7 @@ public class Inventory {
 
     public static void updatePart(int index, Part selectedPart)
     {
+
     }
 
     public static void updateProdcut(int index, Product newProduct)

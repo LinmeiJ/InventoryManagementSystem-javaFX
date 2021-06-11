@@ -8,32 +8,32 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="593.0" prefWidth="763.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.AddPartsSceneController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="593.0" prefWidth="763.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.modifyPartSceneController">
    <children>
       <Button fx:id="saveBtn" layoutX="390.0" layoutY="442.0" mnemonicParsing="false" onAction="#savePart" text="Save" />
       <Button fx:id="cancelBtn" layoutX="462.0" layoutY="442.0" mnemonicParsing="false" onAction="#backToMainScene" text="Cancel" />
-      <Label fx:id="addPartLabel" alignment="CENTER" layoutX="70.0" layoutY="60.0" prefHeight="25.0" prefWidth="70.0" text="Add Part">
+      <Label fx:id="modifyPartLabel" alignment="CENTER" layoutX="70.0" layoutY="60.0" prefHeight="25.0" prefWidth="70.0" text="Modify Part">
          <font>
             <Font name="System Bold" size="12.0" />
          </font></Label>
-      <RadioButton fx:id="inHouseBtn" layoutX="200.0" layoutY="70.0" mnemonicParsing="false" onAction="#addInHouseType" selected="true" text="InHouse">
+      <RadioButton fx:id="inHouseBtn" layoutX="200.0" layoutY="70.0" mnemonicParsing="false" onAction="#modifyInHouseType" selected="true" text="InHouse">
          <toggleGroup>
             <ToggleGroup fx:id="addPartTg" />
          </toggleGroup>
       </RadioButton>
-      <RadioButton fx:id="outsroucedBtn" layoutX="300.0" layoutY="70.0" mnemonicParsing="false" onAction="#addOutsourcedType" text="Outsourced" toggleGroup="$addPartTg" />
+      <RadioButton fx:id="outsroucedBtn" layoutX="300.0" layoutY="70.0" mnemonicParsing="false" onAction="#modifyOutsourcedType" text="Outsourced" toggleGroup="$addPartTg" />
       <Label layoutX="90.0" layoutY="145.0" text="ID" />
       <Label layoutX="60.0" layoutY="202.0" />
       <Label layoutX="90.0" layoutY="245.0" text="Inv" />
       <Label layoutX="90.0" layoutY="295.0" text="Price" />
       <Label layoutX="390.0" layoutY="344.0" text="Min" />
       <Label fx:id="MachineIdOrCompanylabel" layoutX="90.0" layoutY="395.0" text="Machine ID" />
-      <TextField fx:id="partIdFiled" disable="true" editable="false" layoutX="190.0" layoutY="140.0" promptText="Auto Gen - Disabled" />
+      <TextField fx:id="partIdField" disable="true" editable="false" layoutX="190.0" layoutY="140.0" promptText="Auto Gen - Disabled" />
       <TextField fx:id="nameField" layoutX="190.0" layoutY="190.0" />
       <TextField fx:id="invField" layoutX="190.0" layoutY="240.0" />
       <TextField fx:id="priceField" layoutX="190.0" layoutY="290.0" />
       <TextField fx:id="maxField" layoutX="190.0" layoutY="340.0" />
-      <TextField fx:id="machineIdField" layoutX="190.0" layoutY="390.0" />
+      <TextField fx:id="dynamicField" layoutX="190.0" layoutY="390.0" />
       <TextField fx:id="minField" layoutX="440.0" layoutY="340.0" />
       <Label fx:id="maxLabel" layoutX="90.0" layoutY="345.0" text="Max" />
       <Label layoutX="90.0" layoutY="195.0" text="Name" />

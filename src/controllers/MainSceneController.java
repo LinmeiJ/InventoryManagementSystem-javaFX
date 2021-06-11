@@ -1,6 +1,5 @@
 package controllers;
 
-import controllers.fxml.CommonAlert;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -19,9 +18,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import models.InHouse;
 import models.Inventory;
-import models.Outsourced;
 import models.Part;
 import models.Product;
 
@@ -94,12 +91,12 @@ public class MainSceneController implements Initializable {
     @FXML
     private Button prodDelete;
 
+    public static Part partSelectedRow;
+
+
     @FXML
     void addPartBtnClicked(ActionEvent event) throws IOException {
-        Parent add = FXMLLoader.load(new Main().getClass().getResource("fxml/addPartsScene.fxml"));
-        var scene = new Scene(add);
-        var stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        stage.setScene(scene);
+        setScene(event,"fxml/addPartsScene.fxml");
     }
 
     @FXML
@@ -119,8 +116,12 @@ public class MainSceneController implements Initializable {
     }
 
     @FXML
-    void partModifyBtnClicked(ActionEvent event) {
-
+    void partModifyBtnClicked(ActionEvent event) throws IOException {
+        partSelectedRow = partsTable.getSelectionModel().getSelectedItem();
+        if(partSelectedRow == null)
+            CommonAlert.displayAlert(3);
+        else
+            setScene(event, "fxml/modifyPartsScene.fxml");
     }
 
     @FXML
@@ -185,6 +186,7 @@ public class MainSceneController implements Initializable {
     }
 
     private void searchedProdByName() {
+        System.out.println(searchProductField.getText());
         ObservableList result = Inventory.lookupProduct(searchProductField.getText());
         if(result.size() > 0){
             productTable.setItems(result);
@@ -205,7 +207,7 @@ public class MainSceneController implements Initializable {
     }
 
     private boolean isPartString() {
-        return searchPartField.getText() != null && searchPartField.getText().matches("^[a-zA-Z]*$");
+        return searchPartField.getText() != null && searchPartField.getText().matches("^[a-zA-Z\\s]*$");
     }
 
     private boolean isPartNumeric(){
@@ -213,7 +215,7 @@ public class MainSceneController implements Initializable {
     }
 
     private boolean isProdString() {
-        return searchProductField.getText() != null && searchProductField.getText().matches("^[a-zA-Z]*$");
+        return searchProductField.getText() != null && searchProductField.getText().matches("^[a-zA-Z\\s]*$");
     }
 
     private boolean isProdNumeric(){
@@ -226,28 +228,19 @@ public class MainSceneController implements Initializable {
         partName.setCellValueFactory(new PropertyValueFactory<>("name"));
         partInv.setCellValueFactory(new PropertyValueFactory<>("stock"));
         partPrice.setCellValueFactory(new PropertyValueFactory<>("price"));
-        createPartsItems();
         partsTable.setItems(Inventory.getAllParts());
 
         productId.setCellValueFactory(new PropertyValueFactory<>("id"));
         productName.setCellValueFactory(new PropertyValueFactory<>("name"));
         productInv.setCellValueFactory(new PropertyValueFactory<>("stock"));
         productPrice.setCellValueFactory(new PropertyValueFactory<>("price"));
-        createProductItems();
         productTable.setItems(Inventory.getAllProducts());
-
     }
 
-    private void createPartsItems() {
-        Inventory.addPart(new InHouse(1, "Brakes", 15.00, 10, 1, 15, 111));
-        Inventory.addPart(new InHouse(2, "Wheel", 11.00, 10, 1, 15, 112));
-        Inventory.addPart(new Outsourced(3, "Beat", 15.00, 10, 1, 15, "Supper Bikes"));
+    private void setScene(ActionEvent event, String s) throws IOException {
+        Parent parent = FXMLLoader.load(new Main().getClass().getResource(s));
+        var scene = new Scene(parent);
+        var stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setScene(scene);
     }
-
-    private void createProductItems(){
-       Inventory.addProduct(new Product(1, "Giant Bike", 5, 299.99, 1, 10));
-       Inventory.addProduct(new Product(2, "Kids Bike", 10, 99.99, 1, 10));
-       Inventory.addProduct(new Product(3, "kicks", 10, 99.99, 1, 10));
-    }
-
 }
