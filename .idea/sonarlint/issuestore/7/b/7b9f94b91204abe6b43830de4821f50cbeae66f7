@@ -1,0 +1,17 @@
+
+Q
+java:S1172U"6Remove this unused method parameter "selectedProduct".(…ê‘Äıÿÿÿÿ
+œ
+java:S1186L"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(»®ä˜ıÿÿÿÿ
+O
+java:S1128"-Remove this unused import 'controllers.Main'.(Û“ìÿÿÿÿÿ8úš»´Ÿ/
+–
+java:S1186G"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(§Ï
+I
+java:S1172P"3Remove this unused method parameter "selectedPart".(©¿¢µ
+\
+java:S1118":Add a private constructor to hide the implicit public one.(ŸˆÙ’ùÿÿÿÿ8úš»´Ÿ/
+L
+java:S37400"/Provide the parametrized type for this generic.(œÁ «8Ù³© Ÿ/
+L
+java:S3740="/Provide the parametrized type for this generic.(œÁ «8çõà Ÿ/

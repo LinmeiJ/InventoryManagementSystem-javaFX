@@ -1,40 +1,52 @@
 package controllers;
 
 import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
+
+import java.util.Optional;
 
 public class CommonAlert {
+    public static Optional<ButtonType> confirmResult;
 
     public static void displayAlert(int alertType) {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        Alert alertError = new Alert(Alert.AlertType.ERROR);
+        Alert infoAlert = new Alert(Alert.AlertType.INFORMATION);
+        Alert confirmAlert = new Alert(Alert.AlertType.CONFIRMATION);
+        Alert errorAlert = new Alert(Alert.AlertType.ERROR);
 
         switch (alertType) {
             case 1:
-                alert.setTitle("Information");
-                alert.setHeaderText("Part not found");
-                alert.showAndWait();
+                infoAlert.setTitle("Information");
+                infoAlert.setHeaderText("Part not found");
+                infoAlert.showAndWait();
                 break;
             case 2:
-                alert.setTitle("Information");
-                alert.setHeaderText("Product not found");
-                alert.showAndWait();
+                infoAlert.setTitle("Information");
+                infoAlert.setHeaderText("Product not found");
+                infoAlert.showAndWait();
                 break;
             case 3:
-                alertError.setTitle("Error");
-                alertError.setHeaderText("Please Select a row");
-                alertError.showAndWait();
+                errorAlert.setTitle("Error");
+                errorAlert.setHeaderText("Please Select a row");
+                errorAlert.showAndWait();
                 break;
             case 4:
-                alertError.setTitle("Error");
-                alertError.setHeaderText("Product not selected");
-                alertError.showAndWait();
+                errorAlert.setTitle("Error");
+                errorAlert.setHeaderText("Product not selected");
+                errorAlert.showAndWait();
                 break;
             case 5:
-                alertError.setTitle("Error");
-                alertError.setHeaderText("Parts Associated");
-                alertError.setContentText("All parts must be removed from product before deletion.");
-                alertError.showAndWait();
+                errorAlert.setTitle("Error");
+                errorAlert.setHeaderText("Parts Associated");
+                errorAlert.setContentText("All parts must be removed from product before deletion.");
+                errorAlert.showAndWait();
                 break;
+            case 6:
+                confirmAlert.setTitle("Parts");
+                confirmAlert.setHeaderText("Delete");
+                confirmAlert.setContentText("Do you want to delete this part?");
+                confirmResult = confirmAlert.showAndWait();
+                break;
+            default: //fix me
         }
     }
 }

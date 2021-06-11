@@ -22,7 +22,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class modifyPartSceneController implements Initializable {
+public class ModifyPartSceneController implements Initializable {
     @FXML
     private Button saveBtn;
 
@@ -30,19 +30,16 @@ public class modifyPartSceneController implements Initializable {
     private Button cancelBtn;
 
     @FXML
-    private Label modifyPartLabel;
-
-    @FXML
     private RadioButton inHouseBtn;
+//
+//    @FXML
+//    private ToggleGroup addPartTg;
 
     @FXML
-    private ToggleGroup addPartTg;
+    private RadioButton outsourcedBtn;
 
     @FXML
-    private RadioButton outsroucedBtn;
-
-    @FXML
-    private Label MachineIdOrCompanylabel;
+    private Label MachineIdOrCompanyLabel;
 
     @FXML
     private TextField partIdField;
@@ -65,13 +62,12 @@ public class modifyPartSceneController implements Initializable {
     @FXML
     private TextField minField;
 
-    @FXML
-    private Label maxLabel;
-
     private Part selectedRow;
 
     private final static String Machine_ID = "Machine ID";
     private final static String COMPANY_NAME = "Company Name";
+    public static boolean isInHouse = false;
+    public static boolean isOutsourced = false;
 
     @FXML
     void backToMainScene(ActionEvent event) throws IOException {
@@ -83,37 +79,47 @@ public class modifyPartSceneController implements Initializable {
 
     @FXML
     void modifyInHouseType(ActionEvent event) {
-        MachineIdOrCompanylabel.setText(Machine_ID);
+        MachineIdOrCompanyLabel.setText(Machine_ID);
     }
 
     @FXML
     void modifyOutsourcedType(ActionEvent event) {
-        MachineIdOrCompanylabel.setText(COMPANY_NAME);
+        MachineIdOrCompanyLabel.setText(COMPANY_NAME);
     }
 
     @FXML
     void savePart(ActionEvent event) throws IOException {
-        String name = nameField.getText();
         int inv = Integer.parseInt(invField.getText());
-        double price = ;//convert to double
-
-        selectedRow.setName(name);
-        selectedRow.setPrice(Double.parseDouble(priceField.getText()));
-        selectedRow.setMax(Integer.parseInt(maxField.getText()));
-        selectedRow.setMin(Integer.parseInt(minField.getText()));
-        if(isStillInHouseType()){
-
-            Inventory.updatePart(selectedRow.getId(), selectedRow);
-        }
-        if(isMachineId())
+        String name = nameField.getText();
+        double price = Double.parseDouble(priceField.getText());
+        int max = Integer.parseInt(maxField.getText());
+        int min = Integer.parseInt(minField.getText());
+        if(containMachineId())
         {
-//          addInHouseToInventory(Main.getUniquePartId(), name, inv, price, max, min);
+            InHouse part = new InHouse(selectedRow.getId(), name, price, inv, max, min, Integer.parseInt(dynamicField.getText()));
+            int index = findIndex();
+            Inventory.updatePart(index, part);
+            isInHouse = false;
         }
-        if(isCompanyName()){
-//            addOutsourcedToInventory(Main.getUniquePartId(), name, inv, price, max, min);
+        if(containCompanyName()){
+            Outsourced part = new Outsourced(selectedRow.getId(), name, price, inv, max, min, dynamicField.getText());
+            System.out.println(part instanceof Outsourced);
+            System.out.println(part.getName() + " "+ part.getCompanyName() + " "+ selectedRow.getId());
+            int index = findIndex();
+            Inventory.updatePart(index, part);
+            isOutsourced = false;
         }
         returnBackToMainScene(event);
 
+    }
+
+    private int findIndex() {
+        for(int i = 0; i < Inventory.getAllParts().size(); i++){
+            if(Inventory.getAllParts().get(i).getId() == selectedRow.getId()){
+                return i;
+            }
+        }
+        return -1; //fix me for excepti
     }
 
     public void returnBackToMainScene(ActionEvent actionEvent) throws IOException {
@@ -124,20 +130,12 @@ public class modifyPartSceneController implements Initializable {
         stage.show();
     }
 
-    private boolean isMachineId() {
-        return MachineIdOrCompanylabel.getText().equalsIgnoreCase(Machine_ID);
+    private boolean containMachineId() {
+        return MachineIdOrCompanyLabel.getText().equalsIgnoreCase(Machine_ID);
     }
 
-    private boolean isCompanyName() {
-        return MachineIdOrCompanylabel.getText().equalsIgnoreCase(COMPANY_NAME);
-    }
-
-    private boolean isStillInHouseType(){
-        return isInHouse() && isMachineId();
-    }
-
-    private boolean isStillOutsourceType(){
-        return isOutsourced() && isCompanyName();
+    private boolean containCompanyName() {
+        return MachineIdOrCompanyLabel.getText().equalsIgnoreCase(COMPANY_NAME);
     }
 
     @Override
@@ -172,14 +170,14 @@ public class modifyPartSceneController implements Initializable {
     }
 
     private void setOutSourcedFields() {
-        outsroucedBtn.setSelected(true);
-        MachineIdOrCompanylabel.setText(COMPANY_NAME);
+        outsourcedBtn.setSelected(true);
+        MachineIdOrCompanyLabel.setText(COMPANY_NAME);
         dynamicField.setText(((Outsourced) selectedRow).getCompanyName());
     }
 
     private void setInHouseFields() {
         inHouseBtn.setSelected(true);
-        MachineIdOrCompanylabel.setText(Machine_ID);
+        MachineIdOrCompanyLabel.setText(Machine_ID);
         dynamicField.setText(String.valueOf(((InHouse) selectedRow).getMachineId()));
     }
 }

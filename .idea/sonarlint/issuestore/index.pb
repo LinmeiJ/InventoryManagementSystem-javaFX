@@ -1,7 +1,29 @@
 
-D
-src/sample/Main.java,a\d\ad8e8bd4ff8f02a914e3d9ca1bcc32dfc8c503a9
 J
-src/sample/Controller.java,a\9\a952ee24ccaf329067caf45d8e61416ce808b0ea
-F
-src/sample/sample.fxml,2\f\2f769fc3b0dd177c3365dff558843905f8609d7b
+src/models/Outsourced.java,c\c\cccadd2557deb61f46d4a78b32e98737d5c5f027
+D
+src/module-info.java,c\d\cdc434daeee688944ced38ff1c9875422db88382
+S
+#src/controllers/fxml/mainScene.fxml,1\c\1ce89769fc294e3d50d428f00d7dbdf0aabade01
+I
+src/controllers/Main.java,e\f\ef241b6ab8ee35b472ca1368a3ef9c8ac0878beb
+P
+ src/controllers/CommonAlert.java,4\7\4752771383b2749ba73667c2f74c37b7c6a7436b
+G
+src/models/Product.java,2\8\286ad2c06584ab752f1180be74d78ec9aadb65cf
+G
+src/models/InHouse.java,c\9\c934868fc0ef396fcbe8565fe9e0a990ad909a86
+D
+src/models/Part.java,9\9\990cfa36173a09b50c2d6b56b459ac7c62b1d2d6
+W
+'src/controllers/fxml/addPartsScene.fxml,8\5\851a5f5d0299d5671e59ce2d2232ddd229c3a3dd
+Z
+*src/controllers/fxml/modifyPartsScene.fxml,a\1\a18d89ee04cdef63b0f6d2d14ea3105a387ea08e
+X
+(src/controllers/MainSceneController.java,e\6\e6bcf201c53095a19e6da55eda0f3a5bca73e326
+I
+src/models/Inventory.java,7\b\7b9f94b91204abe6b43830de4821f50cbeae66f7
+\
+,src/controllers/AddPartsSceneController.java,2\c\2ce7f9f1ac0334a69b8394dca566494b532d8622
+^
+.src/controllers/modifyPartSceneController.java,6\0\605ce27008c023b05cd046587b9cd65203f15b05

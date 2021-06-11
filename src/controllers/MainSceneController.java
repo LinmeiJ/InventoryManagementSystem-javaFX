@@ -10,6 +10,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -100,19 +101,9 @@ public class MainSceneController implements Initializable {
     }
 
     @FXML
-    void addProdBtnClicked(ActionEvent event) {
-
-    }
-
-    @FXML
     void exitBtnClicked(ActionEvent event) {
         Stage stage = (Stage) exitId.getScene().getWindow();
         stage.close();
-    }
-
-    @FXML
-    void partDeleteClicked(ActionEvent event) {
-
     }
 
     @FXML
@@ -125,13 +116,19 @@ public class MainSceneController implements Initializable {
     }
 
     @FXML
-    void prodBtnDeleteClicked(ActionEvent event) {
-
+    void partDeleteClicked(ActionEvent event) {
+        partSelectedRow = partsTable.getSelectionModel().getSelectedItem();
+        if(partSelectedRow == null)
+            CommonAlert.displayAlert(3);
+        else
+            CommonAlert.displayAlert(6);
+            if(CommonAlert.confirmResult.isPresent() && CommonAlert.confirmResult.get() == ButtonType.OK){
+                deleteThePart();
+            }
     }
 
-    @FXML
-    void prodModifyBtnClicked(ActionEvent event) {
-
+    private void deleteThePart() {
+        Inventory.deletePart(partSelectedRow);
     }
 
     @FXML
@@ -171,6 +168,23 @@ public class MainSceneController implements Initializable {
         }
     }
 
+    private boolean isPartString() {
+        return searchPartField.getText() != null && searchPartField.getText().matches("^[a-zA-Z\\s]*$");
+    }
+
+    private boolean isPartNumeric(){
+        return searchPartField != null && searchPartField.getText().matches("^[0-9]*$");
+    }
+
+    private boolean isProdString() {
+        return searchProductField.getText() != null && searchProductField.getText().matches("^[a-zA-Z\\s]*$");
+    }
+
+    private boolean isProdNumeric(){
+        return searchProductField != null && searchProductField.getText().matches("^[0-9]*$");
+    }
+
+
     @FXML
     void searchProductByIdOrName(KeyEvent event) {
         if(isEntered(event) && isProdNumeric())
@@ -206,20 +220,21 @@ public class MainSceneController implements Initializable {
         }
     }
 
-    private boolean isPartString() {
-        return searchPartField.getText() != null && searchPartField.getText().matches("^[a-zA-Z\\s]*$");
+
+
+    @FXML
+    void addProdBtnClicked(ActionEvent event) throws IOException {
+        setScene(event,"fxml/addProductScene.fxml");
     }
 
-    private boolean isPartNumeric(){
-        return searchPartField != null && searchPartField.getText().matches("^[0-9]*$");
+    @FXML
+    void prodModifyBtnClicked(ActionEvent event) {
+
     }
 
-    private boolean isProdString() {
-        return searchProductField.getText() != null && searchProductField.getText().matches("^[a-zA-Z\\s]*$");
-    }
+    @FXML
+    void prodBtnDeleteClicked(ActionEvent event) {
 
-    private boolean isProdNumeric(){
-        return searchProductField != null && searchProductField.getText().matches("^[0-9]*$");
     }
 
     @Override
@@ -238,7 +253,7 @@ public class MainSceneController implements Initializable {
     }
 
     private void setScene(ActionEvent event, String s) throws IOException {
-        Parent parent = FXMLLoader.load(new Main().getClass().getResource(s));
+        Parent parent = FXMLLoader.load(getClass().getResource(s));
         var scene = new Scene(parent);
         var stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setScene(scene);

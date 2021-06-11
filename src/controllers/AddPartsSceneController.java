@@ -20,9 +20,6 @@ import models.Part;
 import java.io.IOException;
 
 public class AddPartsSceneController {
-
-    public static final String COMPANY_NAME = "Company Name";
-    public static final String MACHINE_ID = "Machine ID";
     @FXML
     private Button saveBtn;
 
@@ -72,7 +69,7 @@ public class AddPartsSceneController {
     private TextField maxField;
 
     @FXML
-    private TextField machineIdField;
+    private TextField dynamicField;
 
     @FXML
     private TextField minField;
@@ -83,6 +80,8 @@ public class AddPartsSceneController {
     @FXML
     private Label invLabel;
 
+    public static final String COMPANY_NAME = "Company Name";
+    public static final String MACHINE_ID = "Machine ID";
 
     @FXML
     void backToMainScene(ActionEvent event) throws IOException {
@@ -99,28 +98,15 @@ public class AddPartsSceneController {
         double price = Double.parseDouble(priceField.getText());//convert to double
         int max = Integer.parseInt(maxField.getText());
         int min = Integer.parseInt(minField.getText());
-        if(MachineIdOrCompanylabel.getText().equalsIgnoreCase("Machine ID"))
+        if(MachineIdOrCompanylabel.getText().equalsIgnoreCase(MACHINE_ID))
         {
-            addInHouseToInventory(Main.getUniquePartId(), name, inv, price, max, min);
+            Inventory.addPart(new InHouse(Main.getUniquePartId(), name, price, inv, max, min, Integer.parseInt(dynamicField.getText())));
         }
-        if(MachineIdOrCompanylabel.getText().equalsIgnoreCase("Company Name")){
-            addOutsourcedToInventory(Main.getUniquePartId(), name, inv, price, max, min);
+        if(MachineIdOrCompanylabel.getText().equalsIgnoreCase(COMPANY_NAME)){
+            Inventory.addPart(new Outsourced(Main.getUniquePartId(), name, price, inv, min, max, dynamicField.getText()));
         }
         returnBackToMainScene(actionEvent);
     }
-
-    private void addOutsourcedToInventory(int id, String name, int inv, double price, int max, int min) {
-        String companyName = machineIdField.getAccessibleText();
-        Part part = new Outsourced(id, name, price, inv, min, max, companyName);
-        Inventory.addPart(part);
-    }
-
-    private void addInHouseToInventory(int id, String name, int inv, double price, int max, int min) {
-        int machineId = Integer.parseInt(machineIdField.getText());
-        Part part = new InHouse(id, name, price, inv, min, max, machineId);
-        Inventory.addPart(part);
-    }
-
 
     public void returnBackToMainScene(ActionEvent actionEvent) throws IOException {
         Parent parent = FXMLLoader.load(getClass().getResource("fxml/mainScene.fxml"));

@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="593.0" prefWidth="763.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.AddPartsSceneController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="593.0" prefWidth="763.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.AddPartsSceneController">
    <children>
       <Button fx:id="saveBtn" layoutX="390.0" layoutY="442.0" mnemonicParsing="false" onAction="#savePart" text="Save" />
       <Button fx:id="cancelBtn" layoutX="462.0" layoutY="442.0" mnemonicParsing="false" onAction="#backToMainScene" text="Cancel" />
@@ -33,7 +33,7 @@
       <TextField fx:id="invField" layoutX="190.0" layoutY="240.0" />
       <TextField fx:id="priceField" layoutX="190.0" layoutY="290.0" />
       <TextField fx:id="maxField" layoutX="190.0" layoutY="340.0" />
-      <TextField fx:id="machineIdField" layoutX="190.0" layoutY="390.0" />
+      <TextField fx:id="dynamicField" layoutX="190.0" layoutY="390.0" />
       <TextField fx:id="minField" layoutX="440.0" layoutY="340.0" />
       <Label fx:id="maxLabel" layoutX="90.0" layoutY="345.0" text="Max" />
       <Label layoutX="90.0" layoutY="195.0" text="Name" />

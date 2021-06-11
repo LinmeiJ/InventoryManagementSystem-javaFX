@@ -1,0 +1,18 @@
+
+{	java:S115I"ZRename this constant name to match the regular expression '^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$'.(§•Òòùÿÿÿÿ8¸‹³ÄŸ/
+ƒ	java:S116-"bRename this field "MachineIdOrCompanylabel" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ê§½¨ùÿÿÿÿ8‘™ËÃŸ/
+[
+java:S2133N">Remove this object instantiation and use "Main.class" instead.(Ü¯“†8íÒ¯ÆŸ/
+n	java:S101"MRename this class name to match the regular expression '^[A-Z][a-zA-Z0-9]*$'.(ã—´îúÿÿÿÿ8™®½ÃŸ/
+g
+java:S1124J"EReorder the modifiers to comply with the Java Language Specification.(É±¾Èıÿÿÿÿ8¸‹³ÄŸ/
+Y
+java:S1854a"7Remove this useless assignment to local variable "inv".(ôî¹ıÿÿÿÿ8¿˜öÆŸ/
+X	java:S125q"<This block of commented-out lines of code should be removed.(‡Ñ³„8Ş„¶ÆŸ/
+W
+java:S1144‹"9Remove this unused private "isStillOutsourceType" method.(ÂòÚÂ8¢ÙÆŸ/
+J
+java:S1481a"(Remove this unused "inv" local variable.(ôî¹ıÿÿÿÿ8¿˜öÆŸ/
+]	java:S125n"<This block of commented-out lines of code should be removed.(É–Ñåûÿÿÿÿ8Ş„¶ÆŸ/
+g
+java:S1124I"EReorder the modifiers to comply with the Java Language Specification.(§•Òòùÿÿÿÿ8¸‹³ÄŸ/
