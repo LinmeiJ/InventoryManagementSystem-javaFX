@@ -72,17 +72,7 @@ public class Inventory {
 
     public static void updatePart(int index, Part selectedPart)
     {
-            allParts.get(index).setName(selectedPart.getName());
-            allParts.get(index).setStock(selectedPart.getStock());
-            allParts.get(index).setPrice(selectedPart.getPrice());
-            allParts.get(index).setMax(selectedPart.getMax());
-            allParts.get(index).setMin(selectedPart.getMin());
-            if(ModifyPartSceneController.isInHouse){
-                ((InHouse) allParts.get(index)).setMachineId(((InHouse) selectedPart).getMachineId());
-            }
-            if(ModifyPartSceneController.isOutsourced){
-                allParts.set(index, createANewPartType(index, selectedPart));
-            }
+        allParts.set(index, selectedPart);
     }
 
     private static Part createANewPartType(int index, Part selectedPart) {
@@ -91,28 +81,29 @@ public class Inventory {
 
     public static void updateProdcut(int index, Product newProduct)
     {
+        allProducts.set(index, newProduct);
     }
 
     public static boolean deletePart(Part selectedPart)
     {
-        boolean isRemoved = false;
+        boolean isDeleted = false;
         if(allParts.contains(selectedPart))
         {
             allParts.remove(selectedPart);
-            isRemoved = true;
+            isDeleted = true;
         }
-        return isRemoved;
+        return isDeleted;
     }
 
     public static boolean deleteProduct(Product selectedProduct)
     {
-        boolean isRemoved = false;
-        if(allParts.contains(selectedProduct))
+        boolean isDeleted = false;
+        if(allProducts.contains(selectedProduct))
         {
-            allParts.remove(selectedProduct);
-            isRemoved = true;
+            allProducts.remove(selectedProduct);
+            isDeleted = true;
         }
-        return isRemoved;
+        return isDeleted;
     }
 
     public static ObservableList<Part> getAllParts()

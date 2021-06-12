@@ -34,6 +34,9 @@
                   <TableColumn fx:id="partInv" prefWidth="121.33335876464844" text="Inventory Level" />
                   <TableColumn fx:id="partPrice" prefWidth="129.99996948242188" text="Price/Cost per Unit" />
               </columns>
+               <columnResizePolicy>
+                  <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+               </columnResizePolicy>
             </TableView>
             <Button fx:id="partAdd" layoutX="255.0" layoutY="250.0" mnemonicParsing="false" onAction="#addPartBtnClicked" text="Add" textAlignment="CENTER" />
             <Button fx:id="partModify" layoutX="301.0" layoutY="250.0" mnemonicParsing="false" onAction="#partModifyBtnClicked" text="Modify" />
@@ -43,7 +46,7 @@
             <Insets bottom="1.0" left="1.0" right="1.0" top="1.0" />
          </opaqueInsets>
       </AnchorPane>
-      <AnchorPane fx:id="partPane1" layoutX="500.0" layoutY="44.0" prefHeight="288.0" prefWidth="440.0" styleClass="styleSheet.css">
+      <AnchorPane fx:id="ProdPane" layoutX="500.0" layoutY="44.0" prefHeight="288.0" prefWidth="440.0" styleClass="styleSheet.css">
          <padding>
             <Insets bottom="18.0" left="18.0" right="18.0" top="18.0" />
          </padding>
@@ -57,6 +60,9 @@
                   <TableColumn fx:id="productInv" prefWidth="97.66668701171875" text="Inventory Level" />
                   <TableColumn fx:id="productPrice" prefWidth="125.00006103515625" text="Price/Cost per Unit" />
                </columns>
+               <columnResizePolicy>
+                  <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+               </columnResizePolicy>
             </TableView>
             <Button fx:id="prodAdd" layoutX="261.0" layoutY="250.0" mnemonicParsing="false" onAction="#addProdBtnClicked" text="Add" textAlignment="CENTER" />
             <Button fx:id="prodModify" layoutX="309.0" layoutY="250.0" mnemonicParsing="false" onAction="#prodModifyBtnClicked" text="Modify" />

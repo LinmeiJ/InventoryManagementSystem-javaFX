@@ -11,7 +11,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
-import javafx.scene.control.ToggleGroup;
 import javafx.stage.Stage;
 import models.InHouse;
 import models.Inventory;
@@ -66,8 +65,7 @@ public class ModifyPartSceneController implements Initializable {
 
     private final static String Machine_ID = "Machine ID";
     private final static String COMPANY_NAME = "Company Name";
-    public static boolean isInHouse = false;
-    public static boolean isOutsourced = false;
+
 
     @FXML
     void backToMainScene(ActionEvent event) throws IOException {
@@ -99,7 +97,6 @@ public class ModifyPartSceneController implements Initializable {
             InHouse part = new InHouse(selectedRow.getId(), name, price, inv, max, min, Integer.parseInt(dynamicField.getText()));
             int index = findIndex();
             Inventory.updatePart(index, part);
-            isInHouse = false;
         }
         if(containCompanyName()){
             Outsourced part = new Outsourced(selectedRow.getId(), name, price, inv, max, min, dynamicField.getText());
@@ -107,7 +104,6 @@ public class ModifyPartSceneController implements Initializable {
             System.out.println(part.getName() + " "+ part.getCompanyName() + " "+ selectedRow.getId());
             int index = findIndex();
             Inventory.updatePart(index, part);
-            isOutsourced = false;
         }
         returnBackToMainScene(event);
 
@@ -140,7 +136,7 @@ public class ModifyPartSceneController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        setCommonFields();
+        setPartFields();
         if(isInHouse())
         {
             setInHouseFields();
@@ -159,8 +155,9 @@ public class ModifyPartSceneController implements Initializable {
         return selectedRow instanceof Outsourced;
     }
 
-    private void setCommonFields() {
+    private void setPartFields() {
         selectedRow = MainSceneController.partSelectedRow;
+
         partIdField.setText(String.valueOf(selectedRow.getId()));
         nameField.setText(selectedRow.getName());
         invField.setText(String.valueOf(selectedRow.getStock()));

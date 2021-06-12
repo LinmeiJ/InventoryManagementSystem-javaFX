@@ -2,6 +2,7 @@ package controllers;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -9,6 +10,7 @@ import javafx.stage.Stage;
 import models.InHouse;
 import models.Inventory;
 import models.Outsourced;
+import models.Part;
 import models.Product;
 
 import java.net.URL;
@@ -46,8 +48,13 @@ public class Main extends Application {
     }
 
     private static void initialProductItems(){
-        Inventory.addProduct(new Product(getUniqueProdId(), "Giant Bike", 5, 299.99, 1, 10));
-        Inventory.addProduct(new Product(getUniqueProdId(), "Kids Bike", 10, 99.99, 1, 10));
-        Inventory.addProduct(new Product(getUniqueProdId(), "kicks", 10, 99.99, 1, 10));
+        Product bike = new Product(getUniqueProdId(), "Kids Bike", 10, 99.99, 1, 10);
+        bike.addAssociatedPart(Inventory.getAllParts().get(1));
+        Inventory.addProduct(bike);
+
+        Product kicks = new Product(getUniqueProdId(), "kicks", 10, 99.99, 1, 10);
+        kicks.addAssociatedPart(Inventory.getAllParts().get(0));
+        Inventory.addProduct(kicks);
+
     }
 }

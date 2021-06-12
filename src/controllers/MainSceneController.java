@@ -63,7 +63,7 @@ public class MainSceneController implements Initializable {
     private Button partDelete;
 
     @FXML
-    private AnchorPane partPane1;
+    private AnchorPane ProdPane;
 
     @FXML
     private TextField searchProductField;
@@ -93,6 +93,7 @@ public class MainSceneController implements Initializable {
     private Button prodDelete;
 
     public static Part partSelectedRow;
+    public static Product productSelectedRow;
 
 
     @FXML
@@ -120,16 +121,15 @@ public class MainSceneController implements Initializable {
         partSelectedRow = partsTable.getSelectionModel().getSelectedItem();
         if(partSelectedRow == null)
             CommonAlert.displayAlert(3);
-        else
-            CommonAlert.displayAlert(6);
-            if(CommonAlert.confirmResult.isPresent() && CommonAlert.confirmResult.get() == ButtonType.OK){
-                deleteThePart();
-            }
+        else CommonAlert.displayAlert(6);
+
+        if(CommonAlert.confirmResult.isPresent() && CommonAlert.confirmResult.get() == ButtonType.OK){
+            if(Inventory.deletePart(partSelectedRow)){
+                CommonAlert.displanySuccessful();
+            };
+        }
     }
 
-    private void deleteThePart() {
-        Inventory.deletePart(partSelectedRow);
-    }
 
     @FXML
     void searchPartByIdOrName(KeyEvent event) {
@@ -148,6 +148,7 @@ public class MainSceneController implements Initializable {
     private boolean isEntered(KeyEvent event){
         return event.getCode().equals(KeyCode.ENTER);
     }
+
     private void searchedPartByName() {
         ObservableList result = Inventory.lookupPart(searchPartField.getText());
         if(result.size() > 0){
@@ -200,7 +201,6 @@ public class MainSceneController implements Initializable {
     }
 
     private void searchedProdByName() {
-        System.out.println(searchProductField.getText());
         ObservableList result = Inventory.lookupProduct(searchProductField.getText());
         if(result.size() > 0){
             productTable.setItems(result);
@@ -228,13 +228,52 @@ public class MainSceneController implements Initializable {
     }
 
     @FXML
-    void prodModifyBtnClicked(ActionEvent event) {
+    void prodModifyBtnClicked(ActionEvent event) throws IOException {
 
+        try{
+            productSelectedRow = productTable.getSelectionModel().getSelectedItem();
+            setScene(event,"fxml/modifyProductScene.fxml");
+
+        }catch (NullPointerException e){
+            CommonAlert.displayAlert(3);
+        }catch (Exception e){
+            System.out.println("Unknown Error"); //fix me
+        }
     }
 
     @FXML
-    void prodBtnDeleteClicked(ActionEvent event) {
+    void prodBtnDeleteClicked(ActionEvent event) throws IOException { // fix me, how to delete associated parts!!!!
+       Product productSelectedRow = productTable.getSelectionModel().getSelectedItem();
+       Product prod = null;
+       boolean isDeleted = false;
+        if(productSelectedRow == null)
+            CommonAlert.displayAlert(3);
+        else
+            CommonAlert.displayAlert(6);
 
+        if(CommonAlert.confirmResult.isPresent() && CommonAlert.confirmResult.get() == ButtonType.OK){
+            for(int i = 0; i <  Inventory.getAllProducts().size(); i++){
+                if(Inventory.getAllProducts().get(i).getId() == productSelectedRow.getId()){
+                    prod = Inventory.getAllProducts().get(i);
+                }
+            }
+            if(hasParts(prod)) {
+                if (prod.getAllAssociatedParts().size() == 1) {
+                    prod.getAllAssociatedParts().remove(0);
+                } else {
+                    for (Part part : productSelectedRow.getAllAssociatedParts()) {
+                        isDeleted = prod.deleteAssociatedPart(part);
+                    }
+                }
+            }
+            }
+           isDeleted = Inventory.deleteProduct(prod); //print delete success when it is true
+
+
+    }
+
+    private boolean hasParts(Product prod) {
+       return prod.getAllAssociatedParts().size() > 0;
     }
 
     @Override
