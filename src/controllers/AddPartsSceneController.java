@@ -15,7 +15,6 @@ import javafx.stage.Stage;
 import models.InHouse;
 import models.Inventory;
 import models.Outsourced;
-import models.Part;
 
 import java.io.IOException;
 
@@ -85,27 +84,89 @@ public class AddPartsSceneController {
 
     @FXML
     void backToMainScene(ActionEvent event) throws IOException {
-        Parent add = FXMLLoader.load(new Main().getClass().getResource("fxml/mainScene.fxml"));
-        Scene scene = new Scene(add);
+        Parent main = FXMLLoader.load(new Main().getClass().getResource("fxml/mainScene.fxml"));
+        Scene scene = new Scene(main);
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setScene(scene);
     }
 
     @FXML
     void savePart(ActionEvent actionEvent) throws IOException {
-        String name = nameField.getText();
-        int inv = Integer.parseInt(invField.getText());
-        double price = Double.parseDouble(priceField.getText());//convert to double
-        int max = Integer.parseInt(maxField.getText());
-        int min = Integer.parseInt(minField.getText());
-        if(MachineIdOrCompanylabel.getText().equalsIgnoreCase(MACHINE_ID))
-        {
-            Inventory.addPart(new InHouse(Main.getUniquePartId(), name, price, inv, max, min, Integer.parseInt(dynamicField.getText())));
+        String name = "";
+        int inv = 0;
+        int max = 0;
+        int min = 0;
+        double price = 0;
+        if (MachineIdOrCompanylabel.getText().equalsIgnoreCase(MACHINE_ID)) {
+            if (!Validator.isInteger(invField.getText())) {
+                Validator.displayInvalidInput("Inventory(Inv) field is not an integer");
+            }
+            if (!Validator.isDouble(priceField.getText())) {
+                Validator.displayInvalidInput("Price needs to be a double");
+            }
+            if (!Validator.isInteger(maxField.getText())) {
+                Validator.displayInvalidInput("Max needs to be an integer");
+            }
+            if (!Validator.isInteger(minField.getText())) {
+                Validator.displayInvalidInput("Min needs to be an integer");
+            }
+            if (Validator.isEmpty(dynamicField.getText())) {
+                Validator.displayInvalidInput("Machine ID can not be empty");
+            }
+            if (Validator.isEmpty(nameField.getText())) {
+                Validator.displayInvalidInput("Name field can not be empty");
+            }
+            else {
+                name = nameField.getText();
+                inv = Integer.parseInt(invField.getText());
+                price = Double.parseDouble(priceField.getText());
+                max = Integer.parseInt(maxField.getText());
+                min = Integer.parseInt(minField.getText());
+                if(max < min){
+                    Validator.displayInvalidInput("Min can not be greater than Max");
+                }else {
+                    Inventory.addPart(new InHouse(Main.getUniquePartId(), name, price, inv, max, min, Integer.parseInt(dynamicField.getText())));
+                    returnBackToMainScene(actionEvent);
+                }
+            }
         }
-        if(MachineIdOrCompanylabel.getText().equalsIgnoreCase(COMPANY_NAME)){
-            Inventory.addPart(new Outsourced(Main.getUniquePartId(), name, price, inv, min, max, dynamicField.getText()));
+        if (MachineIdOrCompanylabel.getText().equalsIgnoreCase(COMPANY_NAME)) {
+            if (!Validator.isInteger(invField.getText())) {
+                Validator.displayInvalidInput("Inventory(Inv) field is not an integer");
+            }
+            if (!Validator.isDouble(priceField.getText())) {
+                Validator.displayInvalidInput("Price needs to be a double");
+            }
+            if (!Validator.isInteger(maxField.getText())) {
+                Validator.displayInvalidInput("Max needs to be an integer");
+            }
+            if (!Validator.isInteger(minField.getText())) {
+                Validator.displayInvalidInput("Min needs to be an integer");
+            }
+            if (Validator.isEmpty(dynamicField.getText())) {
+                Validator.displayInvalidInput("Machine ID can not be empty");
+            }
+            if (Validator.isEmpty(dynamicField.getText())) {
+                Validator.displayInvalidInput("Company name cannot be empty");
+            }
+            if (Validator.isEmpty(nameField.getText())) {
+                Validator.displayInvalidInput("Name field can not be empty");
+            }
+            else {
+                name = nameField.getText();
+                inv = Integer.parseInt(invField.getText());
+                price = Double.parseDouble(priceField.getText());
+                max = Integer.parseInt(maxField.getText());
+                min = Integer.parseInt(minField.getText());
+                if(max < min){
+                    Validator.displayInvalidInput("Min can not be greater than Max");
+                }else {
+                    Inventory.addPart(new Outsourced(Main.getUniquePartId(), name, price, inv, min, max, dynamicField.getText()));
+                    returnBackToMainScene(actionEvent);
+                }
+            }
         }
-        returnBackToMainScene(actionEvent);
+
     }
 
     public void returnBackToMainScene(ActionEvent actionEvent) throws IOException {

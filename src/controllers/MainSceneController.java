@@ -111,7 +111,8 @@ public class MainSceneController implements Initializable {
     void partModifyBtnClicked(ActionEvent event) throws IOException {
         partSelectedRow = partsTable.getSelectionModel().getSelectedItem();
         if(partSelectedRow == null)
-            CommonAlert.displayAlert(3);
+            Validator.displayRowNotSelected();
+
         else
             setScene(event, "fxml/modifyPartsScene.fxml");
     }
@@ -120,13 +121,10 @@ public class MainSceneController implements Initializable {
     void partDeleteClicked(ActionEvent event) {
         partSelectedRow = partsTable.getSelectionModel().getSelectedItem();
         if(partSelectedRow == null)
-            CommonAlert.displayAlert(3);
-        else CommonAlert.displayAlert(6);
-
-        if(CommonAlert.confirmResult.isPresent() && CommonAlert.confirmResult.get() == ButtonType.OK){
-            if(Inventory.deletePart(partSelectedRow)){
-                CommonAlert.displanySuccessful();
-            };
+            Validator.displayRowNotSelected();
+        else Validator.displayDeleteConfirmation();
+        if(Validator.confirmResult.isPresent() && Validator.confirmResult.get() == ButtonType.OK){
+            Inventory.deletePart(partSelectedRow);
         }
     }
 
@@ -154,13 +152,13 @@ public class MainSceneController implements Initializable {
         if(result.size() > 0){
             partsTable.setItems(result);
         }
-        else CommonAlert.displayAlert(1);
+        else Validator.displayPartNotFound();
     }
 
     private void searchedPartById() {
         var part = Inventory.lookupPart(Integer.parseInt(searchPartField.getText()));
         if(part == null) {
-            CommonAlert.displayAlert(1);
+            Validator.displayPartNotFound();
         }
         else{
             ObservableList<Part> result = FXCollections.observableArrayList();
@@ -205,13 +203,13 @@ public class MainSceneController implements Initializable {
         if(result.size() > 0){
             productTable.setItems(result);
         }
-        else CommonAlert.displayAlert(2);
+        else Validator.displayProdNotFound();
     }
 
     private void searchedProdById() {
         var prod = Inventory.lookupProduct(Integer.parseInt(searchProductField.getText()));
         if(prod == null) {
-            CommonAlert.displayAlert(2);
+            Validator.displayProdNotFound();
         }
         else{
             ObservableList<Product> result = FXCollections.observableArrayList();
@@ -229,47 +227,38 @@ public class MainSceneController implements Initializable {
 
     @FXML
     void prodModifyBtnClicked(ActionEvent event) throws IOException {
-
-        try{
-            productSelectedRow = productTable.getSelectionModel().getSelectedItem();
-            setScene(event,"fxml/modifyProductScene.fxml");
-
-        }catch (NullPointerException e){
-            CommonAlert.displayAlert(3);
-        }catch (Exception e){
-            System.out.println("Unknown Error"); //fix me
+        productSelectedRow = productTable.getSelectionModel().getSelectedItem();
+        if(productSelectedRow == null) {
+            Validator.displayRowNotSelected();
         }
+        setScene(event,"fxml/modifyProductScene.fxml");
+
     }
 
     @FXML
     void prodBtnDeleteClicked(ActionEvent event) throws IOException { // fix me, how to delete associated parts!!!!
        Product productSelectedRow = productTable.getSelectionModel().getSelectedItem();
-       Product prod = null;
-       boolean isDeleted = false;
-        if(productSelectedRow == null)
-            CommonAlert.displayAlert(3);
-        else
-            CommonAlert.displayAlert(6);
+        Product prod = null;
 
-        if(CommonAlert.confirmResult.isPresent() && CommonAlert.confirmResult.get() == ButtonType.OK){
-            for(int i = 0; i <  Inventory.getAllProducts().size(); i++){
-                if(Inventory.getAllProducts().get(i).getId() == productSelectedRow.getId()){
-                    prod = Inventory.getAllProducts().get(i);
-                }
-            }
-            if(hasParts(prod)) {
-                if (prod.getAllAssociatedParts().size() == 1) {
-                    prod.getAllAssociatedParts().remove(0);
-                } else {
-                    for (Part part : productSelectedRow.getAllAssociatedParts()) {
-                        isDeleted = prod.deleteAssociatedPart(part);
+        if (productSelectedRow.getAllAssociatedParts().size() > 0) {
+            Validator.displayProdContainsParts();
+        }
+        else{
+            if (productSelectedRow == null)
+                Validator.displayRowNotSelected();
+            else
+                Validator.displayDeleteConfirmation();
+
+
+            if (Validator.confirmResult.isPresent() && Validator.confirmResult.get() == ButtonType.OK) {
+                for (int i = 0; i < Inventory.getAllProducts().size(); i++) {
+                    if (Inventory.getAllProducts().get(i).getId() == productSelectedRow.getId()) {
+                        prod = Inventory.getAllProducts().get(i);
                     }
                 }
             }
-            }
-           isDeleted = Inventory.deleteProduct(prod); //print delete success when it is true
-
-
+            Inventory.deleteProduct(prod);
+        }
     }
 
     private boolean hasParts(Product prod) {

@@ -3,7 +3,6 @@ package controllers;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -95,16 +94,25 @@ public class AddProductController implements Initializable {
 
     @FXML
     void addPartToProdClicked(ActionEvent event) {
-        selectedPartTableRow = partTable.getSelectionModel().getSelectedItem();
+        Part selectedPartTableRow = partTable.getSelectionModel().getSelectedItem();
         if(selectedPartTableRow == null)
         {
-            CommonAlert.displayRowNotSelected();
+            Validator.displayRowNotSelected();
         }
-        Part part = selectedPartTableRow; //check if we need this line
-
-        associatedParts.add(part);
-        associatedPartTable.setItems(associatedParts);
+        else {
+            associatedParts.add(selectedPartTableRow);
+            associatedPartTable.setItems(associatedParts);
+        }
     }
+
+//    private boolean isExist(Part selectedPartTableRow) {
+//        for(int i = 0; i < associatedParts.size(); i++){
+//            if(associatedParts.get(i).getId() == selectedPartTableRow.getId()){
+//                return true;
+//            }
+//        }
+//        return false;
+//    }
 
     @FXML
     void cancelBtnClicked(ActionEvent event) throws IOException {
@@ -113,31 +121,56 @@ public class AddProductController implements Initializable {
 
     @FXML
     void removePartFromProdClicked(ActionEvent event) {
-        selectedAssociatedPart = associatedPartTable.getSelectionModel().getSelectedItem();
-        int id = selectedAssociatedPart.getId();
-        for(int i = 0; i < associatedParts.size(); i++)
-        {
-            if(associatedParts.get(i).getId() == id){
-                associatedParts.remove(associatedParts.get(i));
+        Part selectedAssocPart = associatedPartTable.getSelectionModel().getSelectedItem();
+        if(selectedAssocPart == null){
+            Validator.displayRowNotSelected();
+        }
+        else {
+            int id = selectedAssocPart.getId();
+            for (int i = 0; i < associatedParts.size(); i++) {
+                if (associatedParts.get(i).getId() == id) {
+                    associatedParts.remove(associatedParts.get(i));
+                }
             }
         }
     }
 
     @FXML
     void saveProdClicked(ActionEvent event) throws IOException {
-
-        String name = productNameField.getText();
-        int stock = Integer.parseInt(productionInvField.getText());
-        double price = Double.parseDouble(productPriceField.getText());
-        int min = Integer.parseInt(productMinField.getText());
-        int max = Integer.parseInt(productMaxField.getText());
-
-        Product prod = new Product(Main.getUniqueProdId(), name, stock, price, min, max);
-        for(Part part : associatedParts){
-            prod.addAssociatedPart(part);
+        if(Validator.isEmpty(productNameField.getText())){
+            Validator.displayInvalidInput("Name field can not be empty");
         }
-        Inventory.addProduct(prod);
-        returnBackToMainScene(event);
+        if(!Validator.isInteger(productionInvField.getText())){
+            Validator.displayInvalidInput("Inv field needs an integer");
+        }
+        if(!Validator.isDouble(productPriceField.getText())){
+            Validator.displayInvalidInput("Price field need an double");
+        }
+        if(!Validator.isInteger(productMaxField.getText())){
+            Validator.displayInvalidInput("Max field need an int");
+        }
+        if(!Validator.isInteger(productMinField.getText())){
+            Validator.displayInvalidInput("Min field need an int");
+        }
+        else {
+            String name = productNameField.getText();
+            int stock = Integer.parseInt(productionInvField.getText());
+            double price = Double.parseDouble(productPriceField.getText());
+            int min = Integer.parseInt(productMinField.getText());
+            int max = Integer.parseInt(productMaxField.getText());
+
+            if(max < min){
+                Validator.displayInvalidInput("Min can not be greater than Max");
+            }
+            else {
+                Product prod = new Product(Main.getUniqueProdId(), name, stock, price, min, max);
+                for (Part part : associatedParts) {
+                    prod.addAssociatedPart(part);
+                }
+                Inventory.addProduct(prod);
+                returnBackToMainScene(event);
+            }
+        }
     }
     public void returnBackToMainScene(ActionEvent actionEvent) throws IOException {
         Parent parent = FXMLLoader.load(getClass().getResource("fxml/mainScene.fxml"));
@@ -170,13 +203,13 @@ public class AddProductController implements Initializable {
         if(result.size() > 0){
             partTable.setItems(result);
         }
-        else CommonAlert.displayAlert(1);
+        else Validator.displayPartNotFound();
     }
 
     private void searchedPartById() {
         var part = Inventory.lookupPart(Integer.parseInt(partSearchField.getText()));
         if(part == null) {
-            CommonAlert.displayAlert(1);
+            Validator.displayPartNotFound();
         }
         else{
             ObservableList<Part> result = FXCollections.observableArrayList();

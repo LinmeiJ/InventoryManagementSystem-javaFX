@@ -69,8 +69,8 @@ public class ModifyPartSceneController implements Initializable {
 
     @FXML
     void backToMainScene(ActionEvent event) throws IOException {
-        Parent add = FXMLLoader.load(new Main().getClass().getResource("fxml/mainScene.fxml"));
-        Scene scene = new Scene(add);
+        Parent main = FXMLLoader.load(new Main().getClass().getResource("fxml/mainScene.fxml"));
+        Scene scene = new Scene(main);
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setScene(scene);
     }
@@ -100,8 +100,6 @@ public class ModifyPartSceneController implements Initializable {
         }
         if(containCompanyName()){
             Outsourced part = new Outsourced(selectedRow.getId(), name, price, inv, max, min, dynamicField.getText());
-            System.out.println(part instanceof Outsourced);
-            System.out.println(part.getName() + " "+ part.getCompanyName() + " "+ selectedRow.getId());
             int index = findIndex();
             Inventory.updatePart(index, part);
         }

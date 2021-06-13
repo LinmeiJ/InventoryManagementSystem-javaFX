@@ -25,7 +25,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class ModifyProductController implements Initializable {
+public class ModifyProductController implements Initializable, Cloneable {
 
     @FXML
     private TextField modifyProdID;
@@ -116,13 +116,13 @@ public class ModifyProductController implements Initializable {
         if(result.size() > 0){
             modifyPartTable.setItems(result);
         }
-        else CommonAlert.displayAlert(1);
+        else Validator.displayPartNotFound();
     }
 
     private void searchedPartById() {
         var part = Inventory.lookupPart(Integer.parseInt(partSearchField.getText()));
         if(part == null) {
-            CommonAlert.displayAlert(1);
+            Validator.displayPartNotFound();
         }
         else{
             ObservableList<Part> result = FXCollections.observableArrayList();
@@ -145,37 +145,27 @@ public class ModifyProductController implements Initializable {
     void addPartToProdClicked(ActionEvent event) {
         try{
            Part selectedPartRow = modifyPartTable.getSelectionModel().getSelectedItem();
-
-           if(isExist(selectedPartRow)){
-               CommonAlert.displayPartIsAlreadyExist();
-           }
-           else associatedParts.add(selectedPartRow);
-
+           associatedParts.add(selectedPartRow);
            modifyAssociatedPartTable.setItems(associatedParts);
         }catch (NullPointerException e){
-            CommonAlert.displayRowNotSelected();
+            Validator.displayRowNotSelected();
         }
-
-
-    }
-
-    private boolean isExist(Part selectedRow) {
-        for(int i = 0; i < associatedParts.size(); i++){
-            if(associatedParts.get(i).getId() == selectedRow.getId()){
-                return true;
-            }
-        }
-        return false;
     }
 
     @FXML
     void removePartFromProdClicked(ActionEvent event) {
-       int id = modifyAssociatedPartTable.getSelectionModel().getSelectedItem().getId();
-       for(int i = 0; i < associatedParts.size(); i++){
-           if(associatedParts.get(i).getId() == id){
-               associatedParts.remove(associatedParts.get(i));
-           }
-       }
+        Part selectedAssocPart = modifyAssociatedPartTable.getSelectionModel().getSelectedItem();
+        if(selectedAssocPart == null){
+            Validator.displayRowNotSelected();
+        }
+        else {
+            int id = selectedAssocPart.getId();
+            for (int i = 0; i < associatedParts.size(); i++) {
+                if (associatedParts.get(i).getId() == id) {
+                    associatedParts.remove(associatedParts.get(i));
+                }
+            }
+        }
     }
 
     @FXML
@@ -241,11 +231,9 @@ public class ModifyProductController implements Initializable {
         associatePartName.setCellValueFactory(new PropertyValueFactory<>("name"));
         associateInv.setCellValueFactory(new PropertyValueFactory<>("stock"));
         associatePrice.setCellValueFactory(new PropertyValueFactory<>("price"));
-        modifyAssociatedPartTable.setItems(MainSceneController.productSelectedRow.getAllAssociatedParts());
-        for(Part part : MainSceneController.productSelectedRow.getAllAssociatedParts()){
-            associatedParts.add(part);
-        }
 
+        associatedParts = MainSceneController.productSelectedRow.getAllAssociatedParts();
+        modifyAssociatedPartTable.setItems(associatedParts);
     }
 
     private void setProdFields() {

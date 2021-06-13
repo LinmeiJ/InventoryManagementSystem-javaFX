@@ -48,7 +48,7 @@ public class Main extends Application {
     }
 
     private static void initialProductItems(){
-        Product bike = new Product(getUniqueProdId(), "Kids Bike", 10, 99.99, 1, 10);
+        Product bike = new Product(getUniqueProdId(), "Kids Bike", 10, 100, 1, 10);
         bike.addAssociatedPart(Inventory.getAllParts().get(1));
         Inventory.addProduct(bike);
 
