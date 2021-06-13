@@ -87,29 +87,88 @@ public class ModifyPartSceneController implements Initializable {
 
     @FXML
     void savePart(ActionEvent event) throws IOException {
-        int inv = Integer.parseInt(invField.getText());
-        String name = nameField.getText();
-        double price = Double.parseDouble(priceField.getText());
-        int max = Integer.parseInt(maxField.getText());
-        int min = Integer.parseInt(minField.getText());
-        if(containMachineId())
-        {
-            InHouse part = new InHouse(selectedRow.getId(), name, price, inv, max, min, Integer.parseInt(dynamicField.getText()));
-            int index = findIndex();
-            Inventory.updatePart(index, part);
+
+        if (containMachineId()) {
+            if (!Validator.isInteger(invField.getText())) {
+                Validator.displayInvalidInput("Inventory(Inv) field is not an integer");
+            }
+            if (!Validator.isDouble(priceField.getText())) {
+                Validator.displayInvalidInput("Price needs to be a double");
+            }
+            if (!Validator.isInteger(maxField.getText())) {
+                Validator.displayInvalidInput("Max needs to be an integer");
+            }
+            if (!Validator.isInteger(minField.getText())) {
+                Validator.displayInvalidInput("Min needs to be an integer");
+            }
+            if (Validator.isEmpty(dynamicField.getText())) {
+                Validator.displayInvalidInput("Machine ID can not be empty");
+            }
+            if (Validator.isEmpty(nameField.getText())) {
+                Validator.displayInvalidInput("Name field can not be empty");
+            } else {
+                int inv = Integer.parseInt(invField.getText());
+                String name = nameField.getText();
+                double price = Double.parseDouble(priceField.getText());
+                int max = Integer.parseInt(maxField.getText());
+                int min = Integer.parseInt(minField.getText());
+                if (min > max) {
+                    Validator.displayInvalidLogic("Min should not be greater than Max");
+                }
+                if (inv > max) {
+                    Validator.displayInvalidLogic("Stock should not greater than Max");
+                } else {
+                    InHouse part = new InHouse(selectedRow.getId(), name, price, inv, max, min, Integer.parseInt(dynamicField.getText()));
+                    int index = findIndex();
+                    Inventory.updatePart(index, part);
+                    returnBackToMainScene(event);
+                }
+            }
         }
-        if(containCompanyName()){
-            Outsourced part = new Outsourced(selectedRow.getId(), name, price, inv, max, min, dynamicField.getText());
-            int index = findIndex();
-            Inventory.updatePart(index, part);
+        if (containCompanyName()) {
+            if (!Validator.isInteger(invField.getText())) {
+                Validator.displayInvalidInput("Inventory(Inv) field is not an integer");
+            }
+            if (!Validator.isDouble(priceField.getText())) {
+                Validator.displayInvalidInput("Price needs to be a double");
+            }
+            if (!Validator.isInteger(maxField.getText())) {
+                Validator.displayInvalidInput("Max needs to be an integer");
+            }
+            if (!Validator.isInteger(minField.getText())) {
+                Validator.displayInvalidInput("Min needs to be an integer");
+            }
+            if (Validator.isEmpty(dynamicField.getText())) {
+                Validator.displayInvalidInput("Machine ID can not be empty");
+            }
+            if (Validator.isEmpty(nameField.getText())) {
+                Validator.displayInvalidInput("Name field can not be empty");
+            } else {
+                int inv = Integer.parseInt(invField.getText());
+                String name = nameField.getText();
+                double price = Double.parseDouble(priceField.getText());
+                int max = Integer.parseInt(maxField.getText());
+                int min = Integer.parseInt(minField.getText());
+                if (min > max) {
+                    Validator.displayInvalidLogic("Min should not be greater than Max");
+                }
+                if (inv > max) {
+                    Validator.displayInvalidLogic("Stock should not be greater than Max");
+
+                } else {
+                    Outsourced part = new Outsourced(selectedRow.getId(), name, price, inv, max, min, dynamicField.getText());
+                    int index = findIndex();
+                    Inventory.updatePart(index, part);
+                    returnBackToMainScene(event);
+                }
+            }
         }
-        returnBackToMainScene(event);
 
     }
 
     private int findIndex() {
-        for(int i = 0; i < Inventory.getAllParts().size(); i++){
-            if(Inventory.getAllParts().get(i).getId() == selectedRow.getId()){
+        for (int i = 0; i < Inventory.getAllParts().size(); i++) {
+            if (Inventory.getAllParts().get(i).getId() == selectedRow.getId()) {
                 return i;
             }
         }
@@ -135,21 +194,19 @@ public class ModifyPartSceneController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         setPartFields();
-        if(isInHouse())
-        {
+        if (isInHouse()) {
             setInHouseFields();
         }
-        if(isOutsourced())
-        {
+        if (isOutsourced()) {
             setOutSourcedFields();
         }
     }
 
-    public boolean isInHouse(){
+    public boolean isInHouse() {
         return selectedRow instanceof InHouse;
     }
 
-    public boolean isOutsourced(){
+    public boolean isOutsourced() {
         return selectedRow instanceof Outsourced;
     }
 

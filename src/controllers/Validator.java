@@ -78,8 +78,8 @@ public class Validator {
         confirmResult = confirmAlert.showAndWait();
     }
 
-    public static boolean areValidateInputs(String name, String inv, String price, String max, String min){
-        if((isEmpty(name) && isInteger(inv) && isDouble(price) && isInteger(max) && isInteger(min))){
+    public static boolean areValidateInputs(String name, String inv, String price, String max, String min) {
+        if ((isEmpty(name) && isInteger(inv) && isDouble(price) && isInteger(max) && isInteger(min))) {
             return true;
         }
         return false;
@@ -88,9 +88,9 @@ public class Validator {
     public static boolean isDouble(String input) {
         boolean isValid = false;
         try {
-           double d = Double.parseDouble(input);
-           isValid = true;
-        }catch (NumberFormatException ex) {
+            double d = Double.parseDouble(input);
+            isValid = true;
+        } catch (NumberFormatException ex) {
             isValid = false;
         }
         return isValid;
@@ -102,25 +102,25 @@ public class Validator {
         try {
             Integer d = Integer.parseInt(input);
             isValid = true;
-        }catch (NumberFormatException ex) {
+        } catch (NumberFormatException ex) {
             isValid = false;
         }
         return isValid;
     }
 
-    public static boolean isEmpty(String input){
+    public static boolean isEmpty(String input) {
         boolean isValid = false;
-        if(input.isEmpty() || input.isBlank() ||  input == null) {
+        if (input.isEmpty() || input.isBlank() || input == null) {
             isValid = true;
 
         }
         return isValid;
     }
 
-    public static void displayInvalidInput(String str) {
+    public static void displayInvalidInput(String msg) {
         errorAlert.setTitle("Error");
         errorAlert.setHeaderText("Field input is incorrect");
-        errorAlert.setContentText(str);
+        errorAlert.setContentText(msg);
         errorAlert.showAndWait();
     }
 
@@ -131,4 +131,10 @@ public class Validator {
         errorAlert.showAndWait();
     }
 
+    public static void displayInvalidLogic(String msg) {
+        errorAlert.setTitle("Error");
+        errorAlert.setHeaderText("Logic Error Occurs");
+        errorAlert.setContentText(msg);
+        errorAlert.showAndWait();
+    }
 }

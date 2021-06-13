@@ -90,41 +90,37 @@ public class ModifyProductController implements Initializable, Cloneable {
     @FXML
     private Button cancelBtn;
 
-    private ObservableList<Part> associatedParts  = FXCollections.observableArrayList();
+    private ObservableList<Part> associatedParts = FXCollections.observableArrayList();
     private Product originalRow = MainSceneController.productSelectedRow;
 
 
     @FXML
     void searchBtnEntered(KeyEvent event) {
-        if(isEntered(event) && isPartNumeric())
-        {
+        if (isEntered(event) && isPartNumeric()) {
             searchedPartById();
-        }
-        else if(isEntered(event) && isPartString()){
+        } else if (isEntered(event) && isPartString()) {
             searchedPartByName();
-        }
-        else{
+        } else {
             modifyPartTable.setItems(Inventory.getAllParts());
         }
     }
-    private boolean isEntered(KeyEvent event){
+
+    private boolean isEntered(KeyEvent event) {
         return event.getCode().equals(KeyCode.ENTER);
     }
 
     private void searchedPartByName() {
         ObservableList result = Inventory.lookupPart(partSearchField.getText());
-        if(result.size() > 0){
+        if (result.size() > 0) {
             modifyPartTable.setItems(result);
-        }
-        else Validator.displayPartNotFound();
+        } else Validator.displayPartNotFound();
     }
 
     private void searchedPartById() {
         var part = Inventory.lookupPart(Integer.parseInt(partSearchField.getText()));
-        if(part == null) {
+        if (part == null) {
             Validator.displayPartNotFound();
-        }
-        else{
+        } else {
             ObservableList<Part> result = FXCollections.observableArrayList();
             result.add(part);
             modifyPartTable.setItems(result);
@@ -135,19 +131,18 @@ public class ModifyProductController implements Initializable, Cloneable {
         return partSearchField.getText() != null && partSearchField.getText().matches("^[a-zA-Z\\s]*$");
     }
 
-    private boolean isPartNumeric(){
+    private boolean isPartNumeric() {
         return partSearchField != null && partSearchField.getText().matches("^[0-9]*$");
     }
 
 
-
     @FXML
     void addPartToProdClicked(ActionEvent event) {
-        try{
-           Part selectedPartRow = modifyPartTable.getSelectionModel().getSelectedItem();
-           associatedParts.add(selectedPartRow);
-           modifyAssociatedPartTable.setItems(associatedParts);
-        }catch (NullPointerException e){
+        try {
+            Part selectedPartRow = modifyPartTable.getSelectionModel().getSelectedItem();
+            associatedParts.add(selectedPartRow);
+            modifyAssociatedPartTable.setItems(associatedParts);
+        } catch (NullPointerException e) {
             Validator.displayRowNotSelected();
         }
     }
@@ -155,10 +150,9 @@ public class ModifyProductController implements Initializable, Cloneable {
     @FXML
     void removePartFromProdClicked(ActionEvent event) {
         Part selectedAssocPart = modifyAssociatedPartTable.getSelectionModel().getSelectedItem();
-        if(selectedAssocPart == null){
+        if (selectedAssocPart == null) {
             Validator.displayRowNotSelected();
-        }
-        else {
+        } else {
             int id = selectedAssocPart.getId();
             for (int i = 0; i < associatedParts.size(); i++) {
                 if (associatedParts.get(i).getId() == id) {
@@ -171,19 +165,43 @@ public class ModifyProductController implements Initializable, Cloneable {
     @FXML
     void saveProdClicked(ActionEvent event) throws IOException {
         int id = originalRow.getId();
-        String name = modifyProdNameField.getText();
-        double price = Double.parseDouble(modifyProdPriceField.getText());
-        int stock = Integer.parseInt(modifyProdInvField.getText());
-        int min = Integer.parseInt(modifyProdMinField.getText());
-        int max = Integer.parseInt(modifyProdMaxField.getText());
-        Product prod = new Product(id, name, stock, price, min, max);
-        int index = findIndex();
 
-        for(Part part : associatedParts){
-            prod.addAssociatedPart(part);
+        if (Validator.isEmpty(modifyProdNameField.getText())) {
+            Validator.displayInvalidInput("Name field can not be empty");
         }
-        Inventory.updateProdcut(index, prod);
-        returnBackToMainScene(event);
+        if (!Validator.isInteger(modifyProdInvField.getText())) {
+            Validator.displayInvalidInput("Inv field needs an integer");
+        }
+        if (!Validator.isDouble(modifyProdPriceField.getText())) {
+            Validator.displayInvalidInput("Price field need an double");
+        }
+        if (!Validator.isInteger(modifyProdMaxField.getText())) {
+            Validator.displayInvalidInput("Max field need an int");
+        }
+        if (!Validator.isInteger(modifyProdMinField.getText())) {
+            Validator.displayInvalidInput("Min field need an int");
+        } else {
+            String name = modifyProdNameField.getText();
+            double price = Double.parseDouble(modifyProdPriceField.getText());
+            int stock = Integer.parseInt(modifyProdInvField.getText());
+            int min = Integer.parseInt(modifyProdMinField.getText());
+            int max = Integer.parseInt(modifyProdMaxField.getText());
+            if (min > max) {
+                Validator.displayInvalidLogic("Min should not be greater than Max");
+            }
+            if (stock > max) {
+                Validator.displayInvalidLogic("Stock should not be greater than Max");
+            } else {
+                Product prod = new Product(id, name, stock, price, min, max);
+                int index = findIndex();
+
+                for (Part part : associatedParts) {
+                    prod.addAssociatedPart(part);
+                }
+                Inventory.updateProdcut(index, prod);
+                returnBackToMainScene(event);
+            }
+        }
     }
 
     public void returnBackToMainScene(ActionEvent actionEvent) throws IOException {
@@ -195,8 +213,8 @@ public class ModifyProductController implements Initializable, Cloneable {
     }
 
     private int findIndex() {
-        for(int i = 0; i < Inventory.getAllProducts().size(); i++){
-            if(Inventory.getAllProducts().get(i).getId() == originalRow.getId()){
+        for (int i = 0; i < Inventory.getAllProducts().size(); i++) {
+            if (Inventory.getAllProducts().get(i).getId() == originalRow.getId()) {
                 return i;
             }
         }

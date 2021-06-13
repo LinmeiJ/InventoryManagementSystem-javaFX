@@ -115,16 +115,18 @@ public class AddPartsSceneController {
             }
             if (Validator.isEmpty(nameField.getText())) {
                 Validator.displayInvalidInput("Name field can not be empty");
-            }
-            else {
+            } else {
                 name = nameField.getText();
                 inv = Integer.parseInt(invField.getText());
                 price = Double.parseDouble(priceField.getText());
                 max = Integer.parseInt(maxField.getText());
                 min = Integer.parseInt(minField.getText());
-                if(max < min){
-                    Validator.displayInvalidInput("Min can not be greater than Max");
-                }else {
+                if (min > max) {
+                    Validator.displayInvalidLogic("Min should not be greater than Max");
+                }
+                if (inv > max) {
+                    Validator.displayInvalidLogic("Stock should not be greater than Max");
+                } else {
                     Inventory.addPart(new InHouse(Main.getUniquePartId(), name, price, inv, max, min, Integer.parseInt(dynamicField.getText())));
                     returnBackToMainScene(actionEvent);
                 }
@@ -151,16 +153,15 @@ public class AddPartsSceneController {
             }
             if (Validator.isEmpty(nameField.getText())) {
                 Validator.displayInvalidInput("Name field can not be empty");
-            }
-            else {
+            } else {
                 name = nameField.getText();
                 inv = Integer.parseInt(invField.getText());
                 price = Double.parseDouble(priceField.getText());
                 max = Integer.parseInt(maxField.getText());
                 min = Integer.parseInt(minField.getText());
-                if(max < min){
+                if (max < min) {
                     Validator.displayInvalidInput("Min can not be greater than Max");
-                }else {
+                } else {
                     Inventory.addPart(new Outsourced(Main.getUniquePartId(), name, price, inv, min, max, dynamicField.getText()));
                     returnBackToMainScene(actionEvent);
                 }

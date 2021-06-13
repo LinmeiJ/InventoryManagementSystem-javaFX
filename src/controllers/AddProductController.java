@@ -95,11 +95,9 @@ public class AddProductController implements Initializable {
     @FXML
     void addPartToProdClicked(ActionEvent event) {
         Part selectedPartTableRow = partTable.getSelectionModel().getSelectedItem();
-        if(selectedPartTableRow == null)
-        {
+        if (selectedPartTableRow == null) {
             Validator.displayRowNotSelected();
-        }
-        else {
+        } else {
             associatedParts.add(selectedPartTableRow);
             associatedPartTable.setItems(associatedParts);
         }
@@ -122,10 +120,9 @@ public class AddProductController implements Initializable {
     @FXML
     void removePartFromProdClicked(ActionEvent event) {
         Part selectedAssocPart = associatedPartTable.getSelectionModel().getSelectedItem();
-        if(selectedAssocPart == null){
+        if (selectedAssocPart == null) {
             Validator.displayRowNotSelected();
-        }
-        else {
+        } else {
             int id = selectedAssocPart.getId();
             for (int i = 0; i < associatedParts.size(); i++) {
                 if (associatedParts.get(i).getId() == id) {
@@ -137,32 +134,33 @@ public class AddProductController implements Initializable {
 
     @FXML
     void saveProdClicked(ActionEvent event) throws IOException {
-        if(Validator.isEmpty(productNameField.getText())){
+        if (Validator.isEmpty(productNameField.getText())) {
             Validator.displayInvalidInput("Name field can not be empty");
         }
-        if(!Validator.isInteger(productionInvField.getText())){
+        if (!Validator.isInteger(productionInvField.getText())) {
             Validator.displayInvalidInput("Inv field needs an integer");
         }
-        if(!Validator.isDouble(productPriceField.getText())){
+        if (!Validator.isDouble(productPriceField.getText())) {
             Validator.displayInvalidInput("Price field need an double");
         }
-        if(!Validator.isInteger(productMaxField.getText())){
+        if (!Validator.isInteger(productMaxField.getText())) {
             Validator.displayInvalidInput("Max field need an int");
         }
-        if(!Validator.isInteger(productMinField.getText())){
+        if (!Validator.isInteger(productMinField.getText())) {
             Validator.displayInvalidInput("Min field need an int");
-        }
-        else {
+        } else {
             String name = productNameField.getText();
             int stock = Integer.parseInt(productionInvField.getText());
             double price = Double.parseDouble(productPriceField.getText());
             int min = Integer.parseInt(productMinField.getText());
             int max = Integer.parseInt(productMaxField.getText());
 
-            if(max < min){
-                Validator.displayInvalidInput("Min can not be greater than Max");
+            if (min > max) {
+                Validator.displayInvalidLogic("Min should not be greater than Max");
             }
-            else {
+            if (stock > max) {
+                Validator.displayInvalidLogic("Stock should not be greater than Max");
+            } else {
                 Product prod = new Product(Main.getUniqueProdId(), name, stock, price, min, max);
                 for (Part part : associatedParts) {
                     prod.addAssociatedPart(part);
@@ -172,6 +170,7 @@ public class AddProductController implements Initializable {
             }
         }
     }
+
     public void returnBackToMainScene(ActionEvent actionEvent) throws IOException {
         Parent parent = FXMLLoader.load(getClass().getResource("fxml/mainScene.fxml"));
         Scene scene = new Scene(parent);
@@ -182,36 +181,31 @@ public class AddProductController implements Initializable {
 
     @FXML
     void searchBtnEntered(KeyEvent event) {
-        if(isEntered(event) && isPartNumeric())
-        {
+        if (isEntered(event) && isPartNumeric()) {
             searchedPartById();
-        }
-        else if(isEntered(event) && isPartString()){
+        } else if (isEntered(event) && isPartString()) {
             searchedPartByName();
-        }
-        else{
+        } else {
             partTable.setItems(Inventory.getAllParts());
         }
     }
 
-    private boolean isEntered(KeyEvent event){
+    private boolean isEntered(KeyEvent event) {
         return event.getCode().equals(KeyCode.ENTER);
     }
 
     private void searchedPartByName() {
         ObservableList result = Inventory.lookupPart(partSearchField.getText());
-        if(result.size() > 0){
+        if (result.size() > 0) {
             partTable.setItems(result);
-        }
-        else Validator.displayPartNotFound();
+        } else Validator.displayPartNotFound();
     }
 
     private void searchedPartById() {
         var part = Inventory.lookupPart(Integer.parseInt(partSearchField.getText()));
-        if(part == null) {
+        if (part == null) {
             Validator.displayPartNotFound();
-        }
-        else{
+        } else {
             ObservableList<Part> result = FXCollections.observableArrayList();
             result.add(part);
             partTable.setItems(result);
@@ -222,7 +216,7 @@ public class AddProductController implements Initializable {
         return partSearchField.getText() != null && partSearchField.getText().matches("^[a-zA-Z\\s]*$");
     }
 
-    private boolean isPartNumeric(){
+    private boolean isPartNumeric() {
         return partSearchField != null && partSearchField.getText().matches("^[0-9]*$");
     }
 
