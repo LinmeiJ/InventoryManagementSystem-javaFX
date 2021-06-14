@@ -259,7 +259,7 @@ public class ModifyProductController implements Initializable, Cloneable {
         modifyProdNameField.setText(originalRow.getName());
         modifyProdInvField.setText(String.valueOf(originalRow.getStock()));
         modifyProdPriceField.setText(String.valueOf(originalRow.getPrice()));
-        modifyProdMinField.setText(String.valueOf(originalRow.getMax()));
-        modifyProdMaxField.setText(String.valueOf(originalRow.getMin()));
+        modifyProdMinField.setText(String.valueOf(originalRow.getMin()));
+        modifyProdMaxField.setText(String.valueOf(originalRow.getMax()));
     }
 }

@@ -44,6 +44,7 @@ public class Main extends Application {
     public static void main(String[] args) {
         initialPartsItems();
         initialProductItems();
+        System.out.println(Inventory.getAllParts().get(0).getMin());
         launch(args);
     }
 
