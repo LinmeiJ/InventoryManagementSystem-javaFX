@@ -17,7 +17,12 @@ import models.Inventory;
 import models.Outsourced;
 
 import java.io.IOException;
-
+/**
+ * This class provides the logics for the add Part scene
+ *
+ * @author  Linmei Mills
+ *
+ * */
 public class AddPartsSceneController {
     @FXML
     private Button saveBtn;
@@ -79,19 +84,17 @@ public class AddPartsSceneController {
     @FXML
     private Label invLabel;
 
-    public static final String COMPANY_NAME = "Company Name";
-    public static final String MACHINE_ID = "Machine ID";
+    private static final String COMPANY_NAME = "Company Name";
+    private static final String MACHINE_ID = "Machine ID";
 
+    /**This method saves a new part when user hits the save button.
+     User's inputs are evaluated before save it to the inventory.
+     Once the saved it to Inventory, this method also sets the scene to the Main scene
+     * @param actionEvent an event indicates a component-defined action occurred
+     * @throws IOException catch the exception when fxml file is not find when returning back to the Main scene
+     * */
     @FXML
-    void backToMainScene(ActionEvent event) throws IOException {
-        Parent main = FXMLLoader.load(new Main().getClass().getResource("fxml/mainScene.fxml"));
-        Scene scene = new Scene(main);
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        stage.setScene(scene);
-    }
-
-    @FXML
-    void savePart(ActionEvent actionEvent) throws IOException {
+    public void savePart(ActionEvent actionEvent) throws IOException {
         String name = "";
         int inv = 0;
         int max = 0;
@@ -110,8 +113,8 @@ public class AddPartsSceneController {
             if (!Validator.isInteger(minField.getText())) {
                 Validator.displayInvalidInput("Min needs to be an integer");
             }
-            if (Validator.isEmpty(dynamicField.getText())) {
-                Validator.displayInvalidInput("Machine ID can not be empty");
+            if (!Validator.isInteger(dynamicField.getText())) {
+                Validator.displayInvalidInput("Machine ID needs to be an integer");
             }
             if (Validator.isEmpty(nameField.getText())) {
                 Validator.displayInvalidInput("Name field can not be empty");
@@ -128,7 +131,7 @@ public class AddPartsSceneController {
                     Validator.displayInvalidLogic("Stock should not be greater than Max");
                 } else {
                     Inventory.addPart(new InHouse(Main.getUniquePartId(), name, price, inv, max, min, Integer.parseInt(dynamicField.getText())));
-                    returnBackToMainScene(actionEvent);
+                    backToMainScene(actionEvent);
                 }
             }
         }
@@ -146,9 +149,6 @@ public class AddPartsSceneController {
                 Validator.displayInvalidInput("Min needs to be an integer");
             }
             if (Validator.isEmpty(dynamicField.getText())) {
-                Validator.displayInvalidInput("Machine ID can not be empty");
-            }
-            if (Validator.isEmpty(dynamicField.getText())) {
                 Validator.displayInvalidInput("Company name cannot be empty");
             }
             if (Validator.isEmpty(nameField.getText())) {
@@ -163,25 +163,37 @@ public class AddPartsSceneController {
                     Validator.displayInvalidInput("Min can not be greater than Max");
                 } else {
                     Inventory.addPart(new Outsourced(Main.getUniquePartId(), name, price, inv, min, max, dynamicField.getText()));
-                    returnBackToMainScene(actionEvent);
+                    backToMainScene(actionEvent);
                 }
             }
         }
 
     }
 
-    public void returnBackToMainScene(ActionEvent actionEvent) throws IOException {
-        Parent parent = FXMLLoader.load(getClass().getResource("fxml/mainScene.fxml"));
-        Scene scene = new Scene(parent);
-        Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+    /**This method sets the scene to Main scene.
+     * @param event an event indicates a component-defined action occurred
+     * @throws IOException catch the exception when the fxml file is not found
+     * */
+    @FXML
+    public void backToMainScene(ActionEvent event) throws IOException {
+        Parent main = FXMLLoader.load(new Main().getClass().getResource("fxml/mainScene.fxml"));
+        Scene scene = new Scene(main);
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setScene(scene);
-        stage.show();
     }
 
+    /**
+     * This method sets the label to machine id when a user selects inHouse type part.
+     * @param actionEvent an event indicates a component-defined action occurred
+     * */
     public void addInHouseType(ActionEvent actionEvent) {
         MachineIdOrCompanylabel.setText(MACHINE_ID);
     }
 
+    /**
+     * This method sets the label to company name when a user selects outsourced type part.
+     * @param actionEvent an event indicates a component-defined action occurred
+     * */
     public void addOutsourcedType(ActionEvent actionEvent) {
         MachineIdOrCompanylabel.setText(COMPANY_NAME);
     }

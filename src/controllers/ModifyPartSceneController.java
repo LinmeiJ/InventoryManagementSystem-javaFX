@@ -21,6 +21,12 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+/**
+ * This class provides the logics for the modify Part scene
+ *
+ * @author  Linmei Mills
+ *
+ * */
 public class ModifyPartSceneController implements Initializable {
     @FXML
     private Button saveBtn;
@@ -30,9 +36,6 @@ public class ModifyPartSceneController implements Initializable {
 
     @FXML
     private RadioButton inHouseBtn;
-//
-//    @FXML
-//    private ToggleGroup addPartTg;
 
     @FXML
     private RadioButton outsourcedBtn;
@@ -62,29 +65,32 @@ public class ModifyPartSceneController implements Initializable {
     private TextField minField;
 
     private Part selectedRow;
-
     private final static String Machine_ID = "Machine ID";
     private final static String COMPANY_NAME = "Company Name";
 
-
+    /**
+     * This method sets a text field label to machine ID when it is a InHouse type part.
+     * @param event an event indicates a component-defined action occurred
+     */
     @FXML
-    void backToMainScene(ActionEvent event) throws IOException {
-        Parent main = FXMLLoader.load(new Main().getClass().getResource("fxml/mainScene.fxml"));
-        Scene scene = new Scene(main);
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        stage.setScene(scene);
-    }
-
-    @FXML
-    void modifyInHouseType(ActionEvent event) {
+    public void modifyInHouseType(ActionEvent event) {
         MachineIdOrCompanyLabel.setText(Machine_ID);
     }
 
+    /**
+     * This method sets a text field label to company name when it is a outsourced type part.
+     * @param event an event indicates a component-defined action occurred
+     */
     @FXML
     void modifyOutsourcedType(ActionEvent event) {
         MachineIdOrCompanyLabel.setText(COMPANY_NAME);
     }
 
+    /**
+     * This method saves modified part to inventory.
+     *
+     * @param event an event indicates a component-defined action occurred
+     */
     @FXML
     void savePart(ActionEvent event) throws IOException {
 
@@ -101,8 +107,8 @@ public class ModifyPartSceneController implements Initializable {
             if (!Validator.isInteger(minField.getText())) {
                 Validator.displayInvalidInput("Min needs to be an integer");
             }
-            if (Validator.isEmpty(dynamicField.getText())) {
-                Validator.displayInvalidInput("Machine ID can not be empty");
+            if (!Validator.isInteger(dynamicField.getText())) {
+                Validator.displayInvalidInput("Machine ID needs to be an integer");
             }
             if (Validator.isEmpty(nameField.getText())) {
                 Validator.displayInvalidInput("Name field can not be empty");
@@ -121,7 +127,7 @@ public class ModifyPartSceneController implements Initializable {
                     InHouse part = new InHouse(selectedRow.getId(), name, price, inv, max, min, Integer.parseInt(dynamicField.getText()));
                     int index = findIndex();
                     Inventory.updatePart(index, part);
-                    returnBackToMainScene(event);
+                    backToMainScene(event);
                 }
             }
         }
@@ -159,7 +165,7 @@ public class ModifyPartSceneController implements Initializable {
                     Outsourced part = new Outsourced(selectedRow.getId(), name, price, inv, max, min, dynamicField.getText());
                     int index = findIndex();
                     Inventory.updatePart(index, part);
-                    returnBackToMainScene(event);
+                    backToMainScene(event);
                 }
             }
         }
@@ -175,13 +181,28 @@ public class ModifyPartSceneController implements Initializable {
         return -1; //fix me for excepti
     }
 
-    public void returnBackToMainScene(ActionEvent actionEvent) throws IOException {
-        Parent parent = FXMLLoader.load(getClass().getResource("fxml/mainScene.fxml"));
-        Scene scene = new Scene(parent);
-        Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+//    public void returnBackToMainScene(ActionEvent actionEvent) throws IOException {
+//        Parent parent = FXMLLoader.load(getClass().getResource("fxml/mainScene.fxml"));
+//        Scene scene = new Scene(parent);
+//        Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+//        stage.setScene(scene);
+//        stage.show();
+//    }
+
+    /**
+     * This method sets current scene to main scene.
+     * @param event an event indicates a component-defined action occurred
+     * @throws IOException exception occur when the fxml file is not found
+     */
+    @FXML
+    public void backToMainScene(ActionEvent event) throws IOException {
+        Parent main = FXMLLoader.load(new Main().getClass().getResource("fxml/mainScene.fxml"));
+        Scene scene = new Scene(main);
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setScene(scene);
-        stage.show();
+
     }
+
 
     private boolean containMachineId() {
         return MachineIdOrCompanyLabel.getText().equalsIgnoreCase(Machine_ID);

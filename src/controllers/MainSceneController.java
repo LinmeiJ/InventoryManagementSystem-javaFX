@@ -98,16 +98,22 @@ public class MainSceneController implements Initializable {
     @FXML
     private Button prodDelete;
 
-    public static Part partSelectedRow; //when user select a row from part table, the result will be assigned in here.
-    public static Product productSelectedRow; //when user select a row from product table, the result will be assigned in ere
+    /**
+     * when user select a row from part table, the result will be assigned in here.
+     */
+    public static Part partSelectedRow;
 
+    /**
+     * when user select a row from product table, the result will be assigned in ere
+     */
+    public static Product productSelectedRow;
     /**
      * This method set add part UI where user can add the details of a part.
      * @param event an event indicates a component-defined action occurred
      * @throws IOException exception occur when the fxml file is not found
      * */
     @FXML
-    void addPartBtnClicked(ActionEvent event) throws IOException {
+    public void addPartBtnClicked(ActionEvent event) throws IOException {
         setScene(event,"fxml/addPartsScene.fxml");
     }
 
@@ -117,7 +123,7 @@ public class MainSceneController implements Initializable {
      * @param event an event indicates a component-defined action occurred
      * */
     @FXML
-    void exitBtnClicked(ActionEvent event) {
+    public void exitBtnClicked(ActionEvent event) {
         Stage stage = (Stage) exitId.getScene().getWindow();
         Validator.displayExitConfirmation();
         if(Validator.confirmResult.isPresent() && Validator.confirmResult.get() == ButtonType.OK){
@@ -133,7 +139,7 @@ public class MainSceneController implements Initializable {
      * @throws IOException catch the error when the modify fxml is not found.
      * */
     @FXML
-    void partModifyBtnClicked(ActionEvent event) throws IOException {
+    public void partModifyBtnClicked(ActionEvent event) throws IOException {
         partSelectedRow = partsTable.getSelectionModel().getSelectedItem();
         if(partSelectedRow == null)
             Validator.displayRowNotSelected();
@@ -146,10 +152,9 @@ public class MainSceneController implements Initializable {
      * This method delete a part item.
      It prompts a dialog window when no row is selected
      * @param event an event indicates a component-defined action occurred
-     * @throws IOException catch the error when the modify fxml is not found.
      * */
     @FXML
-    void partDeleteClicked(ActionEvent event) {
+    public void partDeleteClicked(ActionEvent event) {
         partSelectedRow = partsTable.getSelectionModel().getSelectedItem();
         if(partSelectedRow == null)
             Validator.displayRowNotSelected();
@@ -160,16 +165,16 @@ public class MainSceneController implements Initializable {
             Inventory.deletePart(partSelectedRow);
         }
     }
+
     /**
      * This method perform a search by user enter a part ID, a part name, or a partial part name.
      It based on user data to determine whether a user entered a integer or string.
      If it is a int, search by ID. otherwise, name search is performed.
      Display the result.
      * @param event an event indicates a component-defined action occurred
-     * @throws IOException catch the error when the modify fxml is not found.
      * */
     @FXML
-    void searchPartByIdOrName(KeyEvent event) {
+    public void searchPartByIdOrName(KeyEvent event) {
         if(isEntered(event) && isPartNumeric())
         {
             searchedPartById();
@@ -244,10 +249,9 @@ public class MainSceneController implements Initializable {
      If it is a int, search by ID. otherwise, name search is performed.
      Display the result
      * @param event an event indicates a component-defined action occurred
-     * @throws IOException catch the error when the modify fxml is not found.
      * */
     @FXML
-    void searchProductByIdOrName(KeyEvent event) {
+    public void searchProductByIdOrName(KeyEvent event) {
         if(isEntered(event) && isProdNumeric())
         {
             searchedProdById();
@@ -295,7 +299,7 @@ public class MainSceneController implements Initializable {
      * @throws IOException exception occur when the fxml file is not found
      * */
     @FXML
-    void addProdBtnClicked(ActionEvent event) throws IOException {
+    public void addProdBtnClicked(ActionEvent event) throws IOException {
         setScene(event,"fxml/addProductScene.fxml");
     }
 
@@ -306,7 +310,7 @@ public class MainSceneController implements Initializable {
      * @throws IOException exception occur when the fxml file is not found
      * */
     @FXML
-    void prodModifyBtnClicked(ActionEvent event) throws IOException {
+    public void prodModifyBtnClicked(ActionEvent event) throws IOException {
         productSelectedRow = productTable.getSelectionModel().getSelectedItem();
         if(productSelectedRow == null) {
             Validator.displayRowNotSelected();
@@ -322,7 +326,7 @@ public class MainSceneController implements Initializable {
      * @throws IOException exception occur when the fxml file is not found
      * */
     @FXML
-    void prodBtnDeleteClicked(ActionEvent event) throws IOException { // fix me, how to delete associated parts!!!!
+    public void prodBtnDeleteClicked(ActionEvent event) throws IOException { // fix me, how to delete associated parts!!!!
        Product productSelectedRow = productTable.getSelectionModel().getSelectedItem();
         Product prod = null;
 
@@ -372,7 +376,12 @@ public class MainSceneController implements Initializable {
         productTable.setItems(Inventory.getAllProducts());
     }
 
-    //set a scene based on this particular action and fxml path passed over to the params
+    /**
+     * set a scene based on this particular action and fxml path passed over to the params.
+     * @param event an event indicates a component-defined action occurred
+     * @param s the file path where the fxml is located at
+     * @throws IOException it happens when the fxml file is not found
+     */
     private void setScene(ActionEvent event, String s) throws IOException {
         Parent parent = FXMLLoader.load(getClass().getResource(s));
         var scene = new Scene(parent);

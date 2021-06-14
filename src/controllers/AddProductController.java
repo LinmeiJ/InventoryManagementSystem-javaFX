@@ -25,6 +25,12 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+/**
+ * This class provides the logics for the add product scene.
+ *
+ * @author  Linmei Mills
+ */
+/**add enhancement here!!!!!(fix me) such as if the user wants to add multiple product without going back to main scene, this is where the logs should be sit in*/
 public class AddProductController implements Initializable {
 
     @FXML
@@ -90,10 +96,16 @@ public class AddProductController implements Initializable {
     private Part selectedPartTableRow;
     private Part selectedAssociatedPart;
 
+    // stores all associated parts for products
     private ObservableList<Part> associatedParts = FXCollections.observableArrayList();
 
+    /**This method saves a new product when user hits the save button.
+     User's inputs are evaluated before save it to the inventory.
+     Once the saved it to Inventory, this method also sets the scene to the Main scene
+     * @param event an event indicates a component-defined action occurred
+     * */
     @FXML
-    void addPartToProdClicked(ActionEvent event) {
+    public void addPartToProdClicked(ActionEvent event) {
         Part selectedPartTableRow = partTable.getSelectionModel().getSelectedItem();
         if (selectedPartTableRow == null) {
             Validator.displayRowNotSelected();
@@ -103,22 +115,23 @@ public class AddProductController implements Initializable {
         }
     }
 
-//    private boolean isExist(Part selectedPartTableRow) {
-//        for(int i = 0; i < associatedParts.size(); i++){
-//            if(associatedParts.get(i).getId() == selectedPartTableRow.getId()){
-//                return true;
-//            }
-//        }
-//        return false;
-//    }
-
+    /**
+     * This method sets the Main scene when a user hits the cancel button.
+     * @param event an event indicates a component-defined action occurred
+     * @throws IOException catch the exception when the fxml file for main scene is not found
+     * */
     @FXML
-    void cancelBtnClicked(ActionEvent event) throws IOException {
+    public void cancelBtnClicked(ActionEvent event) throws IOException {
         returnBackToMainScene(event);
     }
 
+    /**
+     * This method removes a associated part from the associated table view.
+     When a selected row is not found, display a dialog window to ask user to select a row.
+     * @param event an event indicates a component-defined action occurred
+     * */
     @FXML
-    void removePartFromProdClicked(ActionEvent event) {
+    public void removePartFromProdClicked(ActionEvent event) {
         Part selectedAssocPart = associatedPartTable.getSelectionModel().getSelectedItem();
         if (selectedAssocPart == null) {
             Validator.displayRowNotSelected();
@@ -132,8 +145,15 @@ public class AddProductController implements Initializable {
         }
     }
 
+    /**
+     * This method saves a new product to Inventory.
+     It checks the user's inputs before saving to the inventory. Once the new product is saved,
+     return the screen back to Main scene.
+     * @param event an event indicates a component-defined action occurred
+     * @throws IOException catch the exception when the main scene fxml file is not find
+     * */
     @FXML
-    void saveProdClicked(ActionEvent event) throws IOException {
+    public void saveProdClicked(ActionEvent event) throws IOException {
         if (Validator.isEmpty(productNameField.getText())) {
             Validator.displayInvalidInput("Name field can not be empty");
         }
@@ -171,6 +191,10 @@ public class AddProductController implements Initializable {
         }
     }
 
+    /**This method sets the scene to Main scene.
+     * @param actionEvent an event indicates a component-defined action occurred
+     * @throws IOException catch the exception when the fxml file is not found
+     * */
     public void returnBackToMainScene(ActionEvent actionEvent) throws IOException {
         Parent parent = FXMLLoader.load(getClass().getResource("fxml/mainScene.fxml"));
         Scene scene = new Scene(parent);
@@ -179,8 +203,15 @@ public class AddProductController implements Initializable {
         stage.show();
     }
 
+    /**
+     * This method perform a search by user enter a part ID, a part name, or a partial part name.
+     It based on user data to determine whether a user entered an integer or a string.
+     If it is a int, search by ID. otherwise, name search is performed.
+     Display the result in the tableview.
+     * @param event an event indicates a component-defined action occurred
+     * */
     @FXML
-    void searchBtnEntered(KeyEvent event) {
+    public void searchBtnEntered(KeyEvent event) {
         if (isEntered(event) && isPartNumeric()) {
             searchedPartById();
         } else if (isEntered(event) && isPartString()) {
@@ -190,10 +221,12 @@ public class AddProductController implements Initializable {
         }
     }
 
+    //check the key event whether the user hits the enter key
     private boolean isEntered(KeyEvent event) {
         return event.getCode().equals(KeyCode.ENTER);
     }
 
+    //search the part by name from Inventory. when part is not found, display a not found dialog window
     private void searchedPartByName() {
         ObservableList result = Inventory.lookupPart(partSearchField.getText());
         if (result.size() > 0) {
@@ -201,6 +234,7 @@ public class AddProductController implements Initializable {
         } else Validator.displayPartNotFound();
     }
 
+    //search the part by ID. if not found, displays a not fund dialog window to user, otherwise display the result
     private void searchedPartById() {
         var part = Inventory.lookupPart(Integer.parseInt(partSearchField.getText()));
         if (part == null) {
@@ -212,15 +246,22 @@ public class AddProductController implements Initializable {
         }
     }
 
+    //check the search entry whether is a string
     private boolean isPartString() {
         return partSearchField.getText() != null && partSearchField.getText().matches("^[a-zA-Z\\s]*$");
     }
 
+    //check the search entry whether is a digit
     private boolean isPartNumeric() {
         return partSearchField != null && partSearchField.getText().matches("^[0-9]*$");
     }
 
 
+    /**
+     * This method gets all parts from inventory and displays it on the scene.
+     * @param url It is a location used to resolve relative paths for the root project, or null if the location is null
+     * @param resourceBundle The resource used to localize the root project, or null if the root object was not located
+     * */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         partId.setCellValueFactory(new PropertyValueFactory<>("id"));

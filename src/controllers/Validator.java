@@ -2,35 +2,65 @@ package controllers;
 
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
-
 import java.util.Optional;
 
+/**
+ * This class contains the logics for validating user's inputs and message alerts when the required inputs are invalid.
+ *
+ * @author Linmei Mills
+ */
 public class Validator {
-    public static Optional<ButtonType> confirmResult;
-    private static Alert infoAlert = new Alert(Alert.AlertType.INFORMATION);
-    private static Alert confirmAlert = new Alert(Alert.AlertType.CONFIRMATION);
-    private static Alert errorAlert = new Alert(Alert.AlertType.ERROR);
-    private static int min;
-    private static int max;
 
+    /**
+     * An optional button type window to confirm user's action
+     */
+    public static Optional<ButtonType> confirmResult;
+
+    /**
+     * An alert object to display info to user to the user
+     */
+    private static Alert infoAlert = new Alert(Alert.AlertType.INFORMATION);
+
+    /**
+     * An alert object to display a confirmation to a user
+     */
+    private static Alert confirmAlert = new Alert(Alert.AlertType.CONFIRMATION);
+
+    /**
+     * An alert to display an error message
+     */
+    private static Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+
+    /**
+     * This method generates a part not found dialog window to the end user
+     */
     public static void displayPartNotFound() {
         infoAlert.setTitle("Information");
         infoAlert.setHeaderText("Part is not found");
         infoAlert.showAndWait();
     }
 
+    /**
+     * This method generates a product not found dialog window to the end user
+     */
     public static void displayProdNotFound() {
         infoAlert.setTitle("Information");
         infoAlert.setHeaderText("Product is not found");
         infoAlert.showAndWait();
     }
 
+    /**
+     * This method generates a row is not selected dialog window to the end user
+     */
     public static void displayRowNotSelected() {
         infoAlert.setTitle("Information");
         infoAlert.setHeaderText("Please select a row");
         infoAlert.showAndWait();
     }
 
+    /**
+     * This method generates a reminder that a product cannot be deleted before it's parts still associated with
+     */
     public static void displayRemoveParts() {
         errorAlert.setTitle("Error");
         errorAlert.setHeaderText("Product has parts");
@@ -38,20 +68,21 @@ public class Validator {
         errorAlert.showAndWait();
     }
 
+    /**
+     * This method generates a message to confirm whether the end user want to delete a selected item
+     */
     public static void displayDeleteConfirmation() {
         confirmAlert.setTitle("Parts");
         confirmAlert.setHeaderText("Delete");
-        confirmAlert.setContentText("Are you sure you want to delete this part?");
+        confirmAlert.setContentText("Are you sure you want to delete it?");
         confirmResult = confirmAlert.showAndWait();
     }
 
-    public static boolean areValidateInputs(String name, String inv, String price, String max, String min) {
-        if ((isEmpty(name) && isInteger(inv) && isDouble(price) && isInteger(max) && isInteger(min))) {
-            return true;
-        }
-        return false;
-    }
-
+    /**
+     * This method checks whether an input is a double type
+     * @param input user's input
+     * @return boolean
+     */
     public static boolean isDouble(String input) {
         boolean isValid = false;
         try {

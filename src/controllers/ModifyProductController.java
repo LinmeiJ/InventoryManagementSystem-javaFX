@@ -198,7 +198,7 @@ public class ModifyProductController implements Initializable, Cloneable {
                 for (Part part : associatedParts) {
                     prod.addAssociatedPart(part);
                 }
-                Inventory.updateProdcut(index, prod);
+                Inventory.updateProduct(index, prod);
                 returnBackToMainScene(event);
             }
         }

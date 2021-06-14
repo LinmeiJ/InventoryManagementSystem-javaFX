@@ -28,7 +28,7 @@ public class Main extends Application {
     /**This method is a main entry point for all JavaFX application.
      it creates the main/first scene
      * @param primaryStage it helps with set the application scene
-     * @throws Exception throws an IOException
+     * @throws Exception the mainScene file is not found
      * */
     @Override
     public void start(Stage primaryStage) throws Exception{
