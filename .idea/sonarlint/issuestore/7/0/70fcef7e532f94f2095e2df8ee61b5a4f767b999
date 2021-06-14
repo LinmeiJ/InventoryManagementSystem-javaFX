@@ -1,0 +1,12 @@
+
+]	java:S125j"<This block of commented-out lines of code should be removed.(Éá¸ýÿÿÿÿ8ÔÞ‹› /
+\
+java:S1068[":Remove this unused "selectedAssociatedPart" private field.(Š®Ååøÿÿÿÿ8¼ËË™ /
+e
+java:S1117a"HRename "selectedPartTableRow" which hides the field declared at line 90.(µ´›8‹€î™ /
+Z
+java:S1068Z"8Remove this unused "selectedPartTableRow" private field.(–Œ¹Àùÿÿÿÿ8‹€î™ /
+a
+java:S1155Ç">Use isEmpty() to check whether the collection is empty or not.(è§¼Ìûÿÿÿÿ8Àî²¡ /
+R
+java:S3740Æ"/Provide the parametrized type for this generic.(½ó¸¶ùÿÿÿÿ8Àî²¡ /

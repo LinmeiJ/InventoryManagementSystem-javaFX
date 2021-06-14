@@ -27,6 +27,12 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+/** This class contains all the logics to create the Main Scene UI.
+ It contains two tables(Parts and Product); allows user to search, add, modify or delete a part or a product.
+ *
+ * @author Linmei Mills
+ *
+ * */
 public class MainSceneController implements Initializable {
 
     @FXML
@@ -92,21 +98,40 @@ public class MainSceneController implements Initializable {
     @FXML
     private Button prodDelete;
 
-    public static Part partSelectedRow;
-    public static Product productSelectedRow;
+    public static Part partSelectedRow; //when user select a row from part table, the result will be assigned in here.
+    public static Product productSelectedRow; //when user select a row from product table, the result will be assigned in ere
 
-
+    /**
+     * This method set add part UI where user can add the details of a part.
+     * @param event an event indicates a component-defined action occurred
+     * @throws IOException exception occur when the fxml file is not found
+     * */
     @FXML
     void addPartBtnClicked(ActionEvent event) throws IOException {
         setScene(event,"fxml/addPartsScene.fxml");
     }
 
+    /**
+     * This method closes the the program.
+     It prompts a dialog window to ensure whether a user wants to exit.
+     * @param event an event indicates a component-defined action occurred
+     * */
     @FXML
     void exitBtnClicked(ActionEvent event) {
         Stage stage = (Stage) exitId.getScene().getWindow();
-        stage.close();
+        Validator.displayExitConfirmation();
+        if(Validator.confirmResult.isPresent() && Validator.confirmResult.get() == ButtonType.OK){
+            Inventory.deletePart(partSelectedRow);
+            stage.close();
+        }
     }
 
+    /**
+     * This method set a modify UI for user to modify her/his selected part item.
+     It prompts a dialog window when no row is selected
+     * @param event an event indicates a component-defined action occurred
+     * @throws IOException catch the error when the modify fxml is not found.
+     * */
     @FXML
     void partModifyBtnClicked(ActionEvent event) throws IOException {
         partSelectedRow = partsTable.getSelectionModel().getSelectedItem();
@@ -117,6 +142,12 @@ public class MainSceneController implements Initializable {
             setScene(event, "fxml/modifyPartsScene.fxml");
     }
 
+    /**
+     * This method delete a part item.
+     It prompts a dialog window when no row is selected
+     * @param event an event indicates a component-defined action occurred
+     * @throws IOException catch the error when the modify fxml is not found.
+     * */
     @FXML
     void partDeleteClicked(ActionEvent event) {
         partSelectedRow = partsTable.getSelectionModel().getSelectedItem();
@@ -125,10 +156,18 @@ public class MainSceneController implements Initializable {
         else Validator.displayDeleteConfirmation();
         if(Validator.confirmResult.isPresent() && Validator.confirmResult.get() == ButtonType.OK){
             Inventory.deletePart(partSelectedRow);
+        }if(Validator.confirmResult.isPresent() && Validator.confirmResult.get() == ButtonType.OK){
+            Inventory.deletePart(partSelectedRow);
         }
     }
-
-
+    /**
+     * This method perform a search by user enter a part ID, a part name, or a partial part name.
+     It based on user data to determine whether a user entered a integer or string.
+     If it is a int, search by ID. otherwise, name search is performed.
+     Display the result.
+     * @param event an event indicates a component-defined action occurred
+     * @throws IOException catch the error when the modify fxml is not found.
+     * */
     @FXML
     void searchPartByIdOrName(KeyEvent event) {
         if(isEntered(event) && isPartNumeric())
@@ -143,10 +182,17 @@ public class MainSceneController implements Initializable {
         }
     }
 
+    /**
+     * This method checks whether the key is entered with a enter key
+     * */
     private boolean isEntered(KeyEvent event){
         return event.getCode().equals(KeyCode.ENTER);
     }
 
+    /**
+     * this method contains logic to lookup the part by name from Inventory.
+     * If nothing find, display a dialog window with not found message
+     * */
     private void searchedPartByName() {
         ObservableList result = Inventory.lookupPart(searchPartField.getText());
         if(result.size() > 0){
@@ -155,6 +201,10 @@ public class MainSceneController implements Initializable {
         else Validator.displayPartNotFound();
     }
 
+    /**
+     * this method contains logic to lookup the part by ID from Inventory.
+     * If nothing find, display a dialog window with not found message
+     * */
     private void searchedPartById() {
         var part = Inventory.lookupPart(Integer.parseInt(searchPartField.getText()));
         if(part == null) {
@@ -167,23 +217,35 @@ public class MainSceneController implements Initializable {
         }
     }
 
+    //This method checks whether the search text entered by user is a string for Part
     private boolean isPartString() {
         return searchPartField.getText() != null && searchPartField.getText().matches("^[a-zA-Z\\s]*$");
     }
 
+    //This method checks whether the search text entered by user is a number for Part
     private boolean isPartNumeric(){
         return searchPartField != null && searchPartField.getText().matches("^[0-9]*$");
     }
 
+    //This method checks whether the search text entered by user is a string for Product
     private boolean isProdString() {
         return searchProductField.getText() != null && searchProductField.getText().matches("^[a-zA-Z\\s]*$");
     }
 
+    //This method checks whether the search text entered by user is a number for Product
     private boolean isProdNumeric(){
         return searchProductField != null && searchProductField.getText().matches("^[0-9]*$");
     }
 
 
+    /**
+     * This method perform a search by user enter a product ID, a product name, or a partial product name.
+     It based on user data to determine whether a user entered a integer or string.
+     If it is a int, search by ID. otherwise, name search is performed.
+     Display the result
+     * @param event an event indicates a component-defined action occurred
+     * @throws IOException catch the error when the modify fxml is not found.
+     * */
     @FXML
     void searchProductByIdOrName(KeyEvent event) {
         if(isEntered(event) && isProdNumeric())
@@ -198,6 +260,11 @@ public class MainSceneController implements Initializable {
         }
     }
 
+    /**
+     * This method performs the logic to search the product name based on user entry
+     * displays the result if it is found.
+     * otherwise, display a dialog window says product is not found
+     * */
     private void searchedProdByName() {
         ObservableList result = Inventory.lookupProduct(searchProductField.getText());
         if(result.size() > 0){
@@ -206,6 +273,10 @@ public class MainSceneController implements Initializable {
         else Validator.displayProdNotFound();
     }
 
+    /**
+     * This method performs the logic to search the product ID based on user entry
+     * displays the result if it is found.
+     * otherwise, display a dialog window says product is not found*/
     private void searchedProdById() {
         var prod = Inventory.lookupProduct(Integer.parseInt(searchProductField.getText()));
         if(prod == null) {
@@ -218,13 +289,22 @@ public class MainSceneController implements Initializable {
         }
     }
 
-
-
+    /**
+     * This method sets add a product UI where a user can add the details of a product.
+     * @param event an event indicates a component-defined action occurred
+     * @throws IOException exception occur when the fxml file is not found
+     * */
     @FXML
     void addProdBtnClicked(ActionEvent event) throws IOException {
         setScene(event,"fxml/addProductScene.fxml");
     }
 
+    /**
+     * This method sets modify a product UI where a user can modify a selected product.
+     If no product is selected, displays a dialog window to remind user to select one.
+     * @param event an event indicates a component-defined action occurred
+     * @throws IOException exception occur when the fxml file is not found
+     * */
     @FXML
     void prodModifyBtnClicked(ActionEvent event) throws IOException {
         productSelectedRow = productTable.getSelectionModel().getSelectedItem();
@@ -235,6 +315,12 @@ public class MainSceneController implements Initializable {
 
     }
 
+    /**
+     * This method performs a deletion action based on a product is selected by user.
+     * it prompts user to delete the product associated parts if this product contains parts
+     * @param event an event indicates a component-defined action occurred
+     * @throws IOException exception occur when the fxml file is not found
+     * */
     @FXML
     void prodBtnDeleteClicked(ActionEvent event) throws IOException { // fix me, how to delete associated parts!!!!
        Product productSelectedRow = productTable.getSelectionModel().getSelectedItem();
@@ -261,10 +347,16 @@ public class MainSceneController implements Initializable {
         }
     }
 
+    //check whether the product user selected contains parts
     private boolean hasParts(Product prod) {
        return prod.getAllAssociatedParts().size() > 0;
     }
 
+    /**
+     * This methods is called to initialize a controller after its root element has been completely processed.
+     * @param url It is a location used to resolve relative paths for the root project, or null if the location is null
+     * @param resourceBundle The resource used to localize the root project, or null if the root object was not located
+     * */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         partId.setCellValueFactory(new PropertyValueFactory<>("id"));
@@ -280,6 +372,7 @@ public class MainSceneController implements Initializable {
         productTable.setItems(Inventory.getAllProducts());
     }
 
+    //set a scene based on this particular action and fxml path passed over to the params
     private void setScene(ActionEvent event, String s) throws IOException {
         Parent parent = FXMLLoader.load(getClass().getResource(s));
         var scene = new Scene(parent);

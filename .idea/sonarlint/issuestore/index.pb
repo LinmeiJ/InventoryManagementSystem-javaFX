@@ -7,8 +7,6 @@ S
 #src/controllers/fxml/mainScene.fxml,1\c\1ce89769fc294e3d50d428f00d7dbdf0aabade01
 I
 src/controllers/Main.java,e\f\ef241b6ab8ee35b472ca1368a3ef9c8ac0878beb
-P
- src/controllers/CommonAlert.java,4\7\4752771383b2749ba73667c2f74c37b7c6a7436b
 G
 src/models/Product.java,2\8\286ad2c06584ab752f1180be74d78ec9aadb65cf
 G
@@ -27,3 +25,17 @@ I
 ,src/controllers/AddPartsSceneController.java,2\c\2ce7f9f1ac0334a69b8394dca566494b532d8622
 ^
 .src/controllers/modifyPartSceneController.java,6\0\605ce27008c023b05cd046587b9cd65203f15b05
+\
+,src/controllers/fxml/modifyProductScene.fxml,f\b\fb156a55be998ba6f8f2a6b07f9166128fee5766
+Y
+)src/controllers/fxml/addProductScene.fxml,8\4\845f749075a166fb78a1fe4679e03cd84fdad8b0
+>
+src/.gitignore,9\3\93cbdd0973c9a7b59e5cef90a94300ab95fd66e5
+N
+src/controllers/Validator.java,2\a\2af94f95087f3f5ddafc652b3a32fb974a5152bc
+^
+.src/controllers/ModifyPartSceneController.java,c\b\cba03fb39afdf85b11bf7552bfdafcf641d15a2e
+\
+,src/controllers/ModifyProductController.java,2\e\2e3b50e17a776bb06224f1a157b97473442d1e75
+Y
+)src/controllers/AddProductController.java,7\0\70fcef7e532f94f2095e2df8ee61b5a4f767b999

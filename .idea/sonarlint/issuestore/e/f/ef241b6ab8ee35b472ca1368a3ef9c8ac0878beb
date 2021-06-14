@@ -1,15 +1,19 @@
 
 p
-java:S1104"SMake partUId a static final constant or non-public and provide accessors if needed.(é†Òè8…›¤´Ÿ/
+java:S1104"SMake prodUId a static final constant or non-public and provide accessors if needed.(Êş³8…›¤´Ÿ/
+E
+java:S1128"(Remove this unused import 'models.Part'.(©ÄíÚ8’¶ĞğŸ/
 J
-java:S1444"-Make this "public static partUId" field final(é†Òè8…›¤´Ÿ/
+java:S1444"-Make this "public static partUId" field final(é†Òè8…›¤´Ÿ/
 W
-java:S1128"5Remove this unused import 'java.util.ResourceBundle'.(ıÆ£¯øÿÿÿÿ8¾îïÂŸ/
+java:S1128"5Remove this unused import 'java.util.ResourceBundle'.(ıÆ£¯øÿÿÿÿ8¾îïÂŸ/
 J
-java:S1444"-Make this "public static prodUId" field final(Êş³8…›¤´Ÿ/
+java:S1444"-Make this "public static prodUId" field final(Êş³8…›¤´Ÿ/
 p
-java:S1104"SMake prodUId a static final constant or non-public and provide accessors if needed.(Êş³8…›¤´Ÿ/
+java:S1104"SMake partUId a static final constant or non-public and provide accessors if needed.(é†Òè8…›¤´Ÿ/
 h
-java:S1128"KRemove this unused import 'javafx.scene.control.cell.PropertyValueFactory'.(àÎ¬õ8¾îïÂŸ/
+java:S1128"KRemove this unused import 'javafx.scene.control.cell.PropertyValueFactory'.(àÎ¬õ8¾îïÂŸ/
+S
+java:S1128"6Remove this unused import 'javafx.fxml.Initializable'.(™ÎùÆ8á™õñŸ/
 K
-java:S1128")Remove this unused import 'java.net.URL'.(ñìÁ„üÿÿÿÿ8¾îïÂŸ/
+java:S1128")Remove this unused import 'java.net.URL'.(ñìÁ„üÿÿÿÿ8¾îïÂŸ/

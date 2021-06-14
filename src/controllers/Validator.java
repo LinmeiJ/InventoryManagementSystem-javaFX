@@ -38,39 +38,6 @@ public class Validator {
         errorAlert.showAndWait();
     }
 
-//    public static void displayInvalidInput(String name, String inv, String price, String max, String min) {
-//        if ((isNotEmpty(name) == false && isInteger(inv) == false && isDouble(price) == false && isInteger(max) == false && isInteger(min) == false)) {
-//            errorAlert.setTitle("Error");
-//            errorAlert.setHeaderText("Fields input are incorrect");
-//            errorAlert.setContentText("Exception: No data found in the name field; Inventory(Inv) is not an integer; Price is not a double; Max is not an integer; Min is not an integer");
-//            errorAlert.showAndWait();
-//        }
-//        if ((isNotEmpty(name) == true && isInteger(inv) == false && isDouble(price) == false && isInteger(max) == false && isInteger(min) == false)) {
-//            errorAlert.setTitle("Error");
-//            errorAlert.setHeaderText("Fields input are incorrect");
-//            errorAlert.setContentText("Exception: Inventory(Inv) is not an integer; Price is not a double; Max is not an integer; Min is not an integer");
-//            errorAlert.showAndWait();
-//        }
-//        if ((isNotEmpty(name) == true && isInteger(inv) == true && isDouble(price) == false && isInteger(max) == false && isInteger(min) == false)) {
-//            errorAlert.setTitle("Error");
-//            errorAlert.setHeaderText("Fields input are incorrect");
-//            errorAlert.setContentText("Exception: Price is not a double; Max is not an integer; Min is not an integer");
-//            errorAlert.showAndWait();
-//        }
-//        if ((isNotEmpty(name) == true && isInteger(inv) == true && isDouble(price) == true && isInteger(max) == false && isInteger(min) == false)) {
-//            errorAlert.setTitle("Error");
-//            errorAlert.setHeaderText("Fields input are incorrect");
-//            errorAlert.setContentText("Exception: Max is not an integer; Min is not an integer");
-//            errorAlert.showAndWait();
-//        }
-//        if ((isNotEmpty(name) == true && isInteger(inv) == true && isDouble(price) == true && isInteger(max) == true && isInteger(min) == false)) {
-//            errorAlert.setTitle("Error");
-//            errorAlert.setHeaderText("Input for Min is incorrect");
-//            errorAlert.setContentText("Exception: Min is not an integer");
-//            errorAlert.showAndWait();
-//        }
-//    }
-
     public static void displayDeleteConfirmation() {
         confirmAlert.setTitle("Parts");
         confirmAlert.setHeaderText("Delete");
@@ -136,5 +103,12 @@ public class Validator {
         errorAlert.setHeaderText("Logic Error Occurs");
         errorAlert.setContentText(msg);
         errorAlert.showAndWait();
+    }
+
+    public static void displayExitConfirmation() {
+        confirmAlert.setTitle("Exit");
+        confirmAlert.setHeaderText("Close the program");
+        confirmAlert.setContentText("Are you sure you want to close the program?");
+        confirmResult = confirmAlert.showAndWait();
     }
 }

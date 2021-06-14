@@ -1,0 +1,9 @@
+
+\
+java:S2133β">Remove this object instantiation and use "Main.class" instead.(ά―“†8Ός› /
+`
+java:S1155r">Use isEmpty() to check whether the collection is empty or not.(θ§ΌΜϋÿÿÿÿ8―εντ/
+G
+java:S2157"%Add a "clone()" method to this class.(αΤ›ωωÿÿÿÿ8°ΓÒ /
+Q
+java:S3740q"/Provide the parametrized type for this generic.(½σΈ¶ωÿÿÿÿ8―εντ/

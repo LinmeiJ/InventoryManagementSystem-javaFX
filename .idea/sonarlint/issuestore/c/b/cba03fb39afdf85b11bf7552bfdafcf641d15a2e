@@ -1,0 +1,12 @@
+
+{	java:S115B"ZRename this constant name to match the regular expression '^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$'.(§•Òòùÿÿÿÿ8¸‹³ÄŸ/
+~	java:S116)"bRename this field "MachineIdOrCompanyLabel" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(°ßõ¾8™×æçŸ/
+X	java:S125#"<This block of commented-out lines of code should be removed.(Ÿ“®Ã8’ÊèçŸ/
+t
+java:S3776Y"RRefactor this method to reduce its Cognitive Complexity from 42 to the 15 allowed.(×û°¤ùÿÿÿÿ8ãªÿ¡ /
+`
+java:S2133H">Remove this object instantiation and use "Main.class" instead.(ªÕà«ÿÿÿÿÿ8íÒ¯ÆŸ/
+g
+java:S1124C"EReorder the modifiers to comply with the Java Language Specification.(É±¾Èýÿÿÿÿ8¸‹³ÄŸ/
+g
+java:S1124B"EReorder the modifiers to comply with the Java Language Specification.(§•Òòùÿÿÿÿ8¸‹³ÄŸ/

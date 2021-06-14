@@ -1,7 +1,5 @@
 
-N
-java:S1068"3Remove this unused "associatedParts" private field.(¼ƒëéøÿÿÿÿ
-X
-java:S1172Z"=Remove this unused method parameter "selectedAssociatedPart".(¹ˆĞ•úÿÿÿÿ
-œ
-java:S1186V"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(ç¹¹âÿÿÿÿÿ
+M
+java:S1128"+Remove this unused import 'java.util.List'.(Õë±Äøÿÿÿÿ8ÓÏ… /
+M
+java:S1128"0Remove this unused import 'java.util.ArrayList'.(÷‰îƒ8ÓÏ… /
