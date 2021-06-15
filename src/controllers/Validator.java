@@ -2,6 +2,7 @@ package controllers;
 
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
+
 import java.util.Optional;
 
 /**
@@ -80,6 +81,7 @@ public class Validator {
 
     /**
      * This method checks whether an input is a double type.
+     *
      * @param input user's input
      * @return boolean
      */
@@ -96,6 +98,7 @@ public class Validator {
 
     /**
      * This method checks whether an user's input is an integer.
+     *
      * @param input input from the end user
      * @return whether is a integer
      */
@@ -112,6 +115,7 @@ public class Validator {
 
     /**
      * This method checks whether an user's input is empty.
+     *
      * @param input input from the end user
      * @return whether is a an empty string
      */
@@ -126,6 +130,7 @@ public class Validator {
 
     /**
      * This method sets an error alert that displays to the end user.
+     *
      * @param msg the message puts in the content of the alert dialog
      */
     public static void displayInvalidInput(String msg) {
@@ -147,6 +152,7 @@ public class Validator {
 
     /**
      * This method sets an error alert that display to the end user based on the message passed in.
+     *
      * @param msg a message will be used for setting up the alert text content
      */
     public static void displayError(String msg) {

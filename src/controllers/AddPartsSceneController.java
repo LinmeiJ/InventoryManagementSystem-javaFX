@@ -14,12 +14,12 @@ import models.Inventory;
 import models.Outsourced;
 
 import java.io.IOException;
+
 /**
  * This class provides the logics for the add Part scene
  *
- * @author  Linmei Mills
- *
- * */
+ * @author Linmei Mills
+ */
 public class AddPartsSceneController {
     @FXML
     private Label MachineIdOrCompanyLabel;
@@ -45,12 +45,14 @@ public class AddPartsSceneController {
 //    private static final String COMPANY_NAME = "Company Name";
 //    private static final String MACHINE_ID = "Machine ID";
 
-    /**This method saves a new part when user hits the save button.
-     User's inputs are evaluated before save it to the inventory.
-     Once the saved it to Inventory, this method also sets the scene to the Main scene
+    /**
+     * This method saves a new part when user hits the save button.
+     * User's inputs are evaluated before save it to the inventory.
+     * Once the saved it to Inventory, this method also sets the scene to the Main scene
+     *
      * @param actionEvent an event indicates a component-defined action occurred
      * @throws IOException catch the exception when fxml file is not find when returning back to the Main scene
-     * */
+     */
     @FXML
     public void savePart(ActionEvent actionEvent) throws IOException {
         String name = "";
@@ -59,7 +61,7 @@ public class AddPartsSceneController {
         int min = 0;
         double price = 0;
         if (MachineIdOrCompanyLabel.getText().equalsIgnoreCase("Machine ID")) {
-            if(!areValidInputs(Validator.isInteger(dynamicField.getText()))){
+            if (!areValidInputs(Validator.isInteger(dynamicField.getText()))) {
                 Validator.displayInvalidInput("Exception: Name can not be empty\n Price needs to be double\n Inv, Max, Min and Machine ID need to be integers");
             } else {
                 name = nameField.getText();
@@ -68,26 +70,26 @@ public class AddPartsSceneController {
                 max = Integer.parseInt(maxField.getText());
                 min = Integer.parseInt(minField.getText());
 
-                if(!(inv <= max && min <= max && inv >= min)){
+                if (!(inv <= max && min <= max && inv >= min)) {
                     Validator.displayError("Note: Inv value has to be between min and Man / Min can not be greater than max");
-                }else {
+                } else {
                     Inventory.addPart(new InHouse(Main.getUniquePartId(), name, price, inv, min, max, Integer.parseInt(dynamicField.getText())));
                     backToMainScene(actionEvent);
                 }
             }
         }
         if (MachineIdOrCompanyLabel.getText().equalsIgnoreCase("Company Name")) {
-            if(!areValidInputs(!Validator.isEmpty(dynamicField.getText()))){
-                    Validator.displayInvalidInput("Exception: Name and Company Name can not be empty\n Price needs to be double\n Inv, Max, and Min need to be integers");
+            if (!areValidInputs(!Validator.isEmpty(dynamicField.getText()))) {
+                Validator.displayInvalidInput("Exception: Name and Company Name can not be empty\n Price needs to be double\n Inv, Max, and Min need to be integers");
             } else {
                 name = nameField.getText();
                 inv = Integer.parseInt(invField.getText());
                 price = Double.parseDouble(priceField.getText());
                 max = Integer.parseInt(maxField.getText());
-                min= Integer.parseInt(minField.getText());
-                if(!(inv <= max && min <= max && inv >= min)){
+                min = Integer.parseInt(minField.getText());
+                if (!(inv <= max && min <= max && inv >= min)) {
                     Validator.displayError("Note: Inv value has to be between min and Man / Min can not be greater than max");
-                }else {
+                } else {
                     Inventory.addPart(new Outsourced(Main.getUniquePartId(), name, price, inv, min, max, dynamicField.getText()));
                     backToMainScene(actionEvent);
                 }
@@ -96,10 +98,12 @@ public class AddPartsSceneController {
 
     }
 
-    /**This method sets the scene to Main scene.
+    /**
+     * This method sets the scene to Main scene.
+     *
      * @param event an event indicates a component-defined action occurred
      * @throws IOException catch the exception when the fxml file is not found
-     * */
+     */
     @FXML
     public void backToMainScene(ActionEvent event) throws IOException {
         Parent main = FXMLLoader.load(new Main().getClass().getResource("fxml/mainScene.fxml"));
@@ -110,16 +114,18 @@ public class AddPartsSceneController {
 
     /**
      * This method sets the label to machine id when a user selects inHouse type part.
+     *
      * @param actionEvent an event indicates a component-defined action occurred
-     * */
+     */
     public void addInHouseType(ActionEvent actionEvent) {
         MachineIdOrCompanyLabel.setText("Machine ID");
     }
 
     /**
      * This method sets the label to company name when a user selects outsourced type part.
+     *
      * @param actionEvent an event indicates a component-defined action occurred
-     * */
+     */
     public void addOutsourcedType(ActionEvent actionEvent) {
         MachineIdOrCompanyLabel.setText("Company Name");
     }

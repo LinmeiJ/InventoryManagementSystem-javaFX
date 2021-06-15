@@ -23,9 +23,8 @@ import java.util.ResourceBundle;
 /**
  * This class provides the logics for the modify Part scene
  *
- * @author  Linmei Mills
- *
- * */
+ * @author Linmei Mills
+ */
 public class ModifyPartSceneController implements Initializable {
     @FXML
     private RadioButton inHouseBtn;
@@ -61,6 +60,7 @@ public class ModifyPartSceneController implements Initializable {
 
     /**
      * This method sets a text field label to machine ID when it is a InHouse type part.
+     *
      * @param event an event indicates a component-defined action occurred
      */
     @FXML
@@ -70,6 +70,7 @@ public class ModifyPartSceneController implements Initializable {
 
     /**
      * This method sets a text field label to company name when it is a outsourced type part.
+     *
      * @param event an event indicates a component-defined action occurred
      */
     @FXML
@@ -79,6 +80,7 @@ public class ModifyPartSceneController implements Initializable {
 
     /**
      * This method saves modified part to inventory.
+     *
      * @param event an event indicates a component-defined action occurred
      * @throws IOException exception occur when the fxml file is not found
      */
@@ -86,7 +88,7 @@ public class ModifyPartSceneController implements Initializable {
     public void savePart(ActionEvent event) throws IOException {
 
         if (containMachineId()) {
-            if(!areValidInputs(Validator.isInteger(dynamicField.getText()))){
+            if (!areValidInputs(Validator.isInteger(dynamicField.getText()))) {
                 Validator.displayInvalidInput("Exception: Name can not be empty\n Price needs to be double\n Inv, Max, Min and Machine ID need to be integers");
             } else {
                 int inv = Integer.parseInt(invField.getText());
@@ -94,7 +96,7 @@ public class ModifyPartSceneController implements Initializable {
                 double price = Double.parseDouble(priceField.getText());
                 int max = Integer.parseInt(maxField.getText());
                 int min = Integer.parseInt(minField.getText());
-                if(!(inv <= max && min <= max && inv >= min)){
+                if (!(inv <= max && min <= max && inv >= min)) {
                     Validator.displayError("Note: Inv value has to be between min and Man / Min can not be greater than max");
                 } else {
                     InHouse part = new InHouse(selectedRow.getId(), name, price, inv, max, min, Integer.parseInt(dynamicField.getText()));
@@ -105,8 +107,8 @@ public class ModifyPartSceneController implements Initializable {
             }
         }
         if (containCompanyName()) {
-            if(!areValidInputs(!Validator.isEmpty(dynamicField.getText()))){
-            Validator.displayInvalidInput("Exception: Name and Company Name can not be empty\n Price needs to be double\n Inv, Max, and Min need to be integers");
+            if (!areValidInputs(!Validator.isEmpty(dynamicField.getText()))) {
+                Validator.displayInvalidInput("Exception: Name and Company Name can not be empty\n Price needs to be double\n Inv, Max, and Min need to be integers");
             } else {
                 int inv = Integer.parseInt(invField.getText());
                 String name = nameField.getText();
@@ -114,7 +116,7 @@ public class ModifyPartSceneController implements Initializable {
                 int max = Integer.parseInt(maxField.getText());
                 int min = Integer.parseInt(minField.getText());
 
-                if(!(inv <= max && min <= max && inv >= min)){
+                if (!(inv <= max && min <= max && inv >= min)) {
                     Validator.displayError("Note: Inv value has to be between min and Man / Min can not be greater than max");
                 } else {
                     Outsourced part = new Outsourced(selectedRow.getId(), name, price, inv, max, min, dynamicField.getText());
@@ -129,6 +131,7 @@ public class ModifyPartSceneController implements Initializable {
 
     /**
      * This method sets current scene to main scene.
+     *
      * @param event an event indicates a component-defined action occurred
      * @throws IOException exception occur when the fxml file is not found
      */
@@ -143,9 +146,10 @@ public class ModifyPartSceneController implements Initializable {
 
     /**
      * This method displays all info on modify part scene for the item user has selected.
-     * @param url It is a location used to resolve relative paths for the root project, or null if the location is null
+     *
+     * @param url            It is a location used to resolve relative paths for the root project, or null if the location is null
      * @param resourceBundle The resource used to localize the root project, or null if the root object was not located
-     * */
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         setPartFields();
@@ -197,6 +201,7 @@ public class ModifyPartSceneController implements Initializable {
     private boolean containMachineId() {
         return MachineIdOrCompanyLabel.getText().equalsIgnoreCase("Machine ID");
     }
+
     //checks whether this field is labeled as a company name
     private boolean containCompanyName() {
         return MachineIdOrCompanyLabel.getText().equalsIgnoreCase("Company Name");

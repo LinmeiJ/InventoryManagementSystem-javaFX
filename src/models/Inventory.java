@@ -3,13 +3,13 @@ package models;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
- /**
-  * Supplied class Inventory.java.
-  */
+/**
+ * Supplied class Inventory.java.
+ */
 
- /**
-  *  @author Linmei Mills
-  */
+/**
+ *  @author Linmei Mills
+ */
 public class Inventory {
     private static ObservableList<Part> allParts = FXCollections.observableArrayList();
     private static ObservableList<Product> allProducts = FXCollections.observableArrayList();
@@ -18,8 +18,7 @@ public class Inventory {
      * This method adds a new part to Inventory.
      * @param newPart the new part user created
      */
-    public static void addPart(Part newPart)
-    {
+    public static void addPart(Part newPart) {
         allParts.add(newPart);
     }
 
@@ -27,8 +26,7 @@ public class Inventory {
      * This method adds a new product to the inventory.
      * @param newProduct the new product user created
      */
-    public static void addProduct(Product newProduct)
-    {
+    public static void addProduct(Product newProduct) {
         allProducts.add(newProduct);
     }
 
@@ -37,16 +35,13 @@ public class Inventory {
      * @param partId a part ID that the user entered
      * @return returns the part that is found, otherwise returns a null
      */
-    public static Part lookupPart(int partId)
-    {
-        for(Part part: allParts)
-        {
-            if(part.getId() == partId)
-            {
+    public static Part lookupPart(int partId) {
+        for (Part part : allParts) {
+            if (part.getId() == partId) {
                 return part;
             }
         }
-        return null ;
+        return null;
     }
 
     /**
@@ -54,12 +49,9 @@ public class Inventory {
      * @param productId a product ID that the user entered
      * @return Returns the product that is found, otherwise return null.
      */
-    public static Product lookupProduct(int productId)
-    {
-        for(var prod: allProducts)
-        {
-            if(prod.getId() == productId)
-            {
+    public static Product lookupProduct(int productId) {
+        for (var prod : allProducts) {
+            if (prod.getId() == productId) {
                 return prod;
             }
         }
@@ -71,12 +63,11 @@ public class Inventory {
      * @param partName a part name or a partial character(s) of the name user entered
      * @return the part that is found
      */
-    public static ObservableList<Part> lookupPart(String partName)
-    {
+    public static ObservableList<Part> lookupPart(String partName) {
         String s = partName.toLowerCase();
         ObservableList result = FXCollections.observableArrayList();
-        for(var part: allParts){
-            if(part.getName().equalsIgnoreCase(partName) || part.getName().toLowerCase().startsWith(s)){
+        for (var part : allParts) {
+            if (part.getName().equalsIgnoreCase(partName) || part.getName().toLowerCase().startsWith(s)) {
                 result.add(part);
             }
         }
@@ -88,26 +79,24 @@ public class Inventory {
      * @param productName A product name or a partial character(s) of the name user entered
      * @return The product that is found
      */
-    public static ObservableList<Product> lookupProduct(String productName)
-    {
+    public static ObservableList<Product> lookupProduct(String productName) {
         String s = productName.toLowerCase();
         ObservableList result = FXCollections.observableArrayList();
-        for(var prod: allProducts){
-            if(prod.getName().equalsIgnoreCase(productName) || prod.getName().toLowerCase().startsWith(s)){
+        for (var prod : allProducts) {
+            if (prod.getName().equalsIgnoreCase(productName) || prod.getName().toLowerCase().startsWith(s)) {
                 result.add(prod);
             }
         }
         return result;
     }
 
-   /**
-    * This method updates a part based user selection.
-    *
-    * @param index the element position in the inventory
-    * @param selectedPart a part that a user wishes to update
-    */
-    public static void updatePart(int index, Part selectedPart)
-    {
+    /**
+     * This method updates a part based user selection.
+     *
+     * @param index the element position in the inventory
+     * @param selectedPart a part that a user wishes to update
+     */
+    public static void updatePart(int index, Part selectedPart) {
         allParts.set(index, selectedPart);
     }
 
@@ -117,8 +106,7 @@ public class Inventory {
      * @param index the element position in the inventory
      * @param newProduct a product that a user wishes to update
      */
-    public static void updateProduct(int index, Product newProduct)
-    {
+    public static void updateProduct(int index, Product newProduct) {
         allProducts.set(index, newProduct);
     }
 
@@ -128,11 +116,9 @@ public class Inventory {
      * @param selectedPart the part that a user wishes to delete
      * @return whether the part is deleted
      */
-    public static boolean deletePart(Part selectedPart)
-    {
+    public static boolean deletePart(Part selectedPart) {
         boolean isDeleted = false;
-        if(allParts.contains(selectedPart))
-        {
+        if (allParts.contains(selectedPart)) {
             allParts.remove(selectedPart);
             isDeleted = true;
         }
@@ -145,11 +131,9 @@ public class Inventory {
      * @param selectedProduct the product that a user wishes to delete
      * @return whether the product is deleted
      */
-    public static boolean deleteProduct(Product selectedProduct)
-    {
+    public static boolean deleteProduct(Product selectedProduct) {
         boolean isDeleted = false;
-        if(allProducts.contains(selectedProduct))
-        {
+        if (allProducts.contains(selectedProduct)) {
             allProducts.remove(selectedProduct);
             isDeleted = true;
         }
@@ -159,16 +143,14 @@ public class Inventory {
     /**
      * @return all the parts in the inventory
      */
-    public static ObservableList<Part> getAllParts()
-    {
+    public static ObservableList<Part> getAllParts() {
         return allParts;
     }
 
     /**
      * @return all the products in the inventory
      */
-    public static ObservableList<Product> getAllProducts()
-    {
+    public static ObservableList<Product> getAllProducts() {
         return allProducts;
     }
 }

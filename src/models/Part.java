@@ -4,7 +4,6 @@ package models;
  */
 
 /**
- *
  * @author Linmei Mills
  */
 public abstract class Part {
@@ -17,15 +16,15 @@ public abstract class Part {
 
     /**
      * Class constructor specifying the basic part info.
-     * @param id the part id
-     * @param name the part name
+     *
+     * @param id    the part id
+     * @param name  the part name
      * @param price the part price
      * @param stock the part stock
-     * @param min the part min
-     * @param max the part max
+     * @param min   the part min
+     * @param max   the part max
      */
-    public Part(int id, String name, double price, int stock, int min, int max)
-    {
+    public Part(int id, String name, double price, int stock, int min, int max) {
         this.id = id;
         this.name = name;
         this.price = price;

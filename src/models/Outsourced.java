@@ -1,14 +1,14 @@
 package models;
 
- /**
-  * Supplied class Outsourced.java
-  * Please see the {@link Part} class for more super class info
-  */
+/**
+ * Supplied class Outsourced.java
+ * Please see the {@link Part} class for more super class info
+ */
 
- /**
-  *@author Linmei Mills
-  */
-public class Outsourced extends Part{
+/**
+ *@author Linmei Mills
+ */
+public class Outsourced extends Part {
     private String companyName;
 
     /**

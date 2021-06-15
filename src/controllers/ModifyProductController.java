@@ -27,10 +27,9 @@ import java.util.ResourceBundle;
 /**
  * This class provides the logics for the modify Product scene
  *
- * @author  Linmei Mills
- *
- * */
-public class ModifyProductController implements Initializable{
+ * @author Linmei Mills
+ */
+public class ModifyProductController implements Initializable {
 
     @FXML
     private TextField modifyProdID;
@@ -88,8 +87,9 @@ public class ModifyProductController implements Initializable{
 
     /**
      * This method search a product(s) baserd on user's input in the search text field.
+     *
      * @param event an event indicates a component-defined action occurred
-     * */
+     */
     @FXML
     public void searchBtnEntered(KeyEvent event) {
         if (isEntered(event) && isPartNumeric()) {
@@ -103,6 +103,7 @@ public class ModifyProductController implements Initializable{
 
     /**
      * This methods adds a part to associated part table for this product.
+     *
      * @param event an event indicates a component-defined action occurred
      */
     @FXML
@@ -117,7 +118,8 @@ public class ModifyProductController implements Initializable{
 
     /**
      * This method removes a part from the associated part table for the product.
-     When no part is selected to be removed, a dialog window displays.
+     * When no part is selected to be removed, a dialog window displays.
+     *
      * @param event an event indicates a component-defined action occurred
      */
     @FXML
@@ -127,10 +129,9 @@ public class ModifyProductController implements Initializable{
             Validator.displayRowNotSelected();
         } else {
             int id = selectedAssocPart.getId();
-            if(associatedParts == null){
+            if (associatedParts == null) {
                 Validator.displayError("no associated part is find");
-            }
-            else{
+            } else {
                 for (int i = 0; i < associatedParts.size(); i++) {
                     if (associatedParts.get(i).getId() == id) {
                         associatedParts.remove(associatedParts.get(i));
@@ -142,16 +143,17 @@ public class ModifyProductController implements Initializable{
 
     /**
      * This method saves the product that is modified by the end user.
-     It validates the user's inputs before save the product to inventory.
-     Once the product is saved, screen will be returned back to Main scene.
+     * It validates the user's inputs before save the product to inventory.
+     * Once the product is saved, screen will be returned back to Main scene.
+     *
      * @param event an event indicates a component-defined action occurred
      * @throws IOException exception occur when the fxml file is not found
-     * */
+     */
     @FXML
     public void saveProdClicked(ActionEvent event) throws IOException {
         int id = originalRow.getId();
 
-        if(!areValidInputs()){
+        if (!areValidInputs()) {
             Validator.displayInvalidInput("Exception: Name can not be empty\n Price needs to be double\n Inv, Max, and Min need to be integers");
         } else {
             String name = modifyProdNameField.getText();
@@ -159,7 +161,7 @@ public class ModifyProductController implements Initializable{
             int stock = Integer.parseInt(modifyProdInvField.getText());
             int min = Integer.parseInt(modifyProdMinField.getText());
             int max = Integer.parseInt(modifyProdMaxField.getText());
-            if(!(stock <= max && min <= max && stock >= min)){
+            if (!(stock <= max && min <= max && stock >= min)) {
                 Validator.displayError("Note: Inv value has to be between min and Man / Min can not be greater than max");
             } else {
                 Product prod = new Product(id, name, stock, price, min, max);
@@ -176,9 +178,10 @@ public class ModifyProductController implements Initializable{
 
     /**
      * This method returns user to the Main scene.
+     *
      * @param event an event indicates a component-defined action occurred
      * @throws IOException exception occur when the fxml file is not found
-     * */
+     */
     @FXML
     public void cancelBtnClicked(ActionEvent event) throws IOException {
         returnBackToMainScene(event);
@@ -186,11 +189,12 @@ public class ModifyProductController implements Initializable{
 
     /**
      * This method displays all info on modify product scene for the item user has selected.
-     It display all the fields for the selected product, displays all parts from the inventory,
-     and displays the associated parts in which the product contains.
-     * @param url It is a location used to resolve relative paths for the root project, or null if the location is null
+     * It display all the fields for the selected product, displays all parts from the inventory,
+     * and displays the associated parts in which the product contains.
+     *
+     * @param url            It is a location used to resolve relative paths for the root project, or null if the location is null
      * @param resourceBundle The resource used to localize the root project, or null if the root object was not located
-     * */
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         setProdFields();
@@ -288,7 +292,7 @@ public class ModifyProductController implements Initializable{
     private boolean areValidInputs() {
         return Validator.isDouble(modifyProdPriceField.getText()) && Validator.isInteger(modifyProdMaxField.getText())
                 && Validator.isInteger(modifyProdMinField.getText()) && Validator.isInteger(modifyProdInvField.getText())
-                && !Validator.isEmpty( modifyProdNameField.getText());
+                && !Validator.isEmpty(modifyProdNameField.getText());
     }
 
 }

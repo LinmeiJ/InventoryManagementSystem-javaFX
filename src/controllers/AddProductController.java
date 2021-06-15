@@ -27,8 +27,9 @@ import java.util.ResourceBundle;
 /**
  * This class provides the logics for the add product scene.
  *
- * @author  Linmei Mills
+ * @author Linmei Mills
  */
+
 /**add enhancement here!!!!!(fix me) such as if the user wants to add multiple product without going back to main scene, this is where the logs should be sit in*/
 public class AddProductController implements Initializable {
 
@@ -138,7 +139,7 @@ public class AddProductController implements Initializable {
      * */
     @FXML
     public void saveProdClicked(ActionEvent event) throws IOException {
-        if(!areValidInputs()){
+        if (!areValidInputs()) {
             Validator.displayInvalidInput("Exception: Name can not be empty\n Price needs to be double\n Inv, Max, and Min need to be integers");
         } else {
             String name = productNameField.getText();
@@ -147,7 +148,7 @@ public class AddProductController implements Initializable {
             int min = Integer.parseInt(productMinField.getText());
             int max = Integer.parseInt(productMaxField.getText());
 
-            if(!(stock <= max && min <= max && stock >= min)){
+            if (!(stock <= max && min <= max && stock >= min)) {
                 Validator.displayError("Note: Inv value has to be between min and Man / Min can not be greater than max");
             } else {
                 Product prod = new Product(Main.getUniqueProdId(), name, stock, price, min, max);
