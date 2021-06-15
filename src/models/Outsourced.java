@@ -13,6 +13,13 @@ public class Outsourced extends Part{
 
     /**
      * Class constructor specifying the outsourced type part info
+     * @param id the part id
+     * @param name the part name
+     * @param price the part price
+     * @param stock the part stock
+     * @param min the part min
+     * @param max the part max
+     * @param companyName the company name of the part
      */
     public Outsourced(int id, String name, double price, int stock, int min, int max, String companyName) {
         super(id, name, price, stock, min, max);

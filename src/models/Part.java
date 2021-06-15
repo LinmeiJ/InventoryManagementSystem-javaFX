@@ -16,7 +16,13 @@ public abstract class Part {
     private int max;
 
     /**
-     * Class constructor specifying the basic part info
+     * Class constructor specifying the basic part info.
+     * @param id the part id
+     * @param name the part name
+     * @param price the part price
+     * @param stock the part stock
+     * @param min the part min
+     * @param max the part max
      */
     public Part(int id, String name, double price, int stock, int min, int max)
     {
@@ -83,7 +89,6 @@ public abstract class Part {
     public void setStock(int stock) {
         this.stock = stock;
     }
-
 
     /**
      * @return the min

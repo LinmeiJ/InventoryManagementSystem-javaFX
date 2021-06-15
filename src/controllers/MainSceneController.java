@@ -39,9 +39,6 @@ public class MainSceneController implements Initializable {
     private Button exitId;
 
     @FXML
-    private AnchorPane partPane;
-
-    @FXML
     private TextField searchPartField;
 
     @FXML
@@ -58,18 +55,6 @@ public class MainSceneController implements Initializable {
 
     @FXML
     private TableColumn<Part, Double> partPrice;
-
-    @FXML
-    private Button partAdd;
-
-    @FXML
-    private Button partModify;
-
-    @FXML
-    private Button partDelete;
-
-    @FXML
-    private AnchorPane ProdPane;
 
     @FXML
     private TextField searchProductField;
@@ -89,24 +74,11 @@ public class MainSceneController implements Initializable {
     @FXML
     private TableColumn<Product, Double> productPrice;
 
-    @FXML
-    private Button prodAdd;
-
-    @FXML
-    private Button prodModify;
-
-    @FXML
-    private Button prodDelete;
-
     /**
-     * when user select a row from part table, the result will be assigned in here.
-     */
-    public static Part partSelectedRow;
+     * */
+    public static Part partSelectedRow; //z
+    public static Product productSelectedRow; //when user select a row from product table, the result will be assigned in ere
 
-    /**
-     * when user select a row from product table, the result will be assigned in ere
-     */
-    public static Product productSelectedRow;
     /**
      * This method set add part UI where user can add the details of a part.
      * @param event an event indicates a component-defined action occurred
@@ -134,7 +106,8 @@ public class MainSceneController implements Initializable {
 
     /**
      * This method set a modify UI for user to modify her/his selected part item.
-     It prompts a dialog window when no row is selected
+     when an end user did not select an item but clicked the modify button to be send to ModifyPartSceneController,
+     a RUNTIME ERROR occurs - NullPointException. In this case, to prevent this happens, checks whether a row is selected to ensure null value is passed over.
      * @param event an event indicates a component-defined action occurred
      * @throws IOException catch the error when the modify fxml is not found.
      * */
@@ -143,7 +116,6 @@ public class MainSceneController implements Initializable {
         partSelectedRow = partsTable.getSelectionModel().getSelectedItem();
         if(partSelectedRow == null)
             Validator.displayRowNotSelected();
-
         else
             setScene(event, "fxml/modifyPartsScene.fxml");
     }
@@ -188,7 +160,7 @@ public class MainSceneController implements Initializable {
     }
 
     /**
-     * This method checks whether the key is entered with a enter key
+     * This method checks whether the key is entered with a enter key.
      * */
     private boolean isEntered(KeyEvent event){
         return event.getCode().equals(KeyCode.ENTER);
@@ -221,27 +193,6 @@ public class MainSceneController implements Initializable {
             partsTable.setItems(result);
         }
     }
-
-    //This method checks whether the search text entered by user is a string for Part
-    private boolean isPartString() {
-        return searchPartField.getText() != null && searchPartField.getText().matches("^[a-zA-Z\\s]*$");
-    }
-
-    //This method checks whether the search text entered by user is a number for Part
-    private boolean isPartNumeric(){
-        return searchPartField != null && searchPartField.getText().matches("^[0-9]*$");
-    }
-
-    //This method checks whether the search text entered by user is a string for Product
-    private boolean isProdString() {
-        return searchProductField.getText() != null && searchProductField.getText().matches("^[a-zA-Z\\s]*$");
-    }
-
-    //This method checks whether the search text entered by user is a number for Product
-    private boolean isProdNumeric(){
-        return searchProductField != null && searchProductField.getText().matches("^[0-9]*$");
-    }
-
 
     /**
      * This method perform a search by user enter a product ID, a product name, or a partial product name.
@@ -326,7 +277,7 @@ public class MainSceneController implements Initializable {
      * @throws IOException exception occur when the fxml file is not found
      * */
     @FXML
-    public void prodBtnDeleteClicked(ActionEvent event) throws IOException { // fix me, how to delete associated parts!!!!
+    public void prodDeleteBtnClicked(ActionEvent event) throws IOException { // fix me, how to delete associated parts!!!!
        Product productSelectedRow = productTable.getSelectionModel().getSelectedItem();
         Product prod = null;
 
@@ -349,11 +300,6 @@ public class MainSceneController implements Initializable {
             }
             Inventory.deleteProduct(prod);
         }
-    }
-
-    //check whether the product user selected contains parts
-    private boolean hasParts(Product prod) {
-       return prod.getAllAssociatedParts().size() > 0;
     }
 
     /**
@@ -387,5 +333,25 @@ public class MainSceneController implements Initializable {
         var scene = new Scene(parent);
         var stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setScene(scene);
+    }
+
+    //This method checks whether the search text entered by user is a string for Part
+    private boolean isPartString() {
+        return searchPartField.getText() != null && searchPartField.getText().matches("^[a-zA-Z\\s]*$");
+    }
+
+    //This method checks whether the search text entered by user is a number for Part
+    private boolean isPartNumeric(){
+        return searchPartField != null && searchPartField.getText().matches("^[0-9]*$");
+    }
+
+    //This method checks whether the search text entered by user is a string for Product
+    private boolean isProdString() {
+        return searchProductField.getText() != null && searchProductField.getText().matches("^[a-zA-Z\\s]*$");
+    }
+
+    //This method checks whether the search text entered by user is a number for Product
+    private boolean isProdNumeric(){
+        return searchProductField != null && searchProductField.getText().matches("^[0-9]*$");
     }
 }

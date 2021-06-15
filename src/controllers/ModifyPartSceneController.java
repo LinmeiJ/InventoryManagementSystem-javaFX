@@ -29,12 +29,6 @@ import java.util.ResourceBundle;
  * */
 public class ModifyPartSceneController implements Initializable {
     @FXML
-    private Button saveBtn;
-
-    @FXML
-    private Button cancelBtn;
-
-    @FXML
     private RadioButton inHouseBtn;
 
     @FXML
@@ -82,47 +76,29 @@ public class ModifyPartSceneController implements Initializable {
      * @param event an event indicates a component-defined action occurred
      */
     @FXML
-    void modifyOutsourcedType(ActionEvent event) {
+    public void modifyOutsourcedType(ActionEvent event) {
         MachineIdOrCompanyLabel.setText(COMPANY_NAME);
     }
 
     /**
      * This method saves modified part to inventory.
-     *
      * @param event an event indicates a component-defined action occurred
+     * @throws IOException exception occur when the fxml file is not found
      */
     @FXML
-    void savePart(ActionEvent event) throws IOException {
+    public void savePart(ActionEvent event) throws IOException {
 
         if (containMachineId()) {
-            if (!Validator.isInteger(invField.getText())) {
-                Validator.displayInvalidInput("Inventory(Inv) field is not an integer");
-            }
-            if (!Validator.isDouble(priceField.getText())) {
-                Validator.displayInvalidInput("Price needs to be a double");
-            }
-            if (!Validator.isInteger(maxField.getText())) {
-                Validator.displayInvalidInput("Max needs to be an integer");
-            }
-            if (!Validator.isInteger(minField.getText())) {
-                Validator.displayInvalidInput("Min needs to be an integer");
-            }
-            if (!Validator.isInteger(dynamicField.getText())) {
-                Validator.displayInvalidInput("Machine ID needs to be an integer");
-            }
-            if (Validator.isEmpty(nameField.getText())) {
-                Validator.displayInvalidInput("Name field can not be empty");
+            if(!areValidInputs(Validator.isInteger(dynamicField.getText()))){
+                Validator.displayInvalidInput("Exception: Name can not be empty\n Price needs to be double\n Inv, Max, Min and Machine ID need to be integers");
             } else {
                 int inv = Integer.parseInt(invField.getText());
                 String name = nameField.getText();
                 double price = Double.parseDouble(priceField.getText());
                 int max = Integer.parseInt(maxField.getText());
                 int min = Integer.parseInt(minField.getText());
-                if (min > max) {
-                    Validator.displayInvalidLogic("Min should not be greater than Max");
-                }
-                if (inv > max) {
-                    Validator.displayInvalidLogic("Stock should not greater than Max");
+                if(!(inv <= max && min <= max)){
+                    Validator.displayInvalidLogic("Note: Inv field or Min field can not be greater than max");
                 } else {
                     InHouse part = new InHouse(selectedRow.getId(), name, price, inv, max, min, Integer.parseInt(dynamicField.getText()));
                     int index = findIndex();
@@ -132,35 +108,17 @@ public class ModifyPartSceneController implements Initializable {
             }
         }
         if (containCompanyName()) {
-            if (!Validator.isInteger(invField.getText())) {
-                Validator.displayInvalidInput("Inventory(Inv) field is not an integer");
-            }
-            if (!Validator.isDouble(priceField.getText())) {
-                Validator.displayInvalidInput("Price needs to be a double");
-            }
-            if (!Validator.isInteger(maxField.getText())) {
-                Validator.displayInvalidInput("Max needs to be an integer");
-            }
-            if (!Validator.isInteger(minField.getText())) {
-                Validator.displayInvalidInput("Min needs to be an integer");
-            }
-            if (Validator.isEmpty(dynamicField.getText())) {
-                Validator.displayInvalidInput("Machine ID can not be empty");
-            }
-            if (Validator.isEmpty(nameField.getText())) {
-                Validator.displayInvalidInput("Name field can not be empty");
+            if(!areValidInputs(!Validator.isEmpty(dynamicField.getText()))){
+            Validator.displayInvalidInput("Exception: Name and Company Name can not be empty\n Price needs to be double\n Inv, Max, and Min need to be integers");
             } else {
                 int inv = Integer.parseInt(invField.getText());
                 String name = nameField.getText();
                 double price = Double.parseDouble(priceField.getText());
                 int max = Integer.parseInt(maxField.getText());
                 int min = Integer.parseInt(minField.getText());
-                if (min > max) {
-                    Validator.displayInvalidLogic("Min should not be greater than Max");
-                }
-                if (inv > max) {
-                    Validator.displayInvalidLogic("Stock should not be greater than Max");
 
+                if(!(inv <= max && min < max)){
+                    Validator.displayInvalidLogic("Note: Inv field or Min field can not be greater than max");
                 } else {
                     Outsourced part = new Outsourced(selectedRow.getId(), name, price, inv, max, min, dynamicField.getText());
                     int index = findIndex();
@@ -171,23 +129,6 @@ public class ModifyPartSceneController implements Initializable {
         }
 
     }
-
-    private int findIndex() {
-        for (int i = 0; i < Inventory.getAllParts().size(); i++) {
-            if (Inventory.getAllParts().get(i).getId() == selectedRow.getId()) {
-                return i;
-            }
-        }
-        return -1; //fix me for excepti
-    }
-
-//    public void returnBackToMainScene(ActionEvent actionEvent) throws IOException {
-//        Parent parent = FXMLLoader.load(getClass().getResource("fxml/mainScene.fxml"));
-//        Scene scene = new Scene(parent);
-//        Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-//        stage.setScene(scene);
-//        stage.show();
-//    }
 
     /**
      * This method sets current scene to main scene.
@@ -203,15 +144,11 @@ public class ModifyPartSceneController implements Initializable {
 
     }
 
-
-    private boolean containMachineId() {
-        return MachineIdOrCompanyLabel.getText().equalsIgnoreCase(Machine_ID);
-    }
-
-    private boolean containCompanyName() {
-        return MachineIdOrCompanyLabel.getText().equalsIgnoreCase(COMPANY_NAME);
-    }
-
+    /**
+     * This method displays all info on modify part scene for the item user has selected.
+     * @param url It is a location used to resolve relative paths for the root project, or null if the location is null
+     * @param resourceBundle The resource used to localize the root project, or null if the root object was not located
+     * */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         setPartFields();
@@ -223,14 +160,17 @@ public class ModifyPartSceneController implements Initializable {
         }
     }
 
-    public boolean isInHouse() {
+    //checks if the object is an InHouse type object
+    private boolean isInHouse() {
         return selectedRow instanceof InHouse;
     }
 
-    public boolean isOutsourced() {
+    //checks if the object in an Outsourced type object
+    private boolean isOutsourced() {
         return selectedRow instanceof Outsourced;
     }
 
+    //sets the value of the part item on table view
     private void setPartFields() {
         selectedRow = MainSceneController.partSelectedRow;
 
@@ -242,15 +182,43 @@ public class ModifyPartSceneController implements Initializable {
         minField.setText(String.valueOf(selectedRow.getMin()));
     }
 
+    //sets the text field label to company name when it is an InHouse part type
     private void setOutSourcedFields() {
         outsourcedBtn.setSelected(true);
         MachineIdOrCompanyLabel.setText(COMPANY_NAME);
         dynamicField.setText(((Outsourced) selectedRow).getCompanyName());
     }
 
+    //sets the text field label to machine ID when it is an outsourced part type
     private void setInHouseFields() {
         inHouseBtn.setSelected(true);
         MachineIdOrCompanyLabel.setText(Machine_ID);
         dynamicField.setText(String.valueOf(((InHouse) selectedRow).getMachineId()));
+    }
+
+    //checks whether this field is labeled as a machine id
+    private boolean containMachineId() {
+        return MachineIdOrCompanyLabel.getText().equalsIgnoreCase(Machine_ID);
+    }
+    //checks whether this field is labeled as a company name
+    private boolean containCompanyName() {
+        return MachineIdOrCompanyLabel.getText().equalsIgnoreCase(COMPANY_NAME);
+    }
+
+    //validates user's inputs
+    private boolean areValidInputs(boolean dynamicField) {
+        return Validator.isInteger(invField.getText()) && Validator.isDouble(priceField.getText())
+                && Validator.isInteger(maxField.getText()) && Validator.isInteger(minField.getText())
+                && !Validator.isEmpty(nameField.getText()) && dynamicField;
+    }
+
+    // find the index of a selected part from the inventory
+    private int findIndex() {
+        for (int i = 0; i < Inventory.getAllParts().size(); i++) {
+            if (Inventory.getAllParts().get(i).getId() == selectedRow.getId()) {
+                return i;
+            }
+        }
+        return -1;
     }
 }

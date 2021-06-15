@@ -22,8 +22,14 @@ public class Product {
 
      /**
       * Class constructor specifying the product info
+      *@param id the part id
+      *@param name the part name
+      *@param price the part price
+      *@param stock the part stock
+      *@param min the part min
+      *@param max the part max
       */
-    public Product(int id, String name, int stock, double price,  int min, int max)
+    public Product(int id, String name, int stock, double price, int min, int max)
     {
         this.id = id;
         this.name = name;

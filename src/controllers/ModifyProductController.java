@@ -25,7 +25,13 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class ModifyProductController implements Initializable, Cloneable {
+/**
+ * This class provides the logics for the modify Product scene
+ *
+ * @author  Linmei Mills
+ *
+ * */
+public class ModifyProductController implements Initializable{
 
     @FXML
     private TextField modifyProdID;
@@ -78,24 +84,15 @@ public class ModifyProductController implements Initializable, Cloneable {
     @FXML
     private TableColumn<Part, Double> associatePrice;
 
-    @FXML
-    private Button addAssociatedPartBtn;
-
-    @FXML
-    private Button removePartFromProdBtn;
-
-    @FXML
-    private Button saveProdBtn;
-
-    @FXML
-    private Button cancelBtn;
-
     private ObservableList<Part> associatedParts = FXCollections.observableArrayList();
     private Product originalRow = MainSceneController.productSelectedRow;
 
-
+    /**
+     * This method search a product(s) baserd on user's input in the search text field.
+     * @param event an event indicates a component-defined action occurred
+     * */
     @FXML
-    void searchBtnEntered(KeyEvent event) {
+    public void searchBtnEntered(KeyEvent event) {
         if (isEntered(event) && isPartNumeric()) {
             searchedPartById();
         } else if (isEntered(event) && isPartString()) {
@@ -105,92 +102,68 @@ public class ModifyProductController implements Initializable, Cloneable {
         }
     }
 
-    private boolean isEntered(KeyEvent event) {
-        return event.getCode().equals(KeyCode.ENTER);
-    }
-
-    private void searchedPartByName() {
-        ObservableList result = Inventory.lookupPart(partSearchField.getText());
-        if (result.size() > 0) {
-            modifyPartTable.setItems(result);
-        } else Validator.displayPartNotFound();
-    }
-
-    private void searchedPartById() {
-        var part = Inventory.lookupPart(Integer.parseInt(partSearchField.getText()));
-        if (part == null) {
-            Validator.displayPartNotFound();
-        } else {
-            ObservableList<Part> result = FXCollections.observableArrayList();
-            result.add(part);
-            modifyPartTable.setItems(result);
-        }
-    }
-
-    private boolean isPartString() {
-        return partSearchField.getText() != null && partSearchField.getText().matches("^[a-zA-Z\\s]*$");
-    }
-
-    private boolean isPartNumeric() {
-        return partSearchField != null && partSearchField.getText().matches("^[0-9]*$");
-    }
-
-
+    /**
+     * This methods adds a part to associated part table for this product.
+     * @param event an event indicates a component-defined action occurred
+     */
     @FXML
-    void addPartToProdClicked(ActionEvent event) {
-        try {
-            Part selectedPartRow = modifyPartTable.getSelectionModel().getSelectedItem();
-            associatedParts.add(selectedPartRow);
-            modifyAssociatedPartTable.setItems(associatedParts);
-        } catch (NullPointerException e) {
+    public void addPartToProdClicked(ActionEvent event) {
+        Part selectedPartRow = modifyPartTable.getSelectionModel().getSelectedItem();
+        if(selectedPartRow == null){
             Validator.displayRowNotSelected();
         }
+        else {
+            associatedParts.add(selectedPartRow);
+            modifyAssociatedPartTable.setItems(associatedParts);
+        }
     }
 
+    /**
+     * This method removes a part from the associated part table for the product.
+     When no part is selected to be removed, a dialog window displays.
+     * @param event an event indicates a component-defined action occurred
+     */
     @FXML
-    void removePartFromProdClicked(ActionEvent event) {
+    public void removePartFromProdClicked(ActionEvent event) {
         Part selectedAssocPart = modifyAssociatedPartTable.getSelectionModel().getSelectedItem();
         if (selectedAssocPart == null) {
             Validator.displayRowNotSelected();
         } else {
             int id = selectedAssocPart.getId();
-            for (int i = 0; i < associatedParts.size(); i++) {
-                if (associatedParts.get(i).getId() == id) {
-                    associatedParts.remove(associatedParts.get(i));
+            if(associatedParts == null){
+                Validator.displayInvalidLogic("no associated part is find");
+            }
+            else{
+                for (int i = 0; i < associatedParts.size(); i++) {
+                    if (associatedParts.get(i).getId() == id) {
+                        associatedParts.remove(associatedParts.get(i));
+                    }
                 }
             }
         }
     }
 
+    /**
+     * This method saves the product that is modified by the end user.
+     It validates the user's inputs before save the product to inventory.
+     Once the product is saved, screen will be returned back to Main scene.
+     * @param event an event indicates a component-defined action occurred
+     * @throws IOException exception occur when the fxml file is not found
+     * */
     @FXML
-    void saveProdClicked(ActionEvent event) throws IOException {
+    public void saveProdClicked(ActionEvent event) throws IOException {
         int id = originalRow.getId();
 
-        if (Validator.isEmpty(modifyProdNameField.getText())) {
-            Validator.displayInvalidInput("Name field can not be empty");
-        }
-        if (!Validator.isInteger(modifyProdInvField.getText())) {
-            Validator.displayInvalidInput("Inv field needs an integer");
-        }
-        if (!Validator.isDouble(modifyProdPriceField.getText())) {
-            Validator.displayInvalidInput("Price field need an double");
-        }
-        if (!Validator.isInteger(modifyProdMaxField.getText())) {
-            Validator.displayInvalidInput("Max field need an int");
-        }
-        if (!Validator.isInteger(modifyProdMinField.getText())) {
-            Validator.displayInvalidInput("Min field need an int");
+        if(!areValidInputs()){
+            Validator.displayInvalidInput("Exception: Name can not be empty\n Price needs to be double\n Inv, Max, and Min need to be integers");
         } else {
             String name = modifyProdNameField.getText();
             double price = Double.parseDouble(modifyProdPriceField.getText());
             int stock = Integer.parseInt(modifyProdInvField.getText());
             int min = Integer.parseInt(modifyProdMinField.getText());
             int max = Integer.parseInt(modifyProdMaxField.getText());
-            if (min > max) {
-                Validator.displayInvalidLogic("Min should not be greater than Max");
-            }
-            if (stock > max) {
-                Validator.displayInvalidLogic("Stock should not be greater than Max");
+            if(!(stock <= max && min <= max)){
+                Validator.displayInvalidLogic("Note: Stock field or Min field can not be greater than max");
             } else {
                 Product prod = new Product(id, name, stock, price, min, max);
                 int index = findIndex();
@@ -204,31 +177,23 @@ public class ModifyProductController implements Initializable, Cloneable {
         }
     }
 
-    public void returnBackToMainScene(ActionEvent actionEvent) throws IOException {
-        Parent parent = FXMLLoader.load(getClass().getResource("fxml/mainScene.fxml"));
-        Scene scene = new Scene(parent);
-        Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-        stage.setScene(scene);
-        stage.show();
-    }
-
-    private int findIndex() {
-        for (int i = 0; i < Inventory.getAllProducts().size(); i++) {
-            if (Inventory.getAllProducts().get(i).getId() == originalRow.getId()) {
-                return i;
-            }
-        }
-        return -1; // fix me
-    }
-
+    /**
+     * This method returns user to the Main scene.
+     * @param event an event indicates a component-defined action occurred
+     * @throws IOException exception occur when the fxml file is not found
+     * */
     @FXML
-    void cancelBtnClicked(ActionEvent event) throws IOException {
-        Parent add = FXMLLoader.load(new Main().getClass().getResource("fxml/mainScene.fxml"));
-        Scene scene = new Scene(add);
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        stage.setScene(scene);
+    public void cancelBtnClicked(ActionEvent event) throws IOException {
+        returnBackToMainScene(event);
     }
 
+    /**
+     * This method displays all info on modify product scene for the item user has selected.
+     It display all the fields for the selected product, displays all parts from the inventory,
+     and displays the associated parts in which the product contains.
+     * @param url It is a location used to resolve relative paths for the root project, or null if the location is null
+     * @param resourceBundle The resource used to localize the root project, or null if the root object was not located
+     * */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         setProdFields();
@@ -236,6 +201,7 @@ public class ModifyProductController implements Initializable, Cloneable {
         setAssociatedPartsTable();
     }
 
+    //set the the parts that are available from Inventory
     private void setPartTable() {
         partId.setCellValueFactory(new PropertyValueFactory<>("id"));
         partName.setCellValueFactory(new PropertyValueFactory<>("name"));
@@ -244,6 +210,7 @@ public class ModifyProductController implements Initializable, Cloneable {
         modifyPartTable.setItems(Inventory.getAllParts());
     }
 
+    //sets all associated parts to the table view
     private void setAssociatedPartsTable() {
         associatePartId.setCellValueFactory(new PropertyValueFactory<>("id"));
         associatePartName.setCellValueFactory(new PropertyValueFactory<>("name"));
@@ -254,6 +221,7 @@ public class ModifyProductController implements Initializable, Cloneable {
         modifyAssociatedPartTable.setItems(associatedParts);
     }
 
+    //sets all the fields for this product
     private void setProdFields() {
         modifyProdID.setText(String.valueOf(originalRow.getId()));
         modifyProdNameField.setText(originalRow.getName());
@@ -262,4 +230,68 @@ public class ModifyProductController implements Initializable, Cloneable {
         modifyProdMinField.setText(String.valueOf(originalRow.getMin()));
         modifyProdMaxField.setText(String.valueOf(originalRow.getMax()));
     }
+
+
+    //this method set the current scene back to the Main scene
+    private void returnBackToMainScene(ActionEvent actionEvent) throws IOException {
+        Parent parent = FXMLLoader.load(getClass().getResource("fxml/mainScene.fxml"));
+        Scene scene = new Scene(parent);
+        Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    //find the index where this product is stored in the inventory
+    private int findIndex() {
+        for (int i = 0; i < Inventory.getAllProducts().size(); i++) {
+            if (Inventory.getAllProducts().get(i).getId() == originalRow.getId()) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    //check whether the enter key is pressed
+    private boolean isEntered(KeyEvent event) {
+        return event.getCode().equals(KeyCode.ENTER);
+    }
+
+    //searches the part name from the inventory. display a dialog window when the part is not found
+    private void searchedPartByName() {
+        ObservableList result = Inventory.lookupPart(partSearchField.getText());
+        if (result.size() > 0) {
+            modifyPartTable.setItems(result);
+        } else Validator.displayPartNotFound();
+    }
+
+    //searches the part ID from the inventory. Displays a dialog window when the part is not found;
+    private void searchedPartById() {
+        var part = Inventory.lookupPart(Integer.parseInt(partSearchField.getText()));
+        if (part == null) {
+            Validator.displayPartNotFound();
+        } else {
+            ObservableList<Part> result = FXCollections.observableArrayList();
+            result.add(part);
+            modifyPartTable.setItems(result);
+        }
+    }
+
+    //checks whether the user's input is an string/name
+    private boolean isPartString() {
+        return partSearchField.getText() != null && partSearchField.getText().matches("^[a-zA-Z\\s]*$");
+    }
+
+    //checks whether the user's input is an id
+    private boolean isPartNumeric() {
+        return partSearchField != null && partSearchField.getText().matches("^[0-9]*$");
+    }
+
+
+    //validates user's inputs
+    private boolean areValidInputs() {
+        return Validator.isDouble(modifyProdPriceField.getText()) && Validator.isInteger(modifyProdMaxField.getText())
+                && Validator.isInteger(modifyProdMinField.getText()) && Validator.isInteger(modifyProdInvField.getText())
+                && !Validator.isEmpty( modifyProdNameField.getText());
+    }
+
 }

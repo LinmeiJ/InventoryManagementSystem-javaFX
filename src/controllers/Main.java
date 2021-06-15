@@ -19,6 +19,8 @@ import java.util.ResourceBundle;
 /**
  * This class create the main/first scene.
  *
+ * Future Enhancement: User is able to add multiple part/product without switch scenes they are done entering all the parts/products to save to the inventory.
+ *
  * @author Linmei Mills
  */
 public class Main extends Application {
@@ -44,7 +46,6 @@ public class Main extends Application {
     public static void main(String[] args) {
         initialPartsItems();
         initialProductItems();
-        System.out.println(Inventory.getAllParts().get(0).getMin());
         launch(args);
     }
 
@@ -82,9 +83,14 @@ public class Main extends Application {
         bike.addAssociatedPart(Inventory.getAllParts().get(1));
         Inventory.addProduct(bike);
 
-        Product kicks = new Product(getUniqueProdId(), "kicks", 10, 99.99, 1, 10);
+        Product kicks = new Product(getUniqueProdId(), "kicks", 9, 79.99, 1, 10);
         kicks.addAssociatedPart(Inventory.getAllParts().get(0));
         Inventory.addProduct(kicks);
+
+        Product tickles = new Product(getUniqueProdId(), "tickles", 8, 12, 1, 10);
+        tickles.addAssociatedPart(Inventory.getAllParts().get(1));
+        tickles.addAssociatedPart(Inventory.getAllParts().get(2));
+        Inventory.addProduct(tickles);
 
     }
 }

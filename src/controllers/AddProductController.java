@@ -81,21 +81,6 @@ public class AddProductController implements Initializable {
     @FXML
     private TableColumn<Part, Double> associatePrice;
 
-    @FXML
-    private Button addAssociatedPartBtn;
-
-    @FXML
-    private Button removePartFromProdBtn;
-
-    @FXML
-    private Button saveProdBtn;
-
-    @FXML
-    private Button cancelBtn;
-
-    private Part selectedPartTableRow;
-    private Part selectedAssociatedPart;
-
     // stores all associated parts for products
     private ObservableList<Part> associatedParts = FXCollections.observableArrayList();
 
@@ -154,20 +139,8 @@ public class AddProductController implements Initializable {
      * */
     @FXML
     public void saveProdClicked(ActionEvent event) throws IOException {
-        if (Validator.isEmpty(productNameField.getText())) {
-            Validator.displayInvalidInput("Name field can not be empty");
-        }
-        if (!Validator.isInteger(productionInvField.getText())) {
-            Validator.displayInvalidInput("Inv field needs an integer");
-        }
-        if (!Validator.isDouble(productPriceField.getText())) {
-            Validator.displayInvalidInput("Price field need an double");
-        }
-        if (!Validator.isInteger(productMaxField.getText())) {
-            Validator.displayInvalidInput("Max field need an int");
-        }
-        if (!Validator.isInteger(productMinField.getText())) {
-            Validator.displayInvalidInput("Min field need an int");
+        if(!areValidInputs()){
+            Validator.displayInvalidInput("Exception: Name can not be empty\n Price needs to be double\n Inv, Max, and Min need to be integers");
         } else {
             String name = productNameField.getText();
             int stock = Integer.parseInt(productionInvField.getText());
@@ -175,11 +148,8 @@ public class AddProductController implements Initializable {
             int min = Integer.parseInt(productMinField.getText());
             int max = Integer.parseInt(productMaxField.getText());
 
-            if (min > max) {
-                Validator.displayInvalidLogic("Min should not be greater than Max");
-            }
-            if (stock > max) {
-                Validator.displayInvalidLogic("Stock should not be greater than Max");
+            if(!(stock <= max && min <= max)){
+                Validator.displayInvalidLogic("Note: Stock field or Min field can not be greater than max");
             } else {
                 Product prod = new Product(Main.getUniqueProdId(), name, stock, price, min, max);
                 for (Part part : associatedParts) {
@@ -221,6 +191,25 @@ public class AddProductController implements Initializable {
         }
     }
 
+    /**
+     * This method gets all parts from inventory and displays it on the scene.
+     * @param url It is a location used to resolve relative paths for the root project, or null if the location is null
+     * @param resourceBundle The resource used to localize the root project, or null if the root object was not located
+     * */
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        partId.setCellValueFactory(new PropertyValueFactory<>("id"));
+        partName.setCellValueFactory(new PropertyValueFactory<>("name"));
+        partInv.setCellValueFactory(new PropertyValueFactory<>("stock"));
+        partPrice.setCellValueFactory(new PropertyValueFactory<>("price"));
+        partTable.setItems(Inventory.getAllParts());
+
+        associatePartId.setCellValueFactory(new PropertyValueFactory<>("id"));
+        associatePartName.setCellValueFactory(new PropertyValueFactory<>("name"));
+        associateInv.setCellValueFactory(new PropertyValueFactory<>("stock"));
+        associatePrice.setCellValueFactory(new PropertyValueFactory<>("price"));
+    }
+
     //check the key event whether the user hits the enter key
     private boolean isEntered(KeyEvent event) {
         return event.getCode().equals(KeyCode.ENTER);
@@ -256,23 +245,10 @@ public class AddProductController implements Initializable {
         return partSearchField != null && partSearchField.getText().matches("^[0-9]*$");
     }
 
-
-    /**
-     * This method gets all parts from inventory and displays it on the scene.
-     * @param url It is a location used to resolve relative paths for the root project, or null if the location is null
-     * @param resourceBundle The resource used to localize the root project, or null if the root object was not located
-     * */
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-        partId.setCellValueFactory(new PropertyValueFactory<>("id"));
-        partName.setCellValueFactory(new PropertyValueFactory<>("name"));
-        partInv.setCellValueFactory(new PropertyValueFactory<>("stock"));
-        partPrice.setCellValueFactory(new PropertyValueFactory<>("price"));
-        partTable.setItems(Inventory.getAllParts());
-
-        associatePartId.setCellValueFactory(new PropertyValueFactory<>("id"));
-        associatePartName.setCellValueFactory(new PropertyValueFactory<>("name"));
-        associateInv.setCellValueFactory(new PropertyValueFactory<>("stock"));
-        associatePrice.setCellValueFactory(new PropertyValueFactory<>("price"));
+    //validates user's inputs
+    private boolean areValidInputs() {
+        return Validator.isInteger(productionInvField.getText()) && Validator.isDouble(productPriceField.getText())
+                && Validator.isInteger(productMaxField.getText()) && Validator.isInteger(productMinField.getText())
+                && !Validator.isEmpty(productNameField.getText());
     }
 }
