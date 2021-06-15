@@ -99,7 +99,7 @@ public class ModifyPartSceneController implements Initializable {
                 if (!(inv <= max && min <= max && inv >= min)) {
                     Validator.displayError("Note: Inv value has to be between min and Man / Min can not be greater than max");
                 } else {
-                    InHouse part = new InHouse(selectedRow.getId(), name, price, inv, max, min, Integer.parseInt(dynamicField.getText()));
+                    InHouse part = new InHouse(selectedRow.getId(), name, price, inv, min, max, Integer.parseInt(dynamicField.getText()));
                     int index = findIndex();
                     Inventory.updatePart(index, part);
                     backToMainScene(event);
@@ -119,7 +119,7 @@ public class ModifyPartSceneController implements Initializable {
                 if (!(inv <= max && min <= max && inv >= min)) {
                     Validator.displayError("Note: Inv value has to be between min and Man / Min can not be greater than max");
                 } else {
-                    Outsourced part = new Outsourced(selectedRow.getId(), name, price, inv, max, min, dynamicField.getText());
+                    Outsourced part = new Outsourced(selectedRow.getId(), name, price, inv, min, max, dynamicField.getText());
                     int index = findIndex();
                     Inventory.updatePart(index, part);
                     backToMainScene(event);

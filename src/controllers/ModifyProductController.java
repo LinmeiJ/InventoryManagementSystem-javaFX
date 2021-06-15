@@ -108,11 +108,13 @@ public class ModifyProductController implements Initializable {
      */
     @FXML
     public void addPartToProdClicked(ActionEvent event) {
-        try {
-            associatedParts.add(modifyPartTable.getSelectionModel().getSelectedItem());
-            modifyAssociatedPartTable.setItems(associatedParts);
-        } catch (Exception e) {
+        Part selectedPart = modifyPartTable.getSelectionModel().getSelectedItem();
+        if(selectedPart == null){
             Validator.displayRowNotSelected();
+        }
+        else {
+            associatedParts.add(selectedPart);
+            modifyAssociatedPartTable.setItems(associatedParts);
         }
     }
 
@@ -187,6 +189,7 @@ public class ModifyProductController implements Initializable {
         returnBackToMainScene(event);
     }
 
+
     /**
      * This method displays all info on modify product scene for the item user has selected.
      * It display all the fields for the selected product, displays all parts from the inventory,
@@ -201,6 +204,7 @@ public class ModifyProductController implements Initializable {
         setPartTable();
         setAssociatedPartsTable();
     }
+
 
     //set the the parts that are available from Inventory
     private void setPartTable() {

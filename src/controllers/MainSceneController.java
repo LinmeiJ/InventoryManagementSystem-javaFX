@@ -271,7 +271,7 @@ public class MainSceneController implements Initializable {
         if (productSelectedRow == null) {
             Validator.displayRowNotSelected();
         }
-        setScene(event, "fxml/modifyProductScene.fxml");
+        else setScene(event, "fxml/modifyProductScene.fxml");
 
     }
 
