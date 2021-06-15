@@ -1,9 +1,8 @@
 
-\
-java:S2133â">Remove this object instantiation and use "Main.class" instead.(Ü¯“†8¼ò› /
-`
-java:S1155r">Use isEmpty() to check whether the collection is empty or not.(è§¼Ìûÿÿÿÿ8¯åíôŸ/
-G
-java:S2157"%Add a "clone()" method to this class.(áÔ›ùùÿÿÿÿ8°ÃÒœ /
-Q
-java:S3740q"/Provide the parametrized type for this generic.(½ó¸¶ùÿÿÿÿ8¯åíôŸ/
+a
+java:S1155„">Use isEmpty() to check whether the collection is empty or not.(è§¼Ìûÿÿÿÿ8¯åíôŸ/
+R
+java:S3740ƒ"/Provide the parametrized type for this generic.(½ó¸¶ùÿÿÿÿ8¯åíôŸ/
+Z
+java:S1128"8Remove this unused import 'javafx.scene.control.Button'.(Ë Í‹øÿÿÿÿ8ñ¸í /
+^	java:S125‰"<This block of commented-out lines of code should be removed.(çàÀªùÿÿÿÿ8ñ¸í /

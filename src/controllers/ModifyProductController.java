@@ -9,7 +9,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -129,7 +128,7 @@ public class ModifyProductController implements Initializable{
         } else {
             int id = selectedAssocPart.getId();
             if(associatedParts == null){
-                Validator.displayInvalidLogic("no associated part is find");
+                Validator.displayError("no associated part is find");
             }
             else{
                 for (int i = 0; i < associatedParts.size(); i++) {
@@ -160,8 +159,8 @@ public class ModifyProductController implements Initializable{
             int stock = Integer.parseInt(modifyProdInvField.getText());
             int min = Integer.parseInt(modifyProdMinField.getText());
             int max = Integer.parseInt(modifyProdMaxField.getText());
-            if(!(stock <= max && min <= max)){
-                Validator.displayInvalidLogic("Note: Stock field or Min field can not be greater than max");
+            if(!(stock <= max && min <= max && stock >= min)){
+                Validator.displayError("Note: Inv value has to be between min and Man / Min can not be greater than max");
             } else {
                 Product prod = new Product(id, name, stock, price, min, max);
                 int index = findIndex();

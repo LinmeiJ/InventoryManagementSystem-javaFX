@@ -1,28 +1,21 @@
 
-W
-java:S1118":Add a private constructor to hide the implicit public one.(Äáœ8¬ÌíŸ/
-C
-java:S1481["&Remove this unused "d" local variable.(³É³¦8¢Ê« /
-{
-java:S1104	"YMake confirmResult a static final constant or non-public and provide accessors if needed.(áÛæôşÿÿÿÿ8Æ—ÂèŸ/
-C
-java:S1068"'Remove this unused "max" private field.(İ¶)8 /
-R
-java:S1854["5Remove this useless assignment to local variable "d".(³É³¦8¢Ê« /
-U
-java:S1444	"3Make this "public static confirmResult" field final(áÛæôşÿÿÿÿ8Æ—ÂèŸ/
-X	java:S125)"<This block of commented-out lines of code should be removed.(Š„Ş¼8¡ºáŸ /
 h
-java:S1192#"FDefine a constant instead of duplicating this literal "Error" 4 times.(¬ŸÖúÿÿÿÿ8¢ïç¡ /
-^
-java:S1126R"AReplace this if-then-else statement by a single return statement.(ĞëÖ´8Îœ­Ÿ /
-U
-java:S2589q"8Remove this expression which always evaluates to "false"(ÒÈê§8ª³º /
-R
-java:S1854g"5Remove this useless assignment to local variable "d".(˜‰¤Â8Ü¯ /
-D
-java:S1068"'Remove this unused "min" private field.(ğÒ£8 /
+java:S1192A"FDefine a constant instead of duplicating this literal "Error" 4 times.(¬ŸÖúÿÿÿÿ8¢ïç¡ /
 C
-java:S1481g"&Remove this unused "d" local variable.(˜‰¤Â8Ü¯ /
+java:S1481i"&Remove this unused "d" local variable.(˜‰¤Â8Ü¯ /
+U
+java:S2589x"8Remove this expression which always evaluates to "false"(ÒÈê§8ª³º /
+U
+java:S1444"3Make this "public static confirmResult" field final(áÛæôşÿÿÿÿ8Æ—ÂèŸ/
 n
-java:S1192"LDefine a constant instead of duplicating this literal "Information" 3 times.(º—îŒüÿÿÿÿ8¶ÌÎíŸ/
+java:S1192&"LDefine a constant instead of duplicating this literal "Information" 3 times.(º—îŒüÿÿÿÿ8¶ÌÎíŸ/
+{
+java:S1104"YMake confirmResult a static final constant or non-public and provide accessors if needed.(áÛæôşÿÿÿÿ8Æ—ÂèŸ/
+W
+java:S1118":Add a private constructor to hide the implicit public one.(Äáœ8¬ÌíŸ/
+C
+java:S1481Y"&Remove this unused "d" local variable.(³É³¦8¢Ê« /
+R
+java:S1854Y"5Remove this useless assignment to local variable "d".(³É³¦8¢Ê« /
+R
+java:S1854i"5Remove this useless assignment to local variable "d".(˜‰¤Â8Ü¯ /

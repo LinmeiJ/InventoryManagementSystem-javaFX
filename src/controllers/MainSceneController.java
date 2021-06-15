@@ -102,8 +102,11 @@ public class MainSceneController implements Initializable {
         Stage stage = (Stage) exitId.getScene().getWindow();
         Validator.displayExitConfirmation();
         if(Validator.confirmResult.isPresent() && Validator.confirmResult.get() == ButtonType.OK){
-            Inventory.deletePart(partSelectedRow);
-            stage.close();
+            boolean isDeleted = Inventory.deletePart(partSelectedRow);
+            if(!isDeleted){
+                Validator.displayError("Something happened, item is not deleted.");
+            }
+            else stage.close();
         }
     }
 
@@ -135,9 +138,15 @@ public class MainSceneController implements Initializable {
             Validator.displayRowNotSelected();
         else Validator.displayDeleteConfirmation();
         if(Validator.confirmResult.isPresent() && Validator.confirmResult.get() == ButtonType.OK){
-            Inventory.deletePart(partSelectedRow);
+            boolean isDeleted = Inventory.deletePart(partSelectedRow);
+            if(!isDeleted){
+                Validator.displayError("Something happened, item is not deleted.");
+            }
         }if(Validator.confirmResult.isPresent() && Validator.confirmResult.get() == ButtonType.OK){
-            Inventory.deletePart(partSelectedRow);
+            boolean isDeleted = Inventory.deletePart(partSelectedRow);
+            if(!isDeleted){
+                Validator.displayError("Something happened, item is not deleted.");
+            }
         }
     }
 
@@ -301,7 +310,10 @@ public class MainSceneController implements Initializable {
                     }
                 }
             }
-            Inventory.deleteProduct(prod);
+           boolean isDeleted = Inventory.deleteProduct(prod);
+            if(!isDeleted){
+                Validator.displayError("Something happened, item is not deleted.");
+            }
         }
     }
 

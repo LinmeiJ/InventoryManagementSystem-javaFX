@@ -1,34 +1,36 @@
 
-a
-java:S1155˜">Use isEmpty() to check whether the collection is empty or not.(è§¼Ìûÿÿÿÿ8ÒØÂ¡Ÿ/
-a
-java:S1155ó">Use isEmpty() to check whether the collection is empty or not.(ÄãÛ¤ûÿÿÿÿ8•Øá¡ /
-X
-java:S2696z"6Make the enclosing method "static" or remove this set.(—Ÿ‚Ïýÿÿÿÿ8÷·’èŸ/
-}
-java:S1104_"[Make partSelectedRow a static final constant or non-public and provide accessors if needed.(–ÌÎ±þÿÿÿÿ8æ¼œÄŸ/
-o	java:S116B"SRename this field "ProdPane" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(îˆØ8Å®ÏïŸ/
-Z
-java:S1444`"8Make this "public static productSelectedRow" field final(‚¹½ýøÿÿÿÿ8„»ñðŸ/
-\
-java:S1155‰">Use isEmpty() to check whether the collection is empty or not.(éž¿ì8Êµ¤õŸ/
+Y
+java:S2696…"6Make the enclosing method "static" or remove this set.(—Ÿ‚Ïýÿÿÿÿ8¥ñ•ì /
 T
-java:S2696æ"6Make the enclosing method "static" or remove this set.(¾Õó8œ¬¨òŸ/
-R
-java:S3740—"/Provide the parametrized type for this generic.(ÕÖå½ûÿÿÿÿ8ê¢ Ÿ/
+java:S2696Œ"6Make the enclosing method "static" or remove this set.(¾Õó8¥ñ•ì /
 a
-java:S1155Ë">Use isEmpty() to check whether the collection is empty or not.(è§¼Ìûÿÿÿÿ8ŠâÅ¡Ÿ/
-a
-java:S2583÷"DChange this condition so that it does not always evaluate to "false"(ìÁ´C8•Øá¡ /
+java:S1155²">Use isEmpty() to check whether the collection is empty or not.(è§¼Ìûÿÿÿÿ8¥ñ•ì /
 X
-java:S2696p"6Make the enclosing method "static" or remove this set.(—Ÿ‚Ïýÿÿÿÿ8´­ùéŸ/
-€
-java:S1104`"^Make productSelectedRow a static final constant or non-public and provide accessors if needed.(‚¹½ýøÿÿÿÿ8„»ñðŸ/
-J
-java:S1144ˆ"-Remove this unused private "hasParts" method.(ä‹8£“Üž /
+java:S2696w"6Make the enclosing method "static" or remove this set.(—Ÿ‚Ïýÿÿÿÿ8¥ñ•ì /
+Z
+java:S3972‹"7Move this "if" to a new line or add the missing "else".(ËÍí¶úÿÿÿÿ8¥ñ•ì /
+\
+java:S1155ì">Use isEmpty() to check whether the collection is empty or not.(éž¿ì8¥ñ•ì /
+a
+java:S1155Ÿ">Use isEmpty() to check whether the collection is empty or not.(ÄãÛ¤ûÿÿÿÿ8¥ñ•ì /
+z
+java:S1104S"^Make productSelectedRow a static final constant or non-public and provide accessors if needed.(¥óL8¥ñ•ì /
+a
+java:S1155ä">Use isEmpty() to check whether the collection is empty or not.(è§¼Ìûÿÿÿÿ8¥ñ•ì /
+o	java:S116<"SRename this field "ProdPane" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(îˆØ8¥ñ•ì /
+Q
+java:S1444R"5Make this "public static partSelectedRow" field final(¹åÉd8¥ñ•ì /
+T
+java:S1444S"8Make this "public static productSelectedRow" field final(¥óL8¥ñ•ì /
 M
-java:S3740Ê"/Provide the parametrized type for this generic.(ž×“‹8…•»¡Ÿ/
+java:S3740ã"/Provide the parametrized type for this generic.(ž×“‹8¥ñ•ì /
+a
+java:S2583£"DChange this condition so that it does not always evaluate to "false"(ìÁ´C8¥ñ•ì /
+w
+java:S1104R"[Make partSelectedRow a static final constant or non-public and provide accessors if needed.(¹åÉd8¥ñ•ì /
 d
-java:S1117ð"FRename "productSelectedRow" which hides the field declared at line 96.(ãØˆ¦8ÏÚû /
-W
-java:S1444_"5Make this "public static partSelectedRow" field final(–ÌÎ±þÿÿÿÿ8æ¼œÄŸ/
+java:S1117œ"FRename "productSelectedRow" which hides the field declared at line 83.(ãØˆ¦8¥ñ•ì /
+R
+java:S3740±"/Provide the parametrized type for this generic.(ÕÖå½ûÿÿÿÿ8¥ñ•ì /
+J
+java:S1144ë"-Remove this unused private "hasParts" method.(ä‹8¥ñ•ì /

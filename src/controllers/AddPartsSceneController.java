@@ -68,8 +68,8 @@ public class AddPartsSceneController {
                 max = Integer.parseInt(maxField.getText());
                 min = Integer.parseInt(minField.getText());
 
-                if(!(inv <= max && min <= max)){
-                    Validator.displayInvalidLogic("Note: Inv field or Min field can not be greater than max");
+                if(!(inv <= max && min <= max && inv >= min)){
+                    Validator.displayError("Note: Inv value has to be between min and Man / Min can not be greater than max");
                 }else {
                     Inventory.addPart(new InHouse(Main.getUniquePartId(), name, price, inv, min, max, Integer.parseInt(dynamicField.getText())));
                     backToMainScene(actionEvent);
@@ -85,8 +85,8 @@ public class AddPartsSceneController {
                 price = Double.parseDouble(priceField.getText());
                 max = Integer.parseInt(maxField.getText());
                 min= Integer.parseInt(minField.getText());
-                if(!(inv <= max && min <= max)){
-                    Validator.displayInvalidLogic("Note: Inv field or Min field can not be greater than max");
+                if(!(inv <= max && min <= max && inv >= min)){
+                    Validator.displayError("Note: Inv value has to be between min and Man / Min can not be greater than max");
                 }else {
                     Inventory.addPart(new Outsourced(Main.getUniquePartId(), name, price, inv, min, max, dynamicField.getText()));
                     backToMainScene(actionEvent);

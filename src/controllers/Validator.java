@@ -149,7 +149,7 @@ public class Validator {
      * This method sets an error alert that display to the end user based on the message passed in.
      * @param msg a message will be used for setting up the alert text content
      */
-    public static void displayInvalidLogic(String msg) {
+    public static void displayError(String msg) {
         errorAlert.setTitle("Error");
         errorAlert.setHeaderText("Error Occurs");
         errorAlert.setContentText(msg);

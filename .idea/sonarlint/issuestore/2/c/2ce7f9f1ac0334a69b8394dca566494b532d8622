@@ -1,6 +1,7 @@
 
-~	java:S116"bRename this field "MachineIdOrCompanyLabel" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(°ßõ¾8„Ä€ç /
 n
-java:S37767"RRefactor this method to reduce its Cognitive Complexity from 18 to the 15 allowed.(¢»“\8«Ó„ì /
+java:S37767"RRefactor this method to reduce its Cognitive Complexity from 18 to the 15 allowed.(¢»“\8¿åì /
+W	java:S125-"<This block of commented-out lines of code should be removed.(ş–'8È”ºì /
+~	java:S116"bRename this field "MachineIdOrCompanyLabel" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(°ßõ¾8„Ä€ç /
 `
-java:S2133i">Remove this object instantiation and use "Main.class" instead.(ªÕà«ÿÿÿÿÿ8«Ó„ì /
+java:S2133i">Remove this object instantiation and use "Main.class" instead.(ªÕà«ÿÿÿÿÿ8¿åì /

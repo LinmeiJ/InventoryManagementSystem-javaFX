@@ -21,6 +21,7 @@ import java.util.ResourceBundle;
  *
  * Future Enhancement: User is able to add multiple part/product without switch scenes they are done entering all the parts/products to save to the inventory.
  *
+ * Javadoc location: InventoryManagementSystem/src/javadoc
  * @author Linmei Mills
  */
 public class Main extends Application {

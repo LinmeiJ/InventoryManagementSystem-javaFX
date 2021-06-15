@@ -7,7 +7,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
@@ -95,8 +94,8 @@ public class ModifyPartSceneController implements Initializable {
                 double price = Double.parseDouble(priceField.getText());
                 int max = Integer.parseInt(maxField.getText());
                 int min = Integer.parseInt(minField.getText());
-                if(!(inv <= max && min <= max)){
-                    Validator.displayInvalidLogic("Note: Inv field or Min field can not be greater than max");
+                if(!(inv <= max && min <= max && inv >= min)){
+                    Validator.displayError("Note: Inv value has to be between min and Man / Min can not be greater than max");
                 } else {
                     InHouse part = new InHouse(selectedRow.getId(), name, price, inv, max, min, Integer.parseInt(dynamicField.getText()));
                     int index = findIndex();
@@ -115,8 +114,8 @@ public class ModifyPartSceneController implements Initializable {
                 int max = Integer.parseInt(maxField.getText());
                 int min = Integer.parseInt(minField.getText());
 
-                if(!(inv <= max && min < max)){
-                    Validator.displayInvalidLogic("Note: Inv field or Min field can not be greater than max");
+                if(!(inv <= max && min <= max && inv >= min)){
+                    Validator.displayError("Note: Inv value has to be between min and Man / Min can not be greater than max");
                 } else {
                     Outsourced part = new Outsourced(selectedRow.getId(), name, price, inv, max, min, dynamicField.getText());
                     int index = findIndex();

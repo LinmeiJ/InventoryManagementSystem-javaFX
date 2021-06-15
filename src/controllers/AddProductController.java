@@ -147,8 +147,8 @@ public class AddProductController implements Initializable {
             int min = Integer.parseInt(productMinField.getText());
             int max = Integer.parseInt(productMaxField.getText());
 
-            if(!(stock <= max && min <= max)){
-                Validator.displayInvalidLogic("Note: Stock field or Min field can not be greater than max");
+            if(!(stock <= max && min <= max && stock >= min)){
+                Validator.displayError("Note: Inv value has to be between min and Man / Min can not be greater than max");
             } else {
                 Product prod = new Product(Main.getUniqueProdId(), name, stock, price, min, max);
                 for (Part part : associatedParts) {
