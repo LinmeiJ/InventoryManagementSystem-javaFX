@@ -62,7 +62,7 @@
             </TableView>
             <Button fx:id="prodAdd" layoutX="261.0" layoutY="250.0" mnemonicParsing="false" onAction="#addProdBtnClicked" text="Add" textAlignment="CENTER" />
             <Button fx:id="prodModify" layoutX="309.0" layoutY="250.0" mnemonicParsing="false" onAction="#prodModifyBtnClicked" text="Modify" />
-            <Button fx:id="prodDelete" layoutX="366.0" layoutY="250.0" mnemonicParsing="false" onAction="#prodDeleteBtnClicked" text="Delete" />
+            <Button fx:id="prodDelete" layoutX="366.0" layoutY="250.0" mnemonicParsing="false" onAction="#prodBtnDeleteClicked" text="Delete" />
          </children>
          <opaqueInsets>
             <Insets bottom="1.0" left="1.0" right="1.0" top="1.0" />

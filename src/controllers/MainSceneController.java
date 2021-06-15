@@ -57,6 +57,9 @@ public class MainSceneController implements Initializable {
     private TableColumn<Part, Double> partPrice;
 
     @FXML
+    private AnchorPane ProdPane;
+
+    @FXML
     private TextField searchProductField;
 
     @FXML
@@ -160,7 +163,7 @@ public class MainSceneController implements Initializable {
     }
 
     /**
-     * This method checks whether the key is entered with a enter key.
+     * This method checks whether the key is entered with a enter key
      * */
     private boolean isEntered(KeyEvent event){
         return event.getCode().equals(KeyCode.ENTER);
@@ -277,7 +280,7 @@ public class MainSceneController implements Initializable {
      * @throws IOException exception occur when the fxml file is not found
      * */
     @FXML
-    public void prodDeleteBtnClicked(ActionEvent event) throws IOException { // fix me, how to delete associated parts!!!!
+    public void prodBtnDeleteClicked(ActionEvent event) throws IOException { // fix me, how to delete associated parts!!!!
        Product productSelectedRow = productTable.getSelectionModel().getSelectedItem();
         Product prod = null;
 
@@ -335,6 +338,7 @@ public class MainSceneController implements Initializable {
         stage.setScene(scene);
     }
 
+
     //This method checks whether the search text entered by user is a string for Part
     private boolean isPartString() {
         return searchPartField.getText() != null && searchPartField.getText().matches("^[a-zA-Z\\s]*$");
@@ -353,5 +357,10 @@ public class MainSceneController implements Initializable {
     //This method checks whether the search text entered by user is a number for Product
     private boolean isProdNumeric(){
         return searchProductField != null && searchProductField.getText().matches("^[0-9]*$");
+    }
+
+    //check whether the product user selected contains parts
+    private boolean hasParts(Product prod) {
+        return prod.getAllAssociatedParts().size() > 0;
     }
 }

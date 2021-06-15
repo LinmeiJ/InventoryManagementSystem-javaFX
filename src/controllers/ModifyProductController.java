@@ -108,13 +108,11 @@ public class ModifyProductController implements Initializable{
      */
     @FXML
     public void addPartToProdClicked(ActionEvent event) {
-        Part selectedPartRow = modifyPartTable.getSelectionModel().getSelectedItem();
-        if(selectedPartRow == null){
-            Validator.displayRowNotSelected();
-        }
-        else {
-            associatedParts.add(selectedPartRow);
+        try {
+            associatedParts.add(modifyPartTable.getSelectionModel().getSelectedItem());
             modifyAssociatedPartTable.setItems(associatedParts);
+        } catch (Exception e) {
+            Validator.displayRowNotSelected();
         }
     }
 

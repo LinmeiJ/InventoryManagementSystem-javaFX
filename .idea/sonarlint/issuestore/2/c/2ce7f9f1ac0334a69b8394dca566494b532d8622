@@ -1,11 +1,6 @@
 
-O
-java:S1172µ"2Remove this unused method parameter "actionEvent".(Ö¢Í8òùû³Ÿ/
-U
-java:S1172¹"2Remove this unused method parameter "actionEvent".(ÉÈ‰‹ÿÿÿÿÿ8òùû³Ÿ/
-ƒ	java:S1165"bRename this field "MachineIdOrCompanylabel" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ê§½¨ùÿÿÿÿ8µ‡¦²Ÿ/
-o	java:S116/"SRename this field "MaxLabel" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(éç¬—8µ‡¦²Ÿ/
-o
-java:S3776^"RRefactor this method to reduce its Cognitive Complexity from 41 to the 15 allowed.(«Âõş8àÌ†¡ /
+~	java:S116"bRename this field "MachineIdOrCompanyLabel" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(°ßõ¾8„Ä€ç /
+n
+java:S37767"RRefactor this method to reduce its Cognitive Complexity from 18 to the 15 allowed.(¢»“\8«Ó„ì /
 `
-java:S2133W">Remove this object instantiation and use "Main.class" instead.(ªÕà«ÿÿÿÿÿ8´“ø  /
+java:S2133i">Remove this object instantiation and use "Main.class" instead.(ªÕà«ÿÿÿÿÿ8«Ó„ì /

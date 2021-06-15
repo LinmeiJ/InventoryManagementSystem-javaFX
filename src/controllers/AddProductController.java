@@ -9,7 +9,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -37,7 +36,7 @@ public class AddProductController implements Initializable {
     private TextField productNameField;
 
     @FXML
-    private TextField productionInvField;
+    private TextField productInvField;
 
     @FXML
     private TextField productPriceField;
@@ -143,7 +142,7 @@ public class AddProductController implements Initializable {
             Validator.displayInvalidInput("Exception: Name can not be empty\n Price needs to be double\n Inv, Max, and Min need to be integers");
         } else {
             String name = productNameField.getText();
-            int stock = Integer.parseInt(productionInvField.getText());
+            int stock = Integer.parseInt(productInvField.getText());
             double price = Double.parseDouble(productPriceField.getText());
             int min = Integer.parseInt(productMinField.getText());
             int max = Integer.parseInt(productMaxField.getText());
@@ -247,7 +246,7 @@ public class AddProductController implements Initializable {
 
     //validates user's inputs
     private boolean areValidInputs() {
-        return Validator.isInteger(productionInvField.getText()) && Validator.isDouble(productPriceField.getText())
+        return Validator.isInteger(productInvField.getText()) && Validator.isDouble(productPriceField.getText())
                 && Validator.isInteger(productMaxField.getText()) && Validator.isInteger(productMinField.getText())
                 && !Validator.isEmpty(productNameField.getText());
     }

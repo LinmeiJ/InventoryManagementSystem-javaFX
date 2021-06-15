@@ -59,8 +59,6 @@ public class ModifyPartSceneController implements Initializable {
     private TextField minField;
 
     private Part selectedRow;
-    private final static String Machine_ID = "Machine ID";
-    private final static String COMPANY_NAME = "Company Name";
 
     /**
      * This method sets a text field label to machine ID when it is a InHouse type part.
@@ -68,7 +66,7 @@ public class ModifyPartSceneController implements Initializable {
      */
     @FXML
     public void modifyInHouseType(ActionEvent event) {
-        MachineIdOrCompanyLabel.setText(Machine_ID);
+        MachineIdOrCompanyLabel.setText("Machine ID");
     }
 
     /**
@@ -77,7 +75,7 @@ public class ModifyPartSceneController implements Initializable {
      */
     @FXML
     public void modifyOutsourcedType(ActionEvent event) {
-        MachineIdOrCompanyLabel.setText(COMPANY_NAME);
+        MachineIdOrCompanyLabel.setText("Company Name");
     }
 
     /**
@@ -185,24 +183,24 @@ public class ModifyPartSceneController implements Initializable {
     //sets the text field label to company name when it is an InHouse part type
     private void setOutSourcedFields() {
         outsourcedBtn.setSelected(true);
-        MachineIdOrCompanyLabel.setText(COMPANY_NAME);
+        MachineIdOrCompanyLabel.setText("Company Name");
         dynamicField.setText(((Outsourced) selectedRow).getCompanyName());
     }
 
     //sets the text field label to machine ID when it is an outsourced part type
     private void setInHouseFields() {
         inHouseBtn.setSelected(true);
-        MachineIdOrCompanyLabel.setText(Machine_ID);
+        MachineIdOrCompanyLabel.setText("Machine ID");
         dynamicField.setText(String.valueOf(((InHouse) selectedRow).getMachineId()));
     }
 
     //checks whether this field is labeled as a machine id
     private boolean containMachineId() {
-        return MachineIdOrCompanyLabel.getText().equalsIgnoreCase(Machine_ID);
+        return MachineIdOrCompanyLabel.getText().equalsIgnoreCase("Machine ID");
     }
     //checks whether this field is labeled as a company name
     private boolean containCompanyName() {
-        return MachineIdOrCompanyLabel.getText().equalsIgnoreCase(COMPANY_NAME);
+        return MachineIdOrCompanyLabel.getText().equalsIgnoreCase("Company Name");
     }
 
     //validates user's inputs

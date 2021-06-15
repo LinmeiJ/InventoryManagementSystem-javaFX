@@ -42,8 +42,8 @@ public class AddPartsSceneController {
     @FXML
     private TextField minField;
 
-    private static final String COMPANY_NAME = "Company Name";
-    private static final String MACHINE_ID = "Machine ID";
+//    private static final String COMPANY_NAME = "Company Name";
+//    private static final String MACHINE_ID = "Machine ID";
 
     /**This method saves a new part when user hits the save button.
      User's inputs are evaluated before save it to the inventory.
@@ -58,7 +58,7 @@ public class AddPartsSceneController {
         int max = 0;
         int min = 0;
         double price = 0;
-        if (MachineIdOrCompanyLabel.getText().equalsIgnoreCase(MACHINE_ID)) {
+        if (MachineIdOrCompanyLabel.getText().equalsIgnoreCase("Machine ID")) {
             if(!areValidInputs(Validator.isInteger(dynamicField.getText()))){
                 Validator.displayInvalidInput("Exception: Name can not be empty\n Price needs to be double\n Inv, Max, Min and Machine ID need to be integers");
             } else {
@@ -76,7 +76,7 @@ public class AddPartsSceneController {
                 }
             }
         }
-        if (MachineIdOrCompanyLabel.getText().equalsIgnoreCase(COMPANY_NAME)) {
+        if (MachineIdOrCompanyLabel.getText().equalsIgnoreCase("Company Name")) {
             if(!areValidInputs(!Validator.isEmpty(dynamicField.getText()))){
                     Validator.displayInvalidInput("Exception: Name and Company Name can not be empty\n Price needs to be double\n Inv, Max, and Min need to be integers");
             } else {
@@ -113,7 +113,7 @@ public class AddPartsSceneController {
      * @param actionEvent an event indicates a component-defined action occurred
      * */
     public void addInHouseType(ActionEvent actionEvent) {
-        MachineIdOrCompanyLabel.setText(MACHINE_ID);
+        MachineIdOrCompanyLabel.setText("Machine ID");
     }
 
     /**
@@ -121,7 +121,7 @@ public class AddPartsSceneController {
      * @param actionEvent an event indicates a component-defined action occurred
      * */
     public void addOutsourcedType(ActionEvent actionEvent) {
-        MachineIdOrCompanyLabel.setText(COMPANY_NAME);
+        MachineIdOrCompanyLabel.setText("Company Name");
     }
 
     //validates user's inputs
